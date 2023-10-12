@@ -1,0 +1,3 @@
+[submodule "liblpc"]
+	path = liblpc
+	url = https://github.com/yumamur/leakproof-c.git
