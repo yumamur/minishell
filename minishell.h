@@ -5,5 +5,6 @@
 # include <termio.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include "liblpc/lpc.h"
 
 #endif
