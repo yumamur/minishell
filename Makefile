@@ -1,7 +1,8 @@
 NAME = minishell
 
-CC = clang
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CC			= clang
+CFLAGS		= -Wall -Werror -Wextra
+SANITIZER	= -fsanitize=address
 
 SRC = main.c
 
@@ -9,24 +10,34 @@ OBJ = $(patsubst %.c, obj/%.o, $(SRC))
 
 HDR = minishell.h
 
-LIBFT = libft/libft.a
-LIBLPC = liblpc/liblpc.so
+READLINEBIN = readline/shlib
+
+LIBFT		= libft/libft.a
+LIBLPC		= liblpc/liblpc.so
+LIBREADLINE	= readline/shlib/libreadline.so.8.2
+LIBHISTORY	= readline/shlib/libhistory.so.8.2
+
+LINKS		= -lcurses
+LIBS		= $(LIBFT) $(LIBLPC) $(LIBREADLINE) $(LIBHISTORY)
 
 .PHONY = all create_objdir clean fclean re
 
 all: $(NAME)
 
-$(NAME): create_objdir $(LIBFT) $(LIBLPC) $(HDR) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LIBLPC) -o $(NAME)
+$(NAME): $(LIBFT) $(LIBLPC) $(LIBREADLINE) $(HDR) $(OBJ)
+	@$(CC) $(CFLAGS) $(SANITIZER) $(OBJ) $(LINKS) $(LIBS) -o $(NAME)
 
-obj/%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+obj/%.o: %.c | create_objdir 
+	@$(CC) $(CFLAGS) $(SANITIZER) -c $< -o $@
 
 $(LIBFT):
 	@make -C libft bonus
 
 $(LIBLPC):
 	@make -C liblpc
+
+$(LIBREADLINE) $(LIBHISTORY):
+	@make -C readline
 
 clean:
 	@rm -rf obj/
