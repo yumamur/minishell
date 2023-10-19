@@ -2,5 +2,7 @@
 
 int	main(void)
 {
-	return (0);
+	TERMINAL	minishell;
+	SET_TTY(1, NULL);
+	struct termios a;
 }
