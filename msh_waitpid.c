@@ -15,7 +15,7 @@ typedef struct s_child
 	int				pestatus;
 }	t_child;
 
-int	exited_child(pid_t pid, int	wstatus)
+int	exited_child(pid_t pid, int wstatus)
 {
 	if (WIFEXITED(wstatus))
 		return (WEXITSTATUS(wstatus));
