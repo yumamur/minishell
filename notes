@@ -1,0 +1,213 @@
+LINE MANIPULATION
+
+	readline/readline.h
+		readline
+		rl_clear_history
+		rl_on_new_line
+		rl_replace_line
+		rl_redisplay
+	--------------------
+	readline/history.h
+		add_history
+
+=======================================
+
+SIGNALS AND PROCESSES
+
+	unistd.h
+
+		fork	-	pid_t fork(void);
+	--------------------
+	sys/wait.h
+
+		waitpid	-	pid_t waitpid(pid_t pid, int *wstatus, int options);
+
+		wait, wait3, wait4 - old, don't use
+
+	--------------------
+
+	stdlib.h
+
+		exit	-	void exit(int status) __attribute__((noreturn));
+
+	--------------------
+
+	signal.h
+
+		kill		-	int kill(pid_t pid, int sig);
+
+		signal		-	old, use sigaction
+
+		sigaction	-	int sigaction(int signum,
+									  const struct sigaction *restrict action,
+									  struct sigaction *restrict oldaction);
+
+		sigemtyset	-	int sigemptyset(sigset_t *set);
+			Initializes an empty sigset into 'set'
+
+		sigaddset	-	int sigaddset(sigset_t *set, int signum);
+			Adds 'signum' into 'set' sigset
+
+
+		struct sigaction
+		{
+			void		(*sa_handler)(int);	/* We don't use that */
+			void		(*sa_sigaction)(int, siginfo_t, void *);
+			sigset_t	sa_mask;
+			int			sa_flags;
+			void		(*sa_restorer)(void); /* Not for users */
+		};
+
+		typedef struct siginfo_s
+		{
+			int				si_signo;		/* Signal number */
+			int				si_errno;		/* An errno value */
+			int				si_code;		/* Signal code */
+			pid_t			si_pid;			/* Sending process ID */
+			int				si_status;		/* Exit value or signal */
+			union sigval	si_value;		/* Signal value */
+			int				si_fd;			/* File descriptor */
+			.
+			.
+			.
+		}	siginfo_t;
+
+=======================================
+
+FILES AND FILE DESCRIPTORS
+
+	unistd.h
+
+		read
+
+		write
+
+		close
+
+		access	-	int access(const char *pathname,
+							   int mode);
+	   		Check access permissions
+	   		modes: F_OK R_OK W_OK X_OK
+
+		unlink	-	int unlink(const char *pathname);
+	   		Deletes a filename. If no processes have the file open and
+	   		there are no links left to it, the file is no more.
+
+		dup		-	int dup(int oldfd);
+	   		Creates new fd with the lowest fd number possible, both uses same file pointers.
+
+		dup2	-	int dup2(int oldfd,
+							 int newfd);
+	   		If 'newfd' is previously open, it is closed by the call;
+	   		Closing operation will not report an error.
+
+		pipe	-	int pipe(int pipefd[2]);
+
+	--------------------
+
+	fcntl.h
+		open
+
+	--------------------
+
+	sys/stat.h
+
+			All of these returns information about a file.
+
+		stat	-	int stat(const char *restrict pathname,
+							 struct stat *restrict statbuf);
+			filepath
+
+		fstat	-	int fstat(int fd,
+							  struct stat *restrict statbuf);
+			fd
+
+		lstat	-	int lstat(const char *restrict pathname,
+							  struct stat *restrict statbuf);
+			symbolic link
+
+
+		struct stat
+		{
+			dev_t			st_dev;		/* ID of device containing file */
+			ino_t    		st_ino;		/* Inode number */
+			mode_t			st_mode;	/* File type and mode */
+			nlink_t			st_nlink;	/* Number of hard links */
+			uid_t			st_uid;		/* User ID of owner */
+			gid_t			st_gid;		/* Group ID of owner */
+			dev_t			st_rdev;	/* Device ID (if special file) */
+			off_t			st_size;	/* Total size, in bytes */
+			blksize_t		st_blksize;	/* Block size for filesystem I/O */
+			blkcnt_t		st_blocks;	/* Number of 512 B blocks allocated */
+			struct timespec	st_atim;	/* Time of last access */
+			struct timespec	st_mtim;	/* Time of last modification */
+			struct timespec	st_ctim;	/* Time of last status change */
+		};
+
+	--------------------
+
+	sys/types.h
+	dirent.h
+		opendir		-	DIR *opendir(const char *name);
+
+		readdir		-	struct dirent *readdir(DIR *dirp);
+
+		closedir	-	int closedir(DIR *dirp);
+
+
+		struct dirent
+		{
+			ino_t			d_ino;			/* Inode number */
+			off_t			d_off;			/* Not an offset; see below */
+			unsigned short	d_reclen;		/* Length of this record */
+			unsigned char	d_type;			/* Type of file; not supported
+											   by all filesystem types */
+			char			d_name[256];	/* Null-terminated filename */
+		};
+		_DIRENT_HAVE_D_OFF
+		_DIRENT_HAVE_D_RECLEN
+		_DIRENT_HAVE_D_TYPE
+		_DIRENT_HAVE_D_NAMLEN
+
+=======================================
+
+TERMINAL
+
+	sys/ioctl.h
+
+		ioctl		-	int ioctl(int fd,
+								  unsigned long request,
+								  ...);
+			google
+
+	--------------------
+
+	unistd.h
+
+		isatty		-	int isatty(int fd);
+			Returns 1 if fd is a terminal fd, else 0
+
+		ttyname		-	char *ttyname(int fd);
+			Returns ptr to a static data, which contains ttyname, on success. Else 0
+
+		ttyslot		-	int ttyslot(void);
+			Returns current terminal's index
+
+	--------------------
+
+	term.h
+
+		tcgetattr	-	int tcgetattr(int fd,
+									  struct termios *termios_p);
+
+		tcsetattr	-	int tcsetattr(int fd,
+									  int optional_actions,
+									  const struct termios *termios_p);
+
+		tgetent		-	Probably, no need
+		tgetflag
+		tgetnum
+		tgetstr
+		tgoto
+		tputs
+

@@ -1,14 +1,19 @@
 NAME = minishell
 
-CC			= clang
-CFLAGS		= -Wall -Werror -Wextra
-SANITIZER	= -fsanitize=address
+CC			=	clang
+CFLAGS		=	-Wall -Werror -Wextra
+SANITIZER	=	-fsanitize=address
 
-SRC = main.c
+SRC_EXEC	=	exec.c \
+				exec_utils.c
 
-OBJ = $(patsubst %.c, obj/%.o, $(SRC))
+SRC_PARSE	=	lexer.c
 
-HDR = minishell.h
+SRC_SIGNAL	=	signal.c
+
+SRC_MAIN	=	main.c
+
+OBJ = $(patsubst %.c, obj/%.o, $(SRC_EXEC) $(SRC_PARSE) $(SRC_SIGNAL) $(SRC_MAIN))
 
 READLINEBIN = readline/shlib
 
