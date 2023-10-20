@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../libft/libft.h"
+#include "libft/libft.h"
 
 int	control(char *str)
 {
@@ -28,7 +28,7 @@ int	control(char *str)
 	return (0);
 }
 
-static int    count_words(char *str)
+static int	count_words(char *str)
 {
 	int	ret;
 
@@ -56,11 +56,11 @@ static int    count_words(char *str)
 	return (ret);
 }
 
-void	fixer(char	**str)
+static void	fixer(char	**str)
 {
 	int	i;
 
-	while(*str)
+	while (*str)
 	{
 		i = 0;
 		while ((*str)[i])
@@ -75,10 +75,10 @@ void	fixer(char	**str)
 	}
 }
 
-char    **ft_str_wordtab(char *str)
+char	**ft_str_wordtab(char *str)
 {
-	char    **ret;
-	int        ct_word;
+	char	**ret;
+	int		ct_word;
 
 	ct_word = count_words(str);
 	ret = malloc(++ct_word * sizeof(char *));
