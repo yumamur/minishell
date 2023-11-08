@@ -1,5 +1,5 @@
-#ifndef MINISHELL_STRUCTS_H
-# define MINISHELL_STRUCTS_H
+#ifndef MSH_STRUCTS_H
+# define MSH_STRUCTS_H
 
 typedef char	**t_env;
 typedef char	**t_cmd_args;
@@ -15,12 +15,12 @@ typedef struct s_cmd_string
 {
 	t_cmd_args		args;
 	t_redirection	*redirect;
-	t_env			env;
+	t_env			*env;
 }	t_cmd_string;
 
 struct s_minishell
 {
-	t_env	*env;
+	t_env	env;
 	int		last_cmd_exit;
 };
 

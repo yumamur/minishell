@@ -1,5 +1,0 @@
-#ifndef MINISHELL_READLINE_H
-# define MINISHELL_READLINE_H
-
-# define READLINE_LIBRARY
-#endif
