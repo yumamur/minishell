@@ -1,0 +1,16 @@
+cd builtini gözden geçirilerek hata varsa düzeltilecek
+cd builtininde, chg_dir fonksiyonundaki; !ret durumunda alternatif olarak tanımlanan path tekrar düşünülecek.
+cd builtinindeki errno hataları çözülecek.
+cd builtinde norminette e göre düzenleme ve fonksiyonların dosyalara ayrılması yapılacak.
+
+pwd için de cd için olan hatırlatmalar geçerli.
+
+exit işlemleri kontrol edilecek gerekli hata kontrolleri gözden geçirilecek.
+exit işleminden sonrasında yapılması gereken freeleme işlemleri diğer kodlara göre revize edilecek.
+exit işleminden sonra newline atılması gerekiyorsa koda eklenecek.
+
+env işleminin sorunu olup olmadığı eksiği olup olmadığı kontrol edilecek.
+
+export ve unset fonksiyonlarında hata veya eksik olup olmadığı kontrol edilecek.
+
+tüm fonksiyonlar ve veriler için struct oluşturulup o struct kodlara entegre edilecek.
