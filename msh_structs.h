@@ -1,24 +1,38 @@
 #ifndef MSH_STRUCTS_H
 # define MSH_STRUCTS_H
 
-typedef char	**t_env;
-typedef char	**t_cmd_args;
+# define MAX_REDIRECTION 256
+# define IFS_DEF " "
 
-typedef struct e_redirection
+typedef enum e_token
 {
-	int	rd_from;
-	int	rd_to;
-	int	append : 1;
+	WORD,			// "ls -la" -> "ls" "-la"
+//	VAR_DEF,		// HOME=/home/tatataha123 bundan emin degilim
+	PIPE,			// |
+	REDIRECT_IN,	// <
+	REDIRECT_OUT,	// >
+	APPEND,			// >>
+	HEREDOC,		// <<
+	OR,				// ||
+	AND				// &&
+}	t_token;
+
+typedef struct s_redirection
+{
+	int	fd[2];
 }	t_redirection;
 
-typedef struct s_cmd_string
+typedef struct s_cmd
 {
-	t_cmd_args		args;
-	t_redirection	*redirect;
-	t_env			*env;
-}	t_cmd_string;
+	t_c_char		*cmd;
+	t_c_char		**args;
+	t_redirection	own_fds;
+	t_redirection	redirection[MAX_REDIRECTION];
+}	t_cmd;
 
-struct s_minishell
+typedef char	**t_env;
+
+struct s_minishell // global struct
 {
 	t_env	env;
 	int		last_cmd_exit;
