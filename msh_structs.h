@@ -17,6 +17,13 @@ typedef enum e_token
 	AND				// &&
 }	t_token;
 
+typedef struct e_tokenized_list
+{
+	t_c_char	*str;
+	t_token		token;
+	struct t_tokenized_list	*next;
+}	t_tokenzied_list;
+
 typedef struct s_redirection
 {
 	int	fd[2];
