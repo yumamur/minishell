@@ -1,12 +1,14 @@
 #ifndef MSH_STRUCTS_H
 # define MSH_STRUCTS_H
 
+# include "typeft.h"
+
 # define MAX_REDIRECTION 256
 # define IFS_DEF " "
 
 typedef enum e_token
 {
-	WORD,			// "ls -la" -> "ls" "-la"
+	WORD,			// ls -la -> "ls" "-la"
 //	VAR_DEF,		// HOME=/home/tatataha123 bundan emin degilim
 	PIPE,			// |
 	REDIRECT_IN,	// <
@@ -17,11 +19,11 @@ typedef enum e_token
 	AND				// &&
 }	t_token;
 
-typedef struct e_tokenized_list
+typedef struct s_tokenized_list
 {
-	t_c_char	*str;
-	t_token		token;
-	struct t_tokenized_list	*next;
+	t_c_char				*str;
+	t_token					token;
+	struct s_tokenized_list	*next;
 }	t_tokenzied_list;
 
 typedef struct s_redirection
