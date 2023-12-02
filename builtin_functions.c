@@ -1,6 +1,5 @@
 #include "libft/libft.h"
 #include <errno.h>
-#include "minishell.h"
 #include <limits.h>
 #define PATH_MAX_LENGTH 1024
 void	ft_free_2pt(char **arr);

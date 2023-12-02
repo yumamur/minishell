@@ -5,10 +5,11 @@
 #include "msh_structs.h"
 #include "liblpc/lpc.h"
 
-void print_tokenized_list(t_tokenzied_list *head) {
-    while (head != NULL) {
-        printf("str: %s, token: %d\n", head->str, head->token);
-        head = head->next;
+void print_tokenized_list(t_tokenzied_list *head)
+{
+	while (head != NULL) {
+		printf("str: %s, token: %d\n", head->str, head->token);
+		head = head->next;
     }
 }
 
@@ -30,7 +31,6 @@ void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 			tmp = tmp->next;
 		tmp->next = new_node;
 	}
-
 }
 
 t_tokenzied_list	**lexer(char **words)

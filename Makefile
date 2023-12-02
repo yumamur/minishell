@@ -11,7 +11,7 @@ SRC_PARSE	=	lexer.c
 
 SRC_SIGNAL	=	signal.c
 
-SRCS	= main.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE)
+SRCS	= main.c getenv.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE)
 
 OBJS	= $(patsubst %.c, obj/%.o, $(SRCS))
 

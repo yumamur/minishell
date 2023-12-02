@@ -1,4 +1,6 @@
-#include "minishell.h"
+#include <signal.h>
+#include "msh_readline.h"
+#include <stdio.h>
 
 #define CMD_PROMT "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m"
 

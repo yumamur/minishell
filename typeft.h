@@ -13,8 +13,6 @@
 #ifndef TYPEFT_H
 # define TYPEFT_H
 
-# include <stdlib.h>
-
 typedef signed char					t_int8;
 typedef signed short				t_int16;
 typedef signed int					t_int32;
