@@ -48,7 +48,7 @@ $(LIBLPC):
 
 FTP_READLINE = https://ftp.gnu.org/gnu/readline
 TAR_READLINE = readline-8.2.tar.gz
-DIR_READLINE = $(shell echo $(TAR_READLINE) | cut -d. -f1-2)
+DIR_READLINE = $(basename $(TAR_READLINE))
 
 $(LIBREADLINE) $(LIBHISTORY):
 	@printf "Downloading $(TAR_READLINE)\n"
@@ -71,7 +71,6 @@ clean:
 
 fclean:
 	@rm -rf obj/ $(NAME) $(LIBFT)
-	@rm -rf $(LIBREADLINE) $(LIBHISTORY)
 	@make -sC libft fclean
 	@make -sC liblpc fclean
 
