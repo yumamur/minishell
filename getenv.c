@@ -1,7 +1,7 @@
 #include "typeft.h"
 #include "libft/libft.h"
 
-static t_c_char	inline *ft_getenv_inline(t_c_char *envp[], t_c_char *name)
+static t_c_char	inline	*ft_getenv_inline(t_c_char *envp[], t_c_char *name)
 {
 	size_t		len;
 	t_ushort	name_start;

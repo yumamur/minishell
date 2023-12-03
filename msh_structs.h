@@ -8,15 +8,14 @@
 
 typedef enum e_token
 {
-	WORD,			// ls -la -> "ls" "-la"
-//	VAR_DEF,		// HOME=/home/tatataha123 bundan emin degilim
-	PIPE,			// |
-	REDIRECT_IN,	// <
-	REDIRECT_OUT,	// >
-	APPEND,			// >>
-	HEREDOC,		// <<
-	OR,				// ||
-	AND				// &&
+	WORD,
+	PIPE,
+	REDIRECT_IN,
+	REDIRECT_OUT,
+	APPEND,
+	HEREDOC,
+	OR,
+	AND
 }	t_token;
 
 typedef struct s_tokenized_list
@@ -41,7 +40,7 @@ typedef struct s_cmd
 
 typedef char	**t_env;
 
-struct s_minishell // global struct
+struct s_minishell
 {
 	t_env	env;
 	int		last_cmd_exit;

@@ -49,7 +49,7 @@ static int	count_words(char *str)
 		}
 		if (*str)
 			++ret;
-		while (*str && *str != '\t' && *str != ' ' 
+		while (*str && *str != '\t' && *str != ' '
 			&& *str != '\"' && *str != ' ')
 			++str;
 	}

@@ -1,6 +1,6 @@
 #include "libft/libft.h"
 
-int builtin_parser(char *env)
+int	builtin_parser(char *env)
 {
 	if (ft_strcmp(env, "cd") == 0 && ft_strlen(env) == 2)
 		ft_cd(env);

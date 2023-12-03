@@ -8,7 +8,6 @@ char		*ft_strjoin_frees1(char *s1, t_c_char *s2);
 char		**ft_str_wordtab(char *line);
 t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
 
-
 void	add_cmd(char *allpaths[], char *cmd)
 {
 	while (*allpaths)

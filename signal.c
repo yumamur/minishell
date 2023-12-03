@@ -4,7 +4,7 @@
 
 #define CMD_PROMT "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m"
 
-extern int	g_signum;
+extern volatile sig_atomic_t	g_signum;
 
 void	sighandler(int sig)
 {
