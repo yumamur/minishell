@@ -8,8 +8,12 @@ void	printenv(void)
 	char	**tmp;
 
 	tmp = (char **)*g_env();
+	if (!tmp)
+		return ;
+	printf("\n########\n");
 	while (*tmp)
 		printf("%s\n", *tmp++);
+	printf("########\n\n");
 }
 
 int	main(void)
@@ -22,11 +26,12 @@ int	main(void)
 	arr[3] = 0;
 	env_init((void **)arr);
 	printenv();
-	printf("\nenv add = %s\n",
+	printf("env add = %s\n",
 		((char *[]){"Success", "Fail"})[env_add("NEWVAR=newvalue")]);
 	printenv();
-	printf("\nenv rmv = %s\n",
+	printf("env rmv = %s\n",
 		((char *[]){"Success", "Fail"})[env_remove("VAR1")]);
 	printenv();
 	env_deinit();
+	printenv();
 }
