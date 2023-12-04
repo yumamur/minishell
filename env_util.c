@@ -51,15 +51,15 @@ int	env_add(const char *var)
 
 int	env_remove(char *to_remove)
 {
-	void 	**env;
-	void 	*var;
+	void	**env;
+	void	*var;
 
 	env = *g_env();
 	var = (void *)ft_getenv((t_c_char **)env, to_remove);
 	if (!var)
 		return (-1);
 	var = ((char *)var) - ft_strlen(to_remove) - 1;
-	arr_remove(env, arr_index(env, var));
+	arr_discard_n(env, arr_index(env, var));
 	free((void *)var);
 	return (0);
 }

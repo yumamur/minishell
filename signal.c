@@ -1,6 +1,7 @@
 #include <signal.h>
 #include "msh_readline.h"
 #include <stdio.h>
+#include <unistd.h>
 
 #define CMD_PROMT "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m"
 
@@ -9,18 +10,17 @@ extern volatile sig_atomic_t	g_signum;
 void	sighandler(int sig)
 {
 	g_signum = sig;
-	if (g_signum == SIGCONT)
+	if (g_signum == SIGCONT || g_signum == SIGQUIT)
 	{
 		rl_on_new_line();
-		printf(CMD_PROMT"\n");
+		write(ttyslot(), CMD_PROMT, sizeof(CMD_PROMT));
 		rl_redisplay();
 	}
-	if (g_signum == SIGINT || g_signum == SIGQUIT)
+	if (g_signum == SIGINT)
 	{
 		rl_replace_line("", 1);
+		write(ttyslot(), "\n"CMD_PROMT, sizeof(CMD_PROMT) + 1);
 		rl_on_new_line();
-		printf("\n\n");
-		printf(CMD_PROMT"\n");
 		rl_redisplay();
 	}
 	g_signum = 0;

@@ -4,6 +4,13 @@ CC			=	clang
 CFLAGS		=	-Wall -Werror -Wextra
 SANITIZER	=	-fsanitize=address
 
+SRC_ENV		=	env.c \
+				env_util.c \
+				getenv.c
+
+SRC_PT		=	pt_util.c \
+				pt_util_alloc.c
+
 SRC_EXEC	=	exec.c \
 				exec_utils.c
 
@@ -11,14 +18,14 @@ SRC_PARSE	=	lexer.c
 
 SRC_SIGNAL	=	signal.c
 
-SRCS	= main.c getenv.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE)
+SRCS	= main.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE) $(SRC_PT) $(SRC_ENV)
 
 OBJS	= $(patsubst %.c, obj/%.o, $(SRCS))
 
-LIBFT		= libft/libft.a
-LIBLPC		= liblpc/liblpc.so
-LIBREADLINE	= libreadline.a
-LIBHISTORY	= libhistory.a
+LIBFT		= .lib/libft.a
+LIBLPC		= .lib/liblpc.so
+LIBREADLINE	= .lib/libreadline.a
+LIBHISTORY	= .lib/libhistory.a
 
 LIBS		= -lcurses $(LIBFT) $(LIBLPC) $(LIBREADLINE) $(LIBHISTORY)
 
@@ -26,7 +33,8 @@ LIBS		= -lcurses $(LIBFT) $(LIBLPC) $(LIBREADLINE) $(LIBHISTORY)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(LIBLPC) $(LIBREADLINE) $(HDR) $(OBJS)
+$(NAME): $(LIBREADLINE) $(LIBHISTORY) $(LIBFT) $(LIBLPC) $(HDR) $(OBJS)
+	@printf "Building $(NAME)\n"
 	@$(CC) $(CFLAGS) $(SANITIZER) $(OBJS) $(LINKS) $(LIBS) -o $(NAME)
 
 obj/%.o: %.c | create_objdir 
@@ -35,10 +43,12 @@ obj/%.o: %.c | create_objdir
 $(LIBFT):
 	@printf "Building libft\n"
 	@make -sC libft bonus
+	@mv libft/libft.a .lib/
 
 $(LIBLPC):
 	@printf "Building liblpc\n"
 	@make -sC liblpc
+	@mv liblpc/liblpc.so .lib/
 
 ################################
 #                              #
@@ -48,9 +58,10 @@ $(LIBLPC):
 
 FTP_READLINE = https://ftp.gnu.org/gnu/readline
 TAR_READLINE = readline-8.2.tar.gz
-DIR_READLINE = $(basename $(TAR_READLINE))
+DIR_READLINE = $(shell echo $(TAR_READLINE) | cut -d. -f1-2)
 
 $(LIBREADLINE) $(LIBHISTORY):
+	@mkdir -p .lib
 	@printf "Downloading $(TAR_READLINE)\n"
 	@curl -sO $(FTP_READLINE)/$(TAR_READLINE)
 	@printf "Extracting $(TAR_READLINE)\n"

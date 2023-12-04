@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include "msh_env.h"
 
 char	*ft_strdup(char *str);
@@ -16,7 +17,7 @@ void	printenv(void)
 	printf("########\n\n");
 }
 
-int	main(void)
+void	init_add_remove_deinit(void)
 {
 	char	*arr[4];
 
@@ -24,14 +25,20 @@ int	main(void)
 	arr[1] = ft_strdup("VAR2=value");
 	arr[2] = ft_strdup("VAR3=value");
 	arr[3] = 0;
-	env_init((void **)arr);
+	printf("env_init = %s\n",
+		env_init((void **)arr)
+	[((char *[]){"Success", "Failure"})]);
 	printenv();
 	printf("env add = %s\n",
-		((char *[]){"Success", "Fail"})[env_add("NEWVAR=newvalue")]);
+		env_add("NEWVAR=newvalue")
+	[((char *[]){"Success", "Failure"})]);
 	printenv();
 	printf("env rmv = %s\n",
-		((char *[]){"Success", "Fail"})[env_remove("VAR1")]);
+		env_remove("VAR1")
+	[((char *[]){"Success", "Failure"})]);
 	printenv();
-	env_deinit();
+	printf("env rmv = %s\n",
+		env_deinit()
+	[((char *[]){"Success", "Failure"})]);
 	printenv();
 }
