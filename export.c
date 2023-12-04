@@ -33,7 +33,7 @@ void	just_export(void)
 	return(0);
 }
 
-void ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
+int ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 {
 	int	i;
 	char	**export;
