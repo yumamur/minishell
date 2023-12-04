@@ -1,6 +1,7 @@
 #include "builtin.h"
 
 const char *const	**g_env(void);
+int	export_isenv(char *arg);
 
 int	ft_env(void)
 {
@@ -11,7 +12,7 @@ int	ft_env(void)
     env = g_env();
 	if (!env)
 		return(errorer("env", "dont have env.", NULL, EXIT_FAILURE));
-	while(env[i])
+	while(env[i] && export_isenv(env[i]))
 	{
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
