@@ -16,19 +16,21 @@ int	export_isvalid(char *arg)
 	return(0);
 }
 
-int	export_isenv(char *arg)
+void	just_export(void)
 {
-	int	i;
+	int	    i;
+    char    **env;
 
 	i = 0;
-	while (arg[i])
+    env = g_env();
+	if (!env)
+		return(errorer("export", "dont have export.", NULL, EXIT_FAILURE));
+	while(env[i])
 	{
-		if (arg[i] == '=')
-			return (1);
+		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
-	return (0);
-
+	return(0);
 }
 
 void ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
@@ -39,7 +41,7 @@ void ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 	i = 0;
 	export = g_env();
 	if (!arg)
-		ft_env();
+		just_export();
 	if (arr_size(arg) > 1)
 	{
 		while (i <= arr_size(arg))
