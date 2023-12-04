@@ -1,0 +1,20 @@
+#include "builtin.h"
+
+const char *const	**g_env(void);
+
+int	ft_env(void)
+{
+	int	    i;
+    char    **env;
+
+	i = 0;
+    env = g_env();
+	if (!env)
+		return(errorer("env", "dont have env.", NULL, EXIT_FAILURE));
+	while(env[i])
+	{
+		ft_putendl_fd(env[i], STDOUT_FILENO);
+		i++;
+	}
+	return(0);
+}
