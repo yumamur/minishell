@@ -14,3 +14,20 @@ env işleminin sorunu olup olmadığı eksiği olup olmadığı kontrol edilecek
 export ve unset fonksiyonlarında hata veya eksik olup olmadığı kontrol edilecek.
 
 tüm fonksiyonlar ve veriler için struct oluşturulup o struct kodlara entegre edilecek.
+
+
+
+
+------------------------------------
+
+export fonksiyonunda yeni env ekleme işleminin yapıldığı env_borner fonksiyonunun içine yusuf ağabeyin yeni yazdığı env_add fonksiyonu gömülebiliyor mu bakılacak.
+export fonksiyonunda export bastırma gözden geçirilecek
+cd fonksiyonunda pwd değerini değiştirmek için ne kullanılacağına karar verilecek
+exit fonksiyonundaki int	ret_for_exit = 0; //msh_struct tan düzenlenecek
+unset fonksiyonunda mevcut fonksiyon yerine yusuf ağabeyin yeni yazdığı env_remove kullanılmaya başlandı, herhangi bir işlev etkilenmiş oldu mu incelenecek.
+
+tüm builtin fonksiyonlar şuanda **env girdisi alıyor, bunu bu şekilde bırakıp builtin parse da alınan bir **env değişkeni tüm builtinlere gönderilecekse,
+fonksiyon çağrıları düzeltilecek. alternatif bir yol izlenip örneğin; her fonksiyon kendi içersinde g_env() ile builtin alacaksa da builtin fonksiyonların içerikleri düzeltilecek.
+yusuf ağabeyle bu konu konuşulacak.
+
+norminette bakılacak
