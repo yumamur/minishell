@@ -60,7 +60,7 @@ int	numeric_ctrl(char *arg)
 	return (0);
 }
 
-int	ft_exit(char **arg)
+int	ft_exit(char **arg)//int *last_exit, global kullanmiyoruz buralarda
 {
 	if (!arg[1])
 	{

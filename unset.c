@@ -46,7 +46,9 @@ int	env_remove(char *to_remove);
 
 // }
 
-int	ft_unset(char **env, char **arg)
+//env variable name parameter validation (export ile ayni)
+
+int	ft_unset(char **env, char **arg)//env unused
 {
 	int	i;
 

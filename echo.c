@@ -4,6 +4,7 @@ int	arg_counter(char **arg)
 {
 	int	i;
 
+	// i = 0;
 	while (arg[i] != '\0')
 		i++;
 	return(i);
@@ -22,12 +23,12 @@ int	ft_echo(char **arg)
 	{
 		if (ft_strcmp(arg[1], "-n") == 0)
 		{
-			n_flag == 1;
+			n_flag == 1;//comparison?
 			i = 2;
 		}
 		while(arg[i])
 		{
-			ft_putstr_fd(arg[i], STDOUT_FILENO);
+			ft_putstr_fd(arg[i], STDOUT_FILENO);// stdout olmak zorunda degil, degisebilir
 			if (arg[i + 1] && arg[i][0] != '\0')
 				write (1, " ", 1);
 			i++;

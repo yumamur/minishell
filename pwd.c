@@ -5,7 +5,7 @@ int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
 int	ft_pwd(char **env, char **arg)
 {
-	char	*pwd[PATH_MAX];
+	char	*pwd[PATH_MAX];//char *[]?
 
 	if (arg[1])
 		return (errorer("pwd", 0, "too many arguments", EXIT_FAILURE));

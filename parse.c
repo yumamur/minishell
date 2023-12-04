@@ -1,5 +1,4 @@
 #include "parse.h"
-#define NULL 0
 
 int is_seperator(t_c_char *strr);
 int is_seperator_in(t_c_char *str);

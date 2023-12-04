@@ -10,7 +10,7 @@ int	chg_dir(char **env, char *path)
 {
 	int	ctrl;
 	char	*ret;
-	char	*pwd[PATH_MAX];
+	char	*pwd[PATH_MAX];//char *[] ?
 	char	*oldpwd;
 
 	oldpwd = getcwd(pwd, PATH_MAX);
@@ -26,6 +26,9 @@ int	chg_dir(char **env, char *path)
 	else
 		ret = ft_strdup(pwd);
 	set_env_val(env, ret, oldpwd);  //pwd yi değiştirme işlemi için
+
+	//env_remove & env_add ***
+
 	free(ret);
 	return(0);
 }
@@ -54,7 +57,7 @@ int	ft_cd(char **env, char **arg)
 		path = ft_getenv(env, "OLDPWD");
 		if (!path)
 			return (errmsg_cmd("cd", 0, "OLDPWD not set", EXIT_FAILURE));
-		ctrl = chg_dir(env, path);
+		ctrl = chg_dir(env, path);// bu fonksiyonu 'if' icine koy ctrl gereksiz
 		if (ctrl != 0)
 			return (1);
 		return (0);
