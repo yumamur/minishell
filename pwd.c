@@ -3,12 +3,10 @@
 
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
-int	ft_pwd(char **env, char **arg)
+int	ft_pwd(void)
 {
-	char	*pwd[PATH_MAX];//char *[]?
+	char	pwd[PATH_MAX];
 
-	if (arg[1])
-		return (errorer("pwd", 0, "too many arguments", EXIT_FAILURE));
 	if (getcwd(pwd, PATH_MAX) != 0)
 		printf("%s\n", pwd);
 	else
