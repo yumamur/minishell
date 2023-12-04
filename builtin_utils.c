@@ -14,3 +14,18 @@ int ft_isalnum_str(char *str)
 	}
 	return(1);
 }
+
+int	export_isenv(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+
+}
