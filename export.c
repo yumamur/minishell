@@ -1,54 +1,56 @@
 #include "builtin.h"
-//#include "msh_env.c"
+#include "msh_env.h"
 
-void __attribute__((malloc))
-	**pt_util_realloc_ptr_arr(void **arr, int to_add);
+void	**arr_realloc(void **arr, int to_add)
+		__attribute__((alias("pt_util_realloc_ptr_arr")));
+int	arr_size(void **arr)
+	__attribute__((alias("pt_util_size_ptr_arr")));
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 void		***g_env(void);;
+int ft_isalnum_str(char *str);
 
-int	env_borner(char **env, char *arg, int ex_flag)
+int	export_isvalid(char *arg)
 {
-	char *dec;
-
-//'set' builtin'imiz olmayacagi icin 'declare -x' ne ise yarar bilmiyorum
-	dec = ft_strdup("declare -x ");
-	if (!ft_isdigit(arg[0]))
-	{
-		if (ex_flag == 1)
-		{
-			dec = ft_strjoin(dec, arg);//leak
-			env = pt_util_realloc_ptr_arr(env, dec);//arr_realloc
-			free(dec);
-		}
-		else
-			env = pt_util_realloc_ptr_arr(env, arg);
-	}
-	else
-		return(errorer("export", arg, "invalid export argument", EXIT_FAILURE));
-	return (0);
+	if (ft_isdigit(arg) && ft_isalnum_str(arg))
+		return (1);
+	return(0);
 }
 
-//env variable sadece alfabetik karakterle baslayabilir
-//Devaminda sadece alphanumeric karakter alabilir
+int	export_isenv(char *arg)
+{
+	int	i;
 
-void ft_export(char **arg, char **env)//env almmasina gerek yok, env_add(arg[1])
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+
+}
+
+void ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 {
 	int	i;
 	char	**export;
 
 	i = 0;
-	export = env;
-	if (arg_counter(arg) == 1 && ft_strcmp(arg[0], "export") == 0)//bu yok, hem export hem exec icin `;` veya `\` gerekiyor
-		ft_env(export);   //bakılacak
-	if (arg_counter(arg) > 1)
-
+	export = g_env();
+	if (!arg)
+		ft_env();
+	if (arr_size(arg) > 1)
 	{
-		while (i <= arg_counter(arg))//arr_size
+		while (i <= arr_size(arg))
 		{
-			if (ft_strchr(arg, '=') == 0)
-				env_borner(export, arg[i], 1);
-			else
-				env_borner(env, arg[i], 0);
+			if (export_isvalid(arg[i]))
+			{
+				if (export_isenv(arg[i]))
+					env_add(arg[i]);
+				else
+					arr_realloc(export, arg[i]);
+			}
 			i++;
 		}
 	}
