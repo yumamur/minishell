@@ -21,10 +21,10 @@ int	ft_echo(char **arg)
 	arg_size = arg_counter(arg);
 	if (arg_size > 1)
 	{
-		if (ft_strcmp(arg[1], "-n") == 0)
+		if (ft_strcmp(arg[0], "-n") == 0)
 		{
 			n_flag = 1;
-			i = 2;
+			i = 1;
 		}
 		while(arg[i])
 		{
