@@ -1,10 +1,15 @@
-#include "pt_util.h"
 #include "libft/libft.h"
 #include "typeft.h"
+#include "pt_util.h"
 
-void		***g_env(void);
-char		*ft_strdup(const char *str);
 t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
+
+void ***g_env(void)
+{
+	static void	**env;
+
+	return (&env);
+}
 
 int	env_init(void **data)
 {
