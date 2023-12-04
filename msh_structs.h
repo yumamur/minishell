@@ -30,6 +30,11 @@ typedef struct s_redirection
 	int	fd[2];
 }	t_redirection;
 
+typedef struct s_parse_arg
+{
+	t_c_char **parsed;
+}	t_parse_arg;
+
 typedef struct s_cmd
 {
 	t_c_char		*cmd;
