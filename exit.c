@@ -4,7 +4,7 @@
 void	ft_free_2pt(char **arr);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
-int	ft_exit_atoi(char *arg, int *last_exit)
+int	ft_exit_atoi(char *arg, int *last_cmd_exit)
 {
 	int			i;
 	long		neg;
@@ -24,23 +24,23 @@ int	ft_exit_atoi(char *arg, int *last_exit)
 		num = num * 10 + (arg[i] - 48);
 		if (((i == 18 && neg == 1) && (arg[i] > '7' && arg[i] <= '9'))
 			|| ((i == 19 && neg == -1) && (arg[i] == '9')))
-			last_exit = 2;
+			last_cmd_exit = 2;
 		i++;
 	}
 	return (num * neg);
 }
 
-void	exit_door(char *arg, int *last_exit)
+void	exit_door(char *arg, int *last_cmd_exit)
 {
 	long long	errnum;
 
-	errnum = ft_exit_atoi(arg, last_exit);
+	errnum = ft_exit_atoi(arg, last_cmd_exit);
 	if (!(errnum < LLONG_MAX && errnum > LLONG_MIN))
 	{
 		free(arg);
 		exit(-1);
 	}
-	last_exit = errnum % 256;
+	last_cmd_exit = errnum % 256;
 }
 
 int	numeric_ctrl(char *arg)
@@ -59,7 +59,7 @@ int	numeric_ctrl(char *arg)
 	return (0);
 }
 
-int	ft_exit(char **arg, int *last_exit)
+int	ft_exit(char **arg, int *last_cmd_exit)
 {
 	if (!arg[1])
 	{
@@ -74,6 +74,6 @@ int	ft_exit(char **arg, int *last_exit)
 	if (arg[2])
 		return(errorer("exit", "too many argument for exit", NULL, EXIT_FAILURE));
 	else
-		exit_door(arg[1], last_exit);
-	exit(last_exit);
+		exit_door(arg[1], last_cmd_exit);
+	exit(last_cmd_exit);
 }
