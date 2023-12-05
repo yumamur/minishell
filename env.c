@@ -1,6 +1,7 @@
 #include "builtin.h"
+#include <stdio.h>
 
-const char *const	**g_env(void);
+void ***g_env(void);
 int	export_isenv(char *arg);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
