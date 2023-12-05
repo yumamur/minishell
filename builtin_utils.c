@@ -11,15 +11,12 @@ int export_isvalid(char *str)
 	i = 0;
 	if (ft_isdigit(str[0]))
 		return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
-	while (str[i])
+	while (str[i] && str[i] != '=')
 	{
-		while (str[i] != '=')
-		{
-			if (ft_isalnum(str[i]) || str[i] == '_')
-				i++;
-			else
-				return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
-		}
+		if (ft_isalnum(str[i]) || str[i] == '_')
+			i++;
+		else
+			return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
 	}
 	return(1);
 }
