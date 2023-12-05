@@ -30,4 +30,21 @@ tüm builtin fonksiyonlar şuanda **env girdisi alıyor, bunu bu şekilde bırak
 fonksiyon çağrıları düzeltilecek. alternatif bir yol izlenip örneğin; her fonksiyon kendi içersinde g_env() ile builtin alacaksa da builtin fonksiyonların içerikleri düzeltilecek.
 yusuf ağabeyle bu konu konuşulacak.
 
+echo da seg var main kaynaklı mı fonksiyon kaynaklı mı bakılacak
+
 norminette bakılacak
+
+
+
+
+last_cmd_exit problem;
+arr_realloc int to_add alıyor?
+arr_size için yapılan (void **) castlemeleri doğru mu
+g_env için yapılan (char **)* castlemeleri doğru mu
+aliaslara hata veriyor
+env_util hataları
+
+echo tamam sadece norminette i kaldı
+env, cd, export, unset env_util ve pt_util hatalarından dolayı test edilemedi
+exit çalışıyor gibi görünüyor fakat nasıl test edebileceğimi bilmiyorum.
+pwd çalışıyor fakat üstte boş bir satır bastırıyor.
