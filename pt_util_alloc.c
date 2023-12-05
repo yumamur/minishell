@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 
-int		pt_util_size_ptr_arr(void **arr);
+int		arr_size(void **arr);
 
-void	pt_util_free_arr(void **arr)
+void	arr_free(void **arr)
 {
 	int	i;
 
@@ -16,7 +16,7 @@ void	pt_util_free_arr(void **arr)
 }
 
 void __attribute__((malloc))
-	**pt_util_copy_ptr_arr(void **arr)
+	**arr_copy(void **arr)
 {
 	void	**ret;
 	int		len;
@@ -34,7 +34,7 @@ void __attribute__((malloc))
 }
 
 void __attribute__((malloc))
-	**pt_util_realloc_ptr_arr(void **arr, int to_add)
+	**arr_realloc(void **arr, int to_add)
 {
 	void	**ret;
 	int		len;
@@ -57,14 +57,14 @@ void __attribute__((malloc))
 }
 
 char __attribute__((malloc))
-	**pt_util_deep_copy_str(const char **arr)
+	**arr_deep_copy(const char **arr)
 {
 	char	**ret;
 	int		i;
 
 	if (!arr)
 		return (NULL);
-	ret = malloc((pt_util_size_ptr_arr((void **)arr) + 1) * sizeof(*ret));
+	ret = malloc((arr_size((void **)arr) + 1) * sizeof(*ret));
 	if (!ret)
 		return (NULL);
 	i = 0;
@@ -73,14 +73,9 @@ char __attribute__((malloc))
 		ret[i] = ft_strdup(arr[i]);
 		if (!ret[i])
 		{
-			pt_util_free_arr((void **)arr);
+			arr_free((void **)arr);
 			return (NULL);
 		}
 	}
 	return (ret);
 }
-
-void	**arr_copy(void **arr)
-		__attribute__((alias("pt_util_copy_ptr_arr")));
-void	**arr_realloc(void **arr, int to_add)
-		__attribute__((alias("pt_util_realloc_ptr_arr")));

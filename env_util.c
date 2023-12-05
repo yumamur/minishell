@@ -3,12 +3,27 @@
 #include "pt_util.h"
 
 t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
+void 		***g_env(void);
 
-void ***g_env(void)
+int	is_sorted(void)
 {
-	static void	**env;
+	short	**ptr;
 
-	return (&env);
+	ptr = (short **)*g_env();
+	while (*ptr)
+	{
+	}
+	return (0);
+}
+
+static void	env_sort(void)
+{
+	char	**ptr;
+
+	while (is_sorted())
+	{
+
+	}
 }
 
 int	env_init(void **data)
@@ -17,24 +32,10 @@ int	env_init(void **data)
 
 	if (!data || !*data || initialized)
 		return (-1);
-	*g_env() = arr_copy(data);
+	*g_env() = arr_deep_copy(data);
 	if (!*g_env())
 		return (-1);
 	initialized = -1;
-	return (0);
-}
-
-int	env_deinit(void)
-{
-	int	i;
-
-	i = arr_size(*g_env());
-	if (i < 0)
-		return (-1);
-	while (i)
-		free((*g_env())[--i]);
-	free(*g_env());
-	*g_env() = NULL;
 	return (0);
 }
 

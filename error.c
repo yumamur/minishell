@@ -1,6 +1,5 @@
 #include "libft/libft.h"
 #include "typeft.h"
-#define NULL 0
 
 char	*join_strs(char *str, char *add)
 {

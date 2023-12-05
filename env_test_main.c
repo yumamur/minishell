@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "msh_env.h"
+#include "env_util.h"
 
 char	*ft_strdup(char *str);
 

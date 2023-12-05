@@ -1,4 +1,4 @@
-int	pt_util_size_ptr_arr(void **arr)
+int	arr_size(void **arr)
 {
 	int	i;
 
@@ -10,7 +10,7 @@ int	pt_util_size_ptr_arr(void **arr)
 	return (i);
 }
 
-int	pt_util_find_index_if_in_arr(void **arr, void *to_find)
+int	arr_index(void **arr, void *to_find)
 {
 	int	i;
 
@@ -22,11 +22,11 @@ int	pt_util_find_index_if_in_arr(void **arr, void *to_find)
 	return (i);
 }
 
-int	pt_util_discard_nth(void **arr, int n)
+int	arr_discard_n(void **arr, int n)
 {
 	int	size;
 
-	size = pt_util_size_ptr_arr(arr);
+	size = arr_size(arr);
 	if (size == -1 || n < 0)
 		return (-1);
 	while (n < size)
@@ -36,10 +36,3 @@ int	pt_util_discard_nth(void **arr, int n)
 	}
 	return (0);
 }
-
-int	arr_size(void **arr)
-	__attribute__((alias("pt_util_size_ptr_arr")));
-int	arr_index(void **arr, void *to_find)
-	__attribute__((alias("pt_util_find_index_if_in_arr")));
-int	arr_discard_n(void **arr, int n)
-	__attribute__((alias("pt_util_discard_nth")));
