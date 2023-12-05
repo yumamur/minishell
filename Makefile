@@ -14,11 +14,22 @@ SRC_PT		=	pt_util.c \
 SRC_EXEC	=	exec.c \
 				exec_utils.c
 
-SRC_PARSE	=	lexer.c
+SRC_BUILTIN = builtin_utils.c \
+			  builtin_parse.c \
+			  cd.c \
+			  echo.c \
+			  env.c \
+			  exit.c \
+			  export.c \
+			  pwd.c \
+			  unset.c \
+			  builtin_test_main.c
+
+SRC_PARSE	=	str_wordtab.c
 
 SRC_SIGNAL	=	signal.c
 
-SRCS	= main.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE) $(SRC_PT) $(SRC_ENV)
+SRCS	= main.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE) $(SRC_PT) $(SRC_ENV) $(SRC_BUILTIN)
 
 OBJS	= $(patsubst %.c, obj/%.o, $(SRCS))
 
