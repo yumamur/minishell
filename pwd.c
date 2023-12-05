@@ -1,5 +1,6 @@
 #include "builtin.h"
 #define PATH_MAX 1024
+#include <stdio.h>
 
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
