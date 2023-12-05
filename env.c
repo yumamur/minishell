@@ -14,9 +14,10 @@ int	ft_env(void)
     env = (char **)*g_env();
 	if (!env)
 		return(errorer("env", "dont have env.", NULL, EXIT_FAILURE));
-	while(env[i] && export_isenv(env[i]))
+	while(env[i])
 	{
-		ft_putendl_fd(env[i], STDOUT_FILENO);
+		if (export_isenv(env[i]))
+			ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
 	return(0);

@@ -1,16 +1,21 @@
+#include <ctype.h>
+#include <stdlib.h>
 int	ft_isalnum(int c);
+int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
-int ft_isalnum_str(char *str)
+int export_isvalid(char *str)
 {
 	int i;
 
 	i = 0;
+	if (isdigit(str[0]))
+		return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]))
+		if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '=')
 			i++;
 		else
-			return(0);
+			return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
 	}
 	return(1);
 }
