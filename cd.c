@@ -1,13 +1,9 @@
 #include <unistd.h>
-#include "typeft.h"
-#include "builtin.h"
-#define PATH_MAX 1024
+#include "env_util.h"
+#include "error.h"
+#include "libft/libft.h"
 
-t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
-int	env_remove(char *to_remove);
-int	env_add(const char *var);
-void ***g_env(void);
+#define PATH_MAX 1024
 
 int	chg_dir(char *path)
 {
@@ -40,13 +36,11 @@ int	chg_dir(char *path)
 int	ft_cd(char *arg)
 {
 	char	*path;
-	char	**env;
 
-	env = (char **)*g_env();
 	if (!arg || arg[0] == ' '
 		|| arg[0] == '\0' || ft_strncmp(arg, "--", 3) == 0)
 	{
-		path = (char *)ft_getenv((t_c_char **)env, "HOME");
+		path = (char *)ft_getenv("HOME");
 		if (!path || *path == '\0' || *path == ' ')
 			return(errorer("cd", 0, "HOME not set", EXIT_FAILURE));
 		if(chg_dir(path) != 0)
@@ -55,7 +49,7 @@ int	ft_cd(char *arg)
 	}
 	if (ft_strncmp(arg, "-", 2) == 0)
 	{
-		path = (char *)ft_getenv((t_c_char **)env, "OLDPWD");
+		path = (char *)ft_getenv("OLDPWD");
 		if (!path)
 			return (errorer("cd", 0, "OLDPWD not set", EXIT_FAILURE));
 		if(chg_dir(path) != 0)
