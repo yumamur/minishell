@@ -1,9 +1,6 @@
 #ifndef	BUILTIN_H
 # define BUILTIN_H
 
-#include "libft/libft.h"
-#include "typeft.h"
-
 int	ft_cd(char *arg);
 int	ft_echo(char **arg);
 int	ft_exit(char **arg, int last_cmd_exit);
