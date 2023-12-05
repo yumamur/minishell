@@ -7,7 +7,7 @@ t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 int	env_remove(char *to_remove);
 int	env_add(const char *var);
-const char *const	**g_env(void);
+void ***g_env(void);
 
 int	chg_dir(char *path)
 {
