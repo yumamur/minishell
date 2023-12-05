@@ -1,12 +1,12 @@
 #include "builtin.h"
-#include "msh_env.h"
 
 void	**arr_realloc(void **arr, int to_add);
 int	arr_size(void **arr);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
-const void *const	**g_env(void);
+void ***g_env(void);
 int ft_isalnum_str(char *str);
 int	export_isenv(char *arg);
+int	env_add(const char *var);
 
 int	export_isvalid(char *arg)
 {
@@ -35,10 +35,8 @@ int	just_export(void)
 int ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 {
 	int	i;
-	char	**export;
 
 	i = 0;
-	export = (char **)*g_env();
 	if (!arg)
 		just_export();
 	if (arr_size((void **)arg) > 1)
@@ -46,12 +44,7 @@ int ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 		while (i <= arr_size((void **)arg))
 		{
 			if (export_isvalid(arg[i]))
-			{
-				if (export_isenv(arg[i]))
 					env_add(arg[i]);
-				else
-					arr_realloc((void **)export, arg[i]);
-			}
 			i++;
 		}
 	}
