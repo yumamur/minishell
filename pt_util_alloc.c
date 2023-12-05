@@ -76,6 +76,8 @@ char __attribute__((malloc))
 			arr_free((void **)arr);
 			return (NULL);
 		}
+		++i;
 	}
+	ret[i] = 0;
 	return (ret);
 }
