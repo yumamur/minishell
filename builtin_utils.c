@@ -13,7 +13,7 @@ int export_isvalid(char *str)
 		return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '=' || str[i] = '/')
+		if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '=' || str[i] == '/')
 			i++;
 		else
 			return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
