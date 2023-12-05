@@ -1,36 +1,39 @@
 #include "typeft.h"
+#include "env_util.h"
 #include "libft/libft.h"
 
-static t_c_char	inline	*ft_getenv_inline(t_c_char *envp[], t_c_char *name)
+static t_c_char	inline	*ft_getenv_inline(t_c_char *name)
 {
+	char *const	*ptenv;
 	size_t		len;
 	t_ushort	name_start;
 	t_ushort	ptenv_start;
 
 	name_start = (name[0] * 256) + name[1];
 	len = ft_strlen(name);
-	while (*envp)
+	ptenv = *g_env();
+	while (*ptenv)
 	{
-		ptenv_start = ((*envp)[0] * 256) + (*envp)[1];
-		if (ptenv_start == name_start && (*envp)[len] == '='
-			&& !ft_strncmp(*envp + 2, name + 2, len - 2))
-			return (&(*envp)[len + 1]);
-		envp++;
+		ptenv_start = ((*ptenv)[0] * 256) + (*ptenv)[1];
+		if (ptenv_start == name_start && (*ptenv)[len] == '='
+			&& !ft_strncmp(*ptenv + 2, name + 2, len - 2))
+			return (&(*ptenv)[len + 1]);
+		ptenv++;
 	}
 	return (NULL);
 }
 
-t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name)
+t_c_char	*ft_getenv(t_c_char *name)
 {
-	t_c_char	**ptenv;
+	char *const	*ptenv;
 	t_ushort	name_start;
 	t_ushort	ptenv_start;
 
-	if (!envp || !envp[0] || !name || name[0] == '\0')
+	if (!*g_env() || !(*g_env())[0] || !name || name[0] == '\0')
 		return (NULL);
 	if (name[1] == '\0')
 	{
-		ptenv = envp;
+		ptenv = *g_env();
 		((t_uchar *)&name_start)[0] = *(t_uchar *)name;
 		((t_uchar *)&name_start)[1] = '=';
 		while (*ptenv)
@@ -42,6 +45,6 @@ t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name)
 		}
 	}
 	else
-		return (ft_getenv_inline(envp, name));
+		return (ft_getenv_inline(name));
 	return (NULL);
 }
