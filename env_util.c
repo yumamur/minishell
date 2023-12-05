@@ -16,15 +16,15 @@ int	is_sorted(void)
 	return (0);
 }
 
-static void	env_sort(void)
-{
-	char	**ptr;
+// static void	env_sort(void)
+// {
+// 	char	**ptr;
 
-	while (is_sorted())
-	{
+// 	while (is_sorted())
+// 	{
 
-	}
-}
+// 	}
+// }
 
 int	env_init(void **data)
 {

@@ -4,17 +4,16 @@
 
 char	*ft_strdup(char *str);
 
-void	printenv(void)
+int	printenv(void)
 {
 	char	**tmp;
 
 	tmp = (char **)*g_env();
 	if (!tmp)
-		return ;
-	printf("\n########\n");
+		return (-1);
 	while (*tmp)
 		printf("%s\n", *tmp++);
-	printf("########\n\n");
+	return (0);
 }
 
 void	init_add_remove_deinit(void)
@@ -26,7 +25,7 @@ void	init_add_remove_deinit(void)
 	arr[2] = ft_strdup("VAR3=value");
 	arr[3] = 0;
 	printf("env_init = %s\n",
-		env_init((void **)arr)
+		env_init(arr)
 	[((char *[]){"Success", "Failure"})]);
 	printenv();
 	printf("env add = %s\n",
