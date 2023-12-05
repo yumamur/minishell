@@ -1,0 +1,50 @@
+cd builtini gözden geçirilerek hata varsa düzeltilecek
+cd builtininde, chg_dir fonksiyonundaki; !ret durumunda alternatif olarak tanımlanan path tekrar düşünülecek.
+cd builtinindeki errno hataları çözülecek.
+cd builtinde norminette e göre düzenleme ve fonksiyonların dosyalara ayrılması yapılacak.
+
+pwd için de cd için olan hatırlatmalar geçerli.
+
+exit işlemleri kontrol edilecek gerekli hata kontrolleri gözden geçirilecek.
+exit işleminden sonrasında yapılması gereken freeleme işlemleri diğer kodlara göre revize edilecek.
+exit işleminden sonra newline atılması gerekiyorsa koda eklenecek.
+
+env işleminin sorunu olup olmadığı eksiği olup olmadığı kontrol edilecek.
+
+export ve unset fonksiyonlarında hata veya eksik olup olmadığı kontrol edilecek.
+
+tüm fonksiyonlar ve veriler için struct oluşturulup o struct kodlara entegre edilecek.
+
+
+
+
+------------------------------------
+
+export fonksiyonunda yeni env ekleme işleminin yapıldığı env_borner fonksiyonunun içine yusuf ağabeyin yeni yazdığı env_add fonksiyonu gömülebiliyor mu bakılacak.
+export fonksiyonunda export bastırma gözden geçirilecek
+cd fonksiyonunda pwd değerini değiştirmek için ne kullanılacağına karar verilecek
+exit fonksiyonundaki int	ret_for_exit = 0; //msh_struct tan düzenlenecek
+unset fonksiyonunda mevcut fonksiyon yerine yusuf ağabeyin yeni yazdığı env_remove kullanılmaya başlandı, herhangi bir işlev etkilenmiş oldu mu incelenecek.
+
+tüm builtin fonksiyonlar şuanda **env girdisi alıyor, bunu bu şekilde bırakıp builtin parse da alınan bir **env değişkeni tüm builtinlere gönderilecekse,
+fonksiyon çağrıları düzeltilecek. alternatif bir yol izlenip örneğin; her fonksiyon kendi içersinde g_env() ile builtin alacaksa da builtin fonksiyonların içerikleri düzeltilecek.
+yusuf ağabeyle bu konu konuşulacak.
+
+echo da seg var main kaynaklı mı fonksiyon kaynaklı mı bakılacak
+
+norminette bakılacak
+
+
+
+
+last_cmd_exit problem;
+arr_realloc int to_add alıyor?
+arr_size için yapılan (void **) castlemeleri doğru mu
+g_env için yapılan (char **)* castlemeleri doğru mu
+aliaslara hata veriyor
+env_util hataları
+
+echo tamam sadece norminette i kaldı
+env, cd, export, unset env_util ve pt_util hatalarından dolayı test edilemedi
+exit çalışıyor gibi görünüyor fakat nasıl test edebileceğimi bilmiyorum.
+pwd çalışıyor fakat üstte boş bir satır bastırıyor.
