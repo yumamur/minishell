@@ -1,7 +1,35 @@
+#include "builtin.h"
 #include "env_util.h"
 #include "pt_util.h"
 #include "libft/libft.h"
 #include "error.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int	export_repeat_check(char *str)
+{
+	int	i;
+	char *tmp;
+
+	i = 0;
+	tmp = ft_strdup(str);
+	while (str[i] != '=')
+		i++;
+	while (str[i])
+	{
+		str[i] = 0;
+		i++;
+	}
+	if (ft_getenv(str))
+	{
+		env_remove(str);
+		env_add(tmp);
+		free(tmp);
+		return (1);
+	}
+	free(tmp);
+	return (0);
+}
 
 int export_isvalid(char *str)
 {
@@ -34,11 +62,11 @@ void	just_export(void)
 	}
 }
 
-int ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
+int ft_export(char **arg)
 {
 	int	i;
 
-	i = 0;		
+	i = 0;
 	if (!*g_env())
 		return(errorer("export", "environment table does not exist", NULL, EXIT_FAILURE));
 	if (!arg)
@@ -48,7 +76,10 @@ int ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 		while (i < arr_size((void **)arg))
 		{
 			if (export_isvalid(arg[i]))
-				env_add(arg[i]);
+			{
+					if (!export_repeat_check(arg[i]))
+						env_add(arg[i]);
+			}
 			else
 			{
 				ft_putstr_fd("export: not a valid identifier", 2);

@@ -2,7 +2,7 @@
 #include "typeft.h"
 #include "pt_util.h"
 
-t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
+const char	*ft_getenv(const char *name);
 void 		***g_env(void);
 
 int	is_sorted(void)
@@ -61,7 +61,7 @@ int	env_remove(char *to_remove)
 	void	*var;
 
 	env = *g_env();
-	var = (void *)ft_getenv((t_c_char **)env, to_remove);
+	var = (void *)ft_getenv(to_remove);
 	if (!var)
 		return (-1);
 	var = ((char *)var) - ft_strlen(to_remove) - 1;
