@@ -2,6 +2,7 @@
 
 const char *const	**g_env(void);
 int	export_isenv(char *arg);
+int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
 int	ft_env(void)
 {
@@ -9,7 +10,7 @@ int	ft_env(void)
     char    **env;
 
 	i = 0;
-    env = g_env();
+    env = (char **)*g_env();
 	if (!env)
 		return(errorer("env", "dont have env.", NULL, EXIT_FAILURE));
 	while(env[i] && export_isenv(env[i]))

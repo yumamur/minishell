@@ -1,10 +1,11 @@
 #include "builtin.h"
+#include "msh_structs.h"
 #include <limits.h>
 
 void	ft_free_2pt(char **arr);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 
-int	ft_exit_atoi(char *arg, int *last_cmd_exit)
+int	ft_exit_atoi(char *arg, int last_cmd_exit)
 {
 	int			i;
 	long		neg;
@@ -25,12 +26,14 @@ int	ft_exit_atoi(char *arg, int *last_cmd_exit)
 		if (((i == 18 && neg == 1) && (arg[i] > '7' && arg[i] <= '9'))
 			|| ((i == 19 && neg == -1) && (arg[i] == '9')))
 			last_cmd_exit = 2;
+		else
+		 	(void)last_cmd_exit;
 		i++;
 	}
 	return (num * neg);
 }
 
-void	exit_door(char *arg, int *last_cmd_exit)
+void	exit_door(char *arg, int last_cmd_exit)
 {
 	long long	errnum;
 
@@ -59,21 +62,21 @@ int	numeric_ctrl(char *arg)
 	return (0);
 }
 
-int	ft_exit(char **arg, int *last_cmd_exit)
+int	ft_exit(char **arg, int last_cmd_exit)
 {
-	if (!arg[1])
+	if (!arg[0])
 	{
 		ft_free_2pt(arg);
 		exit(0);
 	}
-	if (numeric_ctrl(arg[1]) == 1)
+	if (numeric_ctrl(arg[0]) != 0)
 	{
 		ft_free_2pt(arg);
 		exit(-1);
 	}
-	if (arg[2])
+	if (arg[1])
 		return(errorer("exit", "too many argument for exit", NULL, EXIT_FAILURE));
 	else
-		exit_door(arg[1], last_cmd_exit);
+		exit_door(arg[0], last_cmd_exit);
 	exit(last_cmd_exit);
 }

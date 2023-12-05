@@ -1,28 +1,27 @@
 #include "builtin.h"
 #include "msh_env.h"
 
-void	**arr_realloc(void **arr, int to_add)
-		__attribute__((alias("pt_util_realloc_ptr_arr")));
-int	arr_size(void **arr)
-	__attribute__((alias("pt_util_size_ptr_arr")));
+void	**arr_realloc(void **arr, int to_add);
+int	arr_size(void **arr);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
-void		***g_env(void);;
+const void *const	**g_env(void);
 int ft_isalnum_str(char *str);
+int	export_isenv(char *arg);
 
 int	export_isvalid(char *arg)
 {
-	if (ft_isdigit(arg) && ft_isalnum_str(arg))
+	if (ft_isdigit(arg[0]) && ft_isalnum_str(arg))
 		return (1);
 	return(0);
 }
 
-void	just_export(void)
+int	just_export(void)
 {
 	int	    i;
     char    **env;
 
 	i = 0;
-    env = g_env();
+    env = (char **)*g_env();
 	if (!env)
 		return(errorer("export", "dont have export.", NULL, EXIT_FAILURE));
 	while(env[i])
@@ -39,19 +38,19 @@ int ft_export(char **arg)//env almmasina gerek yok, env_add(arg[1])
 	char	**export;
 
 	i = 0;
-	export = g_env();
+	export = (char **)*g_env();
 	if (!arg)
 		just_export();
-	if (arr_size(arg) > 1)
+	if (arr_size((void **)arg) > 1)
 	{
-		while (i <= arr_size(arg))
+		while (i <= arr_size((void **)arg))
 		{
 			if (export_isvalid(arg[i]))
 			{
 				if (export_isenv(arg[i]))
 					env_add(arg[i]);
 				else
-					arr_realloc(export, arg[i]);
+					arr_realloc((void **)export, arg[i]);
 			}
 			i++;
 		}

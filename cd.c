@@ -7,15 +7,16 @@ t_c_char	*ft_getenv(t_c_char *envp[], t_c_char *name);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
 int	env_remove(char *to_remove);
 int	env_add(const char *var);
+const char *const	**g_env(void);
 
-int	chg_dir(char **env, char *path)
+int	chg_dir(char *path)
 {
 	char	*ret;
 	char	pwd[PATH_MAX];
 	char	*oldpwd;
 
 	oldpwd = getcwd(pwd, PATH_MAX);
-	if (chdir(path) != 0);
+	if (chdir(path) != 0)
 		return(errorer("cd", path, "change directory failure", EXIT_FAILURE));
 	ret = getcwd(pwd, PATH_MAX);
 	if (!ret)
@@ -32,37 +33,36 @@ int	chg_dir(char **env, char *path)
 	env_remove("OLDPWD");
 	env_add(oldpwd);
 	free(ret);
-	free(pwd);
 	free(oldpwd);
 	return(0);
 }
 
-int	ft_cd(char **env, char **arg)
+int	ft_cd(char *arg)
 {
 	char	*path;
+	char	**env;
 
-	if (!arg || !arg[1] || ft_isspace(arg[1][0])
-		|| arg[1][0] == '\0' || ft_strncmp(arg[1], "--", 3) == 0)
+	env = (char **)*g_env();
+	if (!arg || arg[0] == ' '
+		|| arg[0] == '\0' || ft_strncmp(arg, "--", 3) == 0)
 	{
-		path = ft_getenv(env, "HOME");
-		if (!path || *path == '\0' || ft_isspace(*path))
+		path = (char *)ft_getenv((t_c_char **)env, "HOME");
+		if (!path || *path == '\0' || *path == ' ')
 			return(errorer("cd", 0, "HOME not set", EXIT_FAILURE));
-		if(chg_dir(env, path) != 0);
+		if(chg_dir(path) != 0)
 			return (1);
 		return (0);
 	}
-	if (arg[2])
-		return (errorer("cd", 0, "too many arguments", EXIT_FAILURE));
-	if (ft_strncmp(arg[1], "-", 2) == 0)
+	if (ft_strncmp(arg, "-", 2) == 0)
 	{
-		path = ft_getenv(env, "OLDPWD");
+		path = (char *)ft_getenv((t_c_char **)env, "OLDPWD");
 		if (!path)
-			return (errmsg_cmd("cd", 0, "OLDPWD not set", EXIT_FAILURE));
-		if(chg_dir(env, path) != 0)
+			return (errorer("cd", 0, "OLDPWD not set", EXIT_FAILURE));
+		if(chg_dir(path) != 0)
 			return (1);
 		return (0);
 	}
-	if(chg_dir(env, arg[1]) != 0);
+	if(chg_dir(arg) != 0)
 		return (1);
 	return (0);
 }
