@@ -61,15 +61,11 @@ static int	count_words(char *str)
 		{
 			if (control(str) == 1)
 			{
-				printf("kalem : \n");
 				ret++;
 				str = ft_strchr(str + 1, *str) + 1;
 			}
 			else
-			{
-				printf("elma armut\n");
 				return (0);
-			}
 		}
 		if (*str)
 			++ret;
