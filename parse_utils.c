@@ -1,5 +1,4 @@
 #include "libft/libft.h"
-#define NULL 0
 
 char	*ft_strsubdup(const char *s, size_t start, size_t end)
 {

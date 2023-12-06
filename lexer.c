@@ -1,7 +1,7 @@
 #include "parse.h"
-#define NULL 0
-
-t_c_char **parse_cmd(t_c_char *cmd, int a, t_parse_arg arg);
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/_types/_null.h>
 
 void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 {
@@ -11,8 +11,9 @@ void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
     
     if (token == 0 && is_seperator(cmd) != 0)
     {
-		arg.parsed = (t_c_char **)malloc(sizeof(t_c_char *) * 24);
+		arg.parsed = (t_c_char **)malloc(sizeof(t_c_char *) * 10000);
         arg.parsed = parse_cmd(cmd, 0, arg); // *cmd = "taha|cat>1" -> **seperate = "taha" "|" "cat" ">" "1"
+	//	printf("elma : %s\n", arg.parsed[0]);
 		//print_d(arg.parsed);
         lexer(arg.parsed, head);
 		//ft_free_2pt((char **)arg.parsed);
@@ -40,6 +41,8 @@ void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 t_tokenzied_list	**lexer(t_c_char **words, t_tokenzied_list **for_tok)
 {
 	t_tokenzied_list **tokended;
+	if (!words)
+		return NULL;
 	if (!for_tok)
 	{
 		tokended = malloc(sizeof(t_tokenzied_list));
