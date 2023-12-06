@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/resource.h>
+#include <unistd.h>
 #include "libft/libft.h"
 
 int	control(char *str)
@@ -105,7 +106,10 @@ char	**ft_str_wordtab(char *str)
 
 	ct_word = count_words(str);
 	if (ct_word == 0)
+	{
+		ft_putendl_fd("minishell : parse error", STDOUT_FILENO);
 		return (0);
+	}	
 	ret = malloc(++ct_word * sizeof(char *));
 	if (!ret)
 		return (0);
