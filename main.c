@@ -1,36 +1,52 @@
-#include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
+#include "env_util.h"
 #include "msh_readline.h"
+#include "libft/libft.h"
+#include "msh_structs.h"
 
-#define CMD_PROMT "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m"
+#define PROMPT "prompt $ "
 
-volatile sig_atomic_t	g_signum;
-
-char	**ft_str_wordtab(char *str);
-void	sighandler_int(int sig);
 int		set_sighandler(void);
-int	execute_cmd(char *line, int *ret);
+int		execute(t_cmd *cmds);
+t_cmd	*parse(char *input);
 
-
-int	main(void)
+char	*prompt(int i)
 {
-	char	*asd;
-	int		ret;
+	static char	*str;
 
+	if (i)
+	{
+		if (!isatty(0))
+			return (NULL);
+		if (!str)
+			str = ft_strdup(PROMPT);
+		return (str);
+	}
+	if (*str)
+		free(str);
+	return (NULL);
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	char	*input;
+
+	if (argc > 1)
+		return (-1);
+	(void)argv;
 	if (!isatty(0))
 		return (-1);
 	set_sighandler();
+	env_init(envp);
 	while (1)
 	{
-		write(ttyslot(), CMD_PROMT, sizeof(CMD_PROMT));
-		asd = readline("");
-		if (!asd)
+		input = readline(prompt(-1));
+		if (!input)
 			exit(0);
-		add_history(asd);
-		execute_cmd(asd, &ret);
-		printf("\n");
-		free(asd);
+		add_history(input);
+		execute(parse(input));
+		free(input);
 	}
+	prompt(0);
 }
