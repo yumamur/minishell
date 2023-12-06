@@ -1,9 +1,7 @@
-#include "builtin.h"
-#include "msh_structs.h"
 #include <limits.h>
-
-void	ft_free_2pt(char **arr);
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
+#include <stdlib.h>
+#include "libft/libft.h"
+#include "pt_util.h"
 
 int	ft_exit_atoi(char *arg, int last_cmd_exit)
 {
@@ -62,21 +60,12 @@ int	numeric_ctrl(char *arg)
 	return (0);
 }
 
-int	ft_exit(char **arg, int last_cmd_exit)
+int	ft_exit(char **arg)
 {
 	if (!arg[0])
-	{
-		ft_free_2pt(arg);
 		exit(0);
-	}
-	if (numeric_ctrl(arg[0]) != 0)
-	{
-		ft_free_2pt(arg);
-		exit(-1);
-	}
+	if (ft_atoi(arg[0]) < 0 || ft_atoi(arg[0]))
+		exit();
 	if (arg[1])
 		return(errorer("exit", "too many argument for exit", NULL, EXIT_FAILURE));
-	else
-		exit_door(arg[0], last_cmd_exit);
-	exit(last_cmd_exit);
 }
