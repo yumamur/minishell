@@ -27,7 +27,7 @@ int	parse_jump(t_c_char *cmd, int s_flag)
 	return (i);
 }
 
-t_c_char **parse_cmd(t_c_char *cmd, int a, t_parse_arg arg)
+t_c_char **parse_cmd(t_c_char *cmd, int a, t_c_char **arg)
 {
 	int	i;
 	int	j;
@@ -42,30 +42,30 @@ t_c_char **parse_cmd(t_c_char *cmd, int a, t_parse_arg arg)
 	perror("elma");
 	s_flag = is_seperator(cmd);
 	i = parse_jump(cmd, s_flag);
-	arg.parsed[a] = ft_strsubdup(cmd, j, i);
+	arg[a] = ft_strsubdup(cmd, j, i);
 	a++;
 	cmd = ft_strsubdup(cmd, i, ft_strlen(cmd));
 	i = 0;
 	if (s_flag == 1 && is_seperator_in(&cmd[i]))
 	{
-		arg.parsed[a] = ft_strsubdup(cmd, i, (i + s_flag));
+		arg[a] = ft_strsubdup(cmd, i, (i + s_flag));
 		a++;
 		ca_flag = 1;
 	}
 	else if (s_flag == 2 && is_double_seperator_in(&cmd[i]))
 	{
-		arg.parsed[a] = ft_strsubdup(cmd, i, (i + s_flag));
+		arg[a] = ft_strsubdup(cmd, i, (i + s_flag));
 		a++;
 		ca_flag = 1;
 	}
 	else
-		arg.parsed[a] = ft_strsubdup(cmd, i, ft_strlen(cmd));
+		arg[a] = ft_strsubdup(cmd, i, ft_strlen(cmd));
 
 	if (ca_flag == 1 && cmd)
 		cmd = ft_strsubdup(cmd, (i + s_flag), ft_strlen(cmd));
 	if (cmd && is_seperator(cmd) != 0)
 		parse_cmd(cmd, a, arg);
 	else// if (ft_strchr(cmd, ' '))
-		arg.parsed[a]= ft_strsubdup(cmd, i, ft_strlen(cmd));
-	return(arg.parsed);
+		arg[a]= ft_strsubdup(cmd, i, ft_strlen(cmd));
+	return(arg);
 }
