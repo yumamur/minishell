@@ -49,12 +49,10 @@ int	control(char *str)
 static int	count_words(char *str)
 {
 	int	ret;
-	int a = 0;
 
 	ret = 0;
 	while (*str)
 	{
-		printf("%s %d\n", str, a++);
 		while (*str == '\t' || *str == ' ')
 			++str;
 		if (*str == '\"' || *str == '\'')

@@ -1,4 +1,5 @@
 #include "builtin.h"
+#include "libft/libft.h"
 
 int	arg_counter(char **arg)
 {
