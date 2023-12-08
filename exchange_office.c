@@ -14,7 +14,9 @@ char    *exchanger(char *arg, int q_flag)
     i = 0;
 	ret = NULL;
     while (arg[i] != '$')
-        i++;
+	{
+        ++i;
+	}
 	j = i;
 	while (arg[j] && arg[j] != ' ')
 		j++;
@@ -52,30 +54,33 @@ char    **dollar_check(char **arg)
 }
 
 
-// int main()
-// {
-//     char    *arg[4];
-//     char    *env[5];
+#include "env_util.h"
+#include "builtin.h"
+#include <stdio.h>
+int main()
+{
+    char    *arg[4];
+    char    *env[5];
 
-//     arg[0] = ft_strdup("taha");
-//     arg[1] = ft_strdup("$abc");
-//     arg[2] = ft_strdup("\"taha $abc  tatata\"");
-//     arg[3] = NULL;
+    arg[0] = ft_strdup("taha");
+    arg[1] = ft_strdup("$abc");
+    arg[2] = ft_strdup("\"taha $abc  tatata\"");
+    arg[3] = NULL;
 
-//     env[0] = ft_strdup("VAR1=ABC");
-//     env[1] = ft_strdup("VAR2");
-//     env[2] = ft_strdup("VAR3=taha");
-//     env[3] = ft_strdup("abc=1234");
-//     env[4] = NULL;
+    env[0] = ft_strdup("VAR1=ABC");
+    env[1] = ft_strdup("VAR2");
+    env[2] = ft_strdup("VAR3=taha");
+    env[3] = ft_strdup("abc=1234");
+    env[4] = NULL;
 
-//     env_init(env);
-//     ft_env();
-//     printf("-----------------\n");
-//     dollar_check(arg);
-//     int i = 0;
-//     while (arg[i])
-//     {
-//         printf("%s\n", arg[i]);
-//         i++;
-//     }
-// }
+    env_init(env);
+    ft_env();
+    printf("-----------------\n");
+    dollar_check(arg);
+    int i = 0;
+    while (arg[i])
+    {
+        printf("%s\n", arg[i]);
+        i++;
+    }
+}
