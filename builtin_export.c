@@ -1,12 +1,7 @@
-#include "builtin.h"
+#include "libft/libft.h"
 #include "env_util.h"
 #include "pt_util.h"
-#include "libft/libft.h"
 #include "error.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-void	ft_free_2pt(char **arr);
 
 int	export_repeat_check(char *str)
 {
@@ -62,7 +57,7 @@ void	just_export(void)
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
-	ft_free_2pt(env);
+	arr_free((void **)env);
 }
 
 int ft_export(char **arg)

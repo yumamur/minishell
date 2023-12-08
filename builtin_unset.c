@@ -1,10 +1,9 @@
-#include "builtin.h"
 #include <stdlib.h>
+#include "env_util.h"
+#include "pt_util.h"
+#include "error.h"
 
-int	env_remove(char *to_remove);
-int	export_isvalid(char *arg);
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
-int	arr_size(void **arr);
+int export_isvalid(char *str);
 
 int	ft_unset(char **arg)
 {

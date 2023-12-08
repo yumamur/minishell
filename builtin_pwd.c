@@ -1,10 +1,8 @@
-#include "builtin.h"
-#define PATH_MAX 1024
 #include <stdio.h>
 #include <unistd.h>
-#include "libft/libft.h"
+#include "error.h"
 
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
+#define PATH_MAX 1024
 
 int	ft_pwd(void)
 {

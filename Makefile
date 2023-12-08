@@ -4,21 +4,26 @@ CC			=	clang
 CFLAGS		=	-Wall -Werror -Wextra
 SANITIZER	=	-fsanitize=address
 
-SRC_ENV		=	env_util.c \
-				env_util_core.c \
-				getenv.c
 
-SRC_PT		=	pt_util.c \
+SRC_UTIL	=	env_util.c \
+				env_util_core.c \
+				getenv.c \
+				prompt.c \
+				pt_util.c \
 				pt_util_alloc.c
 
-SRC_EXEC	=	exec.c
+SRC_EXEC	=	execute.c
 #				exec_utils.c
 
 SRC_PARSE	=	str_wordtab.c
 
 SRC_SIGNAL	=	signal.c
 
-SRCS	= main.c $(SRC_SIGNAL) $(SRC_EXEC) $(SRC_PARSE) $(SRC_PT) $(SRC_ENV)
+SRCS		=	main.c \
+				$(SRC_SIGNAL) \
+				$(SRC_EXEC) \
+				$(SRC_PARSE) \
+				$(SRC_UTIL)
 
 OBJS	= $(patsubst %.c, obj/%.o, $(SRCS))
 
@@ -42,12 +47,12 @@ obj/%.o: %.c | create_objdir
 
 $(LIBFT):
 	@printf "Building libft\n"
-	@make -sC libft bonus
+	@make -sC libft bonus clean
 	@mv libft/libft.a .lib/
 
 $(LIBLPC):
 	@printf "Building liblpc\n"
-	@make -sC liblpc
+	@make -sC liblpc clean
 	@mv liblpc/liblpc.so .lib/
 
 ################################

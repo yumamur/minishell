@@ -2,7 +2,6 @@
 #include "typeft.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/_types/_null.h>
 
 void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 {

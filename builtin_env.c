@@ -1,10 +1,8 @@
-#include "builtin.h"
 #include <stdio.h>
 #include "libft/libft.h"
-
-void ***g_env(void);
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
-void	ft_free_2pt(char **arr);
+#include "env_util.h"
+#include "pt_util.h"
+#include "error.h"
 
 int	ft_env(void)
 {
@@ -21,6 +19,6 @@ int	ft_env(void)
 			ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
-	ft_free_2pt(env);
+	arr_free((void **)env);
 	return(0);
 }
