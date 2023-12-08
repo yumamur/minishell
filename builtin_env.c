@@ -4,6 +4,7 @@
 
 void ***g_env(void);
 int	errorer(char *command, char *detail, char *error_message, int error_nb);
+void	ft_free_2pt(char **arr);
 
 int	ft_env(void)
 {
@@ -20,5 +21,6 @@ int	ft_env(void)
 			ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
+	ft_free_2pt(env);
 	return(0);
 }
