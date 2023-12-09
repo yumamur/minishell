@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "libft/libft.h"
 #include "env_util.h"
-#include "pt_util.h"
 #include "error.h"
 
 int	ft_env(void)
@@ -19,6 +18,5 @@ int	ft_env(void)
 			ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
-	arr_free((void **)env);
 	return(0);
 }

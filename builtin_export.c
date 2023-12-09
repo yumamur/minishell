@@ -57,7 +57,6 @@ void	just_export(void)
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
-	arr_free((void **)env);
 }
 
 int ft_export(char **arg)
