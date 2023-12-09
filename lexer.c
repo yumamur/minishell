@@ -57,13 +57,13 @@ t_tokenzied_list	*lexer(t_c_char **words)
 			add_node(&tokended, words[i], REDIRECT_IN);
 		else if (words[i][0] == '>' && ft_strlen(words[i]) == 1)
 			add_node(&tokended, words[i], REDIRECT_OUT);
-		else if ((words[i][0] == '>') && words[i][1] == '>' && ft_strlen(words[i]) == 2)
+		else if (ft_strncmp(words[i], ">>", 2) && ft_strlen(words[i]) == 2)
 			add_node(&tokended, words[i], APPEND);
-		else if (words[i][0] == '<' && words[i][1] == '<' && ft_strlen(words[i]) == 2)
+		else if (ft_strncmp(words[i], "<<", 2) && ft_strlen(words[i]) == 2)
 			add_node(&tokended, words[i], HEREDOC);
-		else if (words[i][0] == '|' && words[i][1] == '|' && ft_strlen(words[i]) == 2)
+		else if (ft_strncmp(words[i], "||", 2) && ft_strlen(words[i]) == 2)
 			add_node(&tokended, words[i], OR);
-		else if (words[i][0] == '&' && words[i][1] == '&' && ft_strlen(words[i]) == 2)
+		else if (ft_strncmp(words[i], "&&", 2) && ft_strlen(words[i]) == 2)
 			add_node(&tokended, words[i], AND);
 		else
 			add_node(&tokended, words[i], WORD);
