@@ -1,12 +1,9 @@
-#include "libft/libft.h"
-#include "liblpc/typeft.h"
-#include "parse.h"
-#include "typeft.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-int	lpc_export(void *addr, ...);
-int	lpc_flush(void);
+#include "libft/libft.h"
+#include "liblpc/lpc.h"
+#include "lexer.h"
+#include "typeft.h"
 
 void	free_tokenized_list(t_tokenzied_list *head)
 {

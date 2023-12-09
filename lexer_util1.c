@@ -1,13 +1,29 @@
-#include "parse.h"
-#include "libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "lexer.h"
+#include "libft/libft.h"
 
-int is_seperator(t_c_char *strr);
-int is_seperator_in(t_c_char *str);
-int is_double_seperator_in(t_c_char *str);
-char	*ft_strsubdup(const char *s, size_t start, size_t end);
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
+char	*ft_strsubdup(const char *s, size_t start, size_t end)
+{
+	char	*dups;
+	size_t	len;
+	size_t	i;
+
+	if (!s || start > end)
+		return (NULL);
+	len = ft_strlen(s);
+	if (end > len)
+		end = len; 
+	len = end - start; 
+	dups = ft_calloc(len + 1, 1);
+	if (!dups)
+		return (NULL);
+	i = 0;
+	while (start < end)
+		dups[i++] = s[start++];
+	dups[i] = '\0'; 
+	return (dups);
+}
 
 int	parse_jump(t_c_char *cmd, int s_flag)
 {
