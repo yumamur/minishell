@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_wordtab.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 14:40:30 by muhcelik          #+#    #+#             */
+/*   Updated: 2023/12/14 14:49:19 by muhcelik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/resource.h>
@@ -6,7 +18,9 @@
 
 int	control(char *str)
 {
-	int i = 0;
+	int i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -93,72 +107,85 @@ static void	fixer(char	**str)
 	}
 }
 
-int is_special_char(char c)
+int	is_special_char(char c)
 {
-    return (c == '|' || c == '&' || c == '<' || c == '>');
+	return (c == '|' || c == '&' || c == '<' || c == '>');
 }
 
-int is_quote(char c)
+int	is_quote(char c)
 {
-    return (c == '\"' || c == '\'');
+	return (c == '\"' || c == '\'');
 }
 
-char *create_new_str(const char *str)
+char	*create_new_str(const char *str)
 {
-    int len = 0;
-    int i = 0;
-    int in_quote = 0;
+	int	len;
+	int	i;
+	int	in_quote;
 
-    while (str[i])
-    {
-        if (is_quote(str[i]))
-            in_quote = !in_quote;
-        if (!in_quote && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') ||
-            (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
-            len += 3;
-        else if (!in_quote && is_special_char(str[i]))
-            len += 2;
-        else
-            len++;
-        i++;
-    }
-    return (malloc(sizeof(char) * (len + 1)));
+	len = 0;
+	i = 0;
+	in_quote = 0;
+	while (str[i])
+	{
+		if (is_quote(str[i]))
+			in_quote = !in_quote;
+		if (!in_quote && ((str[i] == '|' && str[i + 1] == '|')
+				|| (str[i] == '&' && str[i + 1] == '&')
+				|| (str[i] == '<' && str[i + 1] == '<')
+				|| (str[i] == '>' && str[i + 1] == '>')))
+			len += 3;
+		else if (!in_quote && is_special_char(str[i]))
+			len += 2;
+		else
+			len++;
+		i++;
+	}
+	return (malloc(sizeof(char) * (len + 1)));
 }
 
-char *add_spaces(const char *str)
+char	*add_spaces(const char *str)
 {
-    char *new_str = create_new_str(str);
-    int i = 0, j = 0, in_quote = 0;
+	char	*new_str;
+	int		i;
+	int		j;
+	int		in_quote;
 
-    if (!new_str)
-        return (NULL);
-    while (str[i])
-    {
-        if (is_quote(str[i]))
-            in_quote = !in_quote;
-        if (!in_quote && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') ||
-            (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
-        {
-            if (i > 0 && str[i - 1] != ' ')
-                new_str[j++] = ' ';
-            new_str[j++] = str[i++];
-            new_str[j++] = str[i++];
-            if (str[i] != ' ' && str[i] != '\0')
-                new_str[j++] = ' ';
-        }
-        else if (!in_quote && is_special_char(str[i]))
-        {
-            if (i > 0 && str[i - 1] != ' ')
-                new_str[j++] = ' ';
-            new_str[j++] = str[i++];
-            if (str[i] != ' ' && str[i] != '\0' && !is_special_char(str[i]))
-                new_str[j++] = ' ';
-        }
-        else
-            new_str[j++] = str[i++];
-    }
-    new_str[j] = '\0';
-    return (new_str);
+	i = 0;
+	j = 0;
+	in_quote = 0;
+	new_str = create_new_str(str);
+	if (!new_str)
+		return (NULL);
+	while (str[i])
+	{
+		if (is_quote(str[i]))
+			in_quote = !in_quote;
+		if (!in_quote && ((str[i] == '|' && str[i + 1] == '|')
+				|| (str[i] == '&' && str[i + 1] == '&')
+				|| (str[i] == '<' && str[i + 1] == '<')
+				|| (str[i] == '>' && str[i + 1] == '>')))
+		{
+			if (i > 0 && str[i - 1] != ' ')
+				new_str[j++] = ' ';
+			new_str[j++] = str[i++];
+			new_str[j++] = str[i++];
+			if (str[i] != ' ' && str[i] != '\0')
+				new_str[j++] = ' ';
+		}
+		else if (!in_quote && is_special_char(str[i]))
+		{
+			if (i > 0 && str[i - 1] != ' ')
+				new_str[j++] = ' ';
+			new_str[j++] = str[i++];
+			if (str[i] != ' ' && str[i] != '\0' && !is_special_char(str[i]))
+				new_str[j++] = ' ';
+		}
+		else
+			new_str[j++] = str[i++];
+	}
+	new_str[j] = '\0';
+	return (new_str);
 }
 
 
@@ -173,7 +200,7 @@ char	**ft_str_wordtab(char *str)
 	{
 		ft_putendl_fd("minishell : parse error", STDOUT_FILENO);
 		return (0);
-	}	
+	}
 	ret = malloc(++ct_word * sizeof(char *));
 	if (!ret)
 		return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/14 14:28:21 by muhcelik          #+#    #+#             */
+/*   Updated: 2023/12/14 14:28:22 by muhcelik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 
 int	arg_counter(char **arg)
@@ -7,7 +19,7 @@ int	arg_counter(char **arg)
 	i = 0;
 	while (arg[i] != NULL)
 		i++;
-	return(i);
+	return (i);
 }
 
 int	ft_echo(char **arg)
@@ -26,7 +38,7 @@ int	ft_echo(char **arg)
 			n_flag = 1;
 			i = 1;
 		}
-		while(arg[i])
+		while (arg[i])
 		{
 			ft_putstr_fd(arg[i], STDOUT_FILENO);
 			if (arg[i + 1] && arg[i][0] != '\0')
