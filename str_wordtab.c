@@ -93,11 +93,81 @@ static void	fixer(char	**str)
 	}
 }
 
+int is_special_char(char c)
+{
+    return (c == '|' || c == '&' || c == '<' || c == '>');
+}
+
+int is_quote(char c)
+{
+    return (c == '\"' || c == '\'');
+}
+
+char *create_new_str(const char *str)
+{
+    int len = 0;
+    int i = 0;
+    int in_quote = 0;
+
+    while (str[i])
+    {
+        if (is_quote(str[i]))
+            in_quote = !in_quote;
+        if (!in_quote && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') ||
+            (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
+            len += 3;
+        else if (!in_quote && is_special_char(str[i]))
+            len += 2;
+        else
+            len++;
+        i++;
+    }
+    return (malloc(sizeof(char) * (len + 1)));
+}
+
+char *add_spaces(const char *str)
+{
+    char *new_str = create_new_str(str);
+    int i = 0, j = 0, in_quote = 0;
+
+    if (!new_str)
+        return (NULL);
+    while (str[i])
+    {
+        if (is_quote(str[i]))
+            in_quote = !in_quote;
+        if (!in_quote && ((str[i] == '|' && str[i + 1] == '|') || (str[i] == '&' && str[i + 1] == '&') ||
+            (str[i] == '<' && str[i + 1] == '<') || (str[i] == '>' && str[i + 1] == '>')))
+        {
+            if (i > 0 && str[i - 1] != ' ')
+                new_str[j++] = ' ';
+            new_str[j++] = str[i++];
+            new_str[j++] = str[i++];
+            if (str[i] != ' ' && str[i] != '\0')
+                new_str[j++] = ' ';
+        }
+        else if (!in_quote && is_special_char(str[i]))
+        {
+            if (i > 0 && str[i - 1] != ' ')
+                new_str[j++] = ' ';
+            new_str[j++] = str[i++];
+            if (str[i] != ' ' && str[i] != '\0' && !is_special_char(str[i]))
+                new_str[j++] = ' ';
+        }
+        else
+            new_str[j++] = str[i++];
+    }
+    new_str[j] = '\0';
+    return (new_str);
+}
+
+
 char	**ft_str_wordtab(char *str)
 {
 	char	**ret;
 	int		ct_word;
 
+	str = add_spaces(str);
 	ct_word = count_words(str);
 	if (ct_word == 0)
 	{
