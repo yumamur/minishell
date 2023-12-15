@@ -63,7 +63,7 @@ int	env_remove(char *to_remove)
 	var = (void *)ft_getenv(to_remove);
 	if (!var)
 		return (-1);
-	var -= ft_strlen(to_remove) - 1;
+	var -= ft_strlen(to_remove) + 1;
 	arr_discard_n((void **)env, arr_index((void **)env, var));
 	free(var);
 	return (0);
