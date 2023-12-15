@@ -16,10 +16,16 @@ int	arr_index(void **arr, void *to_find)
 
 	if (!arr)
 		return (-1);
+	else if (!to_find)
+		return (arr_size(arr));
 	i = 0;
-	while (arr[i] != to_find)
+	while (arr[i])
+	{
+		if (arr[i] == to_find)
+			return (i);
 		++i;
-	return (i);
+	}
+	return (-1);
 }
 
 int	arr_discard_n(void **arr, int n)
