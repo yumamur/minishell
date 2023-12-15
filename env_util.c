@@ -62,7 +62,7 @@ int	env_remove(char *to_remove)
 	if (!var)
 		return (-1);
 	var -= ft_strlen(to_remove) + 1;
-	arr_discard_n(*g_env(), arr_index(*g_env(), var));
 	free(var);
+	arr_discard_n(*g_env(), arr_index(*g_env(), var));
 	return (0);
 }

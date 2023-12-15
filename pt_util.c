@@ -40,6 +40,6 @@ int	arr_discard_n(void **arr, int n)
 		arr[n] = arr[n + 1];
 		++n;
 	}
-	arr[arr_size(arr) - 1] = (void *)0;
+	arr[size - 1] = (void *)0;
 	return (0);
 }

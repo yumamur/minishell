@@ -39,9 +39,7 @@ void __attribute__((malloc))
 	void	**ret;
 	int		len;
 
-	len = 0;
-	while (arr[len])
-		++len;
+	len = arr_size(arr);
 	ret = malloc((len + to_add + 1) * sizeof(void *));
 	if (!ret)
 		return (NULL);
@@ -73,7 +71,7 @@ char __attribute__((malloc))
 		ret[i] = ft_strdup(arr[i]);
 		if (!ret[i])
 		{
-			arr_free((void **)arr);
+			arr_free((void **)ret);
 			return (NULL);
 		}
 		++i;
