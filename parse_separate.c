@@ -28,14 +28,14 @@ t_list	*extract_cmd_until_pipe(t_tokenzied_list **tkn_list)
 	return (head);
 }
 
-t_list	*separate_by_pipe(t_tokenzied_list **tkn_list)
+t_list	*separate_by_pipe(t_tokenzied_list *tkn_list)
 {
 	t_list				*separated_tokens;
 	t_tokenzied_list	*lst;
 
-	if (!*tkn_list)
+	if (!tkn_list)
 		return (NULL);
-	lst = *tkn_list;
+	lst = tkn_list;
 	while (lst)
 	{
 		ft_lstadd_back(&separated_tokens,
