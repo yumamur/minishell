@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:23:09 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/14 14:27:50 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:59:12 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	chg_dir(char *path)
 	char	*ret;
 	char	pwd[PATH_MAX];
 	char	*oldpwd;
+	char	*ret_tmp;
 
 	oldpwd = getcwd(pwd, PATH_MAX);
 	if (chdir(path) != 0)
@@ -34,15 +35,19 @@ int	chg_dir(char *path)
 		ret = ft_strdup(path);
 	}
 	else
+	{
+		free(ret);
 		ret = ft_strdup(pwd);
-	ret = ft_strjoin("PWD=", ret);
+	}
+	ret_tmp = ft_strjoin("PWD=", ret);
 	oldpwd = ft_strjoin("OLDPWD=", oldpwd);
 	env_remove("PWD");
-	env_add(ret);
+	env_add(ret_tmp);
 	env_remove("OLDPWD");
 	env_add(oldpwd);
 	free(ret);
 	free(oldpwd);
+	free(ret_tmp);
 	return (0);
 }
 
