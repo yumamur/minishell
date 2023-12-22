@@ -6,7 +6,11 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:37:43 by muhcelik          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/12/21 16:03:57 by muhcelik         ###   ########.fr       */
+=======
+/*   Updated: 2023/12/22 14:47:49 by muhcelik         ###   ########.fr       */
+>>>>>>> aeae1d8aa289aab31e9277a739319e9b1073805a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +102,7 @@ t_tokenzied_list	*lexer(t_c_char **words)
 	return (tokended);
 }
 
+<<<<<<< HEAD
 int	main()
 {
 	t_c_char **ret;
@@ -119,3 +124,26 @@ int	main()
 	system("leaks test");
 
 }
+=======
+// int	main()
+// {
+// 	t_c_char **ret;
+// 	char *arg = ft_strdup("taha \"bjk |talisca>q7\" echo | once a>a<a<a<a<aa<a<a<a<aa<a<a<a<a<a<a<a<a<a<a<<a<a<a<a<a<a<a<a<a<a<a<a<a<a |sonra celik|cat<1|grep taha | cat|deneme|");
+// 	ret = (t_c_char **)ft_str_wordtab(arg);
+// 	// int	i = 0;
+// 	// while (ret[i])
+// 	// {
+// 	// 	printf("%s\n", ret[i]);
+// 	// 	i++;
+// 	// }
+
+// 	t_tokenzied_list *tokended;
+// 	//  = malloc(sizeof(t_tokenzied_list *));
+// 	tokended = lexer(ret);
+
+// 	printer_list(tokended);
+// 	// free(tokended);
+// 	system("leaks girdi");
+
+// }
+>>>>>>> aeae1d8aa289aab31e9277a739319e9b1073805a

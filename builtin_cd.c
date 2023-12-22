@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:23:09 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/21 16:05:30 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/22 15:37:16 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ int	chg_dir(char *path)
 	if (!ret)
 		return (errorer("cd", path,
 				"getcwd : error retrieving current directory", EXIT_FAILURE));
-	//free(ret);
-	ret = ft_strdup(pwd);
-	ret_tmp = ft_strjoin("PWD=", ret);
+		ret = ft_strdup(path);
+	}
+	else
+		ret = ft_strdup(pwd);
+	ret = ft_strjoin("PWD=", ret);
 	oldpwd = ft_strjoin("OLDPWD=", oldpwd);
 	env_remove("PWD");
 	env_add(ret_tmp);
 	env_remove("OLDPWD");
 	env_add(oldpwd);
-	return (free(ret), free(oldpwd), free(ret_tmp), 0);
+	free(ret);
+	free(oldpwd);
+	return (0);
 }
 
 int	ft_cd(char *arg)
