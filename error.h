@@ -13,9 +13,12 @@
 #ifndef	ERROR_H
 # define ERROR_H
 
-// # define EXIT_SUCCESS 0x00
-// # define EXIT_FAILURE 0xff
+# define MSH_ECD "cd: "
+# define MSH_EPWD "pwd: "
 
-int	errorer(char *command, char *detail, char *error_message, int error_nb);
+int /*__attribute__((deprecated("this is deprecated", "error_handler()")))*/
+	errorer(char *command, char *detail, char *error_message, int error_nb);
+
+void	error_handler(char errmsg[]);
 
 #endif
