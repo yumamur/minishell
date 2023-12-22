@@ -13,35 +13,11 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/_types/_null.h>
 #include "libft/libft.h"
 #include "liblpc/lpc.h"
 #include "lexer.h"
 #include "msh_structs.h"
 #include "typeft.h"
-
-void	printer_list(t_tokenzied_list *tokended)
-{
-	while (tokended)
-	{
-		printf("str   :   %s    token   :  %d\n",
-			tokended->str, tokended->token);
-		tokended = tokended->next;
-	}
-}
-
-void	free_tokenized_list(t_tokenzied_list *head)
-{
-	t_tokenzied_list	*tmp;
-
-	while (head != NULL)
-	{
-		tmp = head;
-		head = head->next;
-		free((char *)tmp->str);
-		free(tmp);
-	}
-}
 
 void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 {
@@ -63,7 +39,7 @@ void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 			tmp = tmp->next;
 		tmp->next = new_node;
 	}
-	//lpc_export(new_node, free_tokenized_list, NULL);
+	lpc_export(new_node, NULL);
 }
 
 t_tokenzied_list	*lexer(t_c_char **words)
@@ -93,29 +69,5 @@ t_tokenzied_list	*lexer(t_c_char **words)
 			add_node(&tokended, words[i], WORD);
 		i++;
 	}
-	//lpc_flush();
-
 	return (tokended);
 }
-
-// int	main()
-// {
-// 	t_c_char **ret;
-// 	char *arg = ft_strdup("taha \"bjk |talisca>q7\" echo | once a>a<a<a<a<aa<a<a<a<aa<a<a<a<a<a<a<a<a<a<a<<a<a<a<a<a<a<a<a<a<a<a<a<a<a |sonra celik|cat<1|grep taha | cat|deneme|");
-// 	ret = (t_c_char **)ft_str_wordtab(arg);
-// 	// int	i = 0;
-// 	// while (ret[i])
-// 	// {
-// 	// 	printf("%s\n", ret[i]);
-// 	// 	i++;
-// 	// }
-
-// 	t_tokenzied_list *tokended;
-// 	//  = malloc(sizeof(t_tokenzied_list *));
-// 	tokended = lexer(ret);
-
-// 	printer_list(tokended);
-// 	// free(tokended);
-// 	system("leaks girdi");
-
-// }
