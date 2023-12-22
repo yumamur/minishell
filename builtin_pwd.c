@@ -13,18 +13,18 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "error.h"
-#include "libft/libft.h"
 
 #define PATH_MAX 1024
 
 int	ft_pwd(void)
 {
+	char	*ptr;
 	char	pwd[PATH_MAX];
 
-	if (getcwd(pwd, PATH_MAX) != 0)
+	ptr = getcwd(pwd, PATH_MAX);
+	if (!ptr)
 		printf("%s\n", pwd);
 	else
-		return (errorer("pwd", pwd, "access denied for current directory",
-				EXIT_FAILURE));
+		return (error_handler("pwd error"));
 	return (0);
 }

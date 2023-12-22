@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft/libft.h"
 #include "env_util.h"
 #include "error.h"
@@ -23,7 +22,7 @@ int	ft_env(void)
 	i = 0;
 	env = (char **)*g_env();
 	if (!env)
-		return (errorer("env", "dont have env.", NULL, EXIT_FAILURE));
+		return (error_handler("environment table is not set"));
 	while (env[i])
 	{
 		if (ft_strchr(env[i], '='))

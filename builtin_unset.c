@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "env_util.h"
 #include "pt_util.h"
 #include "error.h"
@@ -28,12 +27,11 @@ int	ft_unset(char **arg)
 		{
 			if (export_isvalid(arg[i]))
 				if (env_remove(arg[i]) == -1)
-					return (errorer("unset", arg[i],
-							"env cant found", EXIT_FAILURE));
+					return (error_handler("not a valid identifier"));
 			i++;
 		}
 	}
 	else
-		return (errorer("unset", "wrong argument count", NULL, EXIT_FAILURE));
+		return (error_handler("wrong argument count"));
 	return (0);
 }

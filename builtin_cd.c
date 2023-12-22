@@ -10,38 +10,60 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <unistd.h>
 #include "env_util.h"
-#include "error.h"
 #include "libft/libft.h"
-#include <stdio.h>
+#include "error.h"
 
 #define PATH_MAX 1024
 
+int	change_env_var(char env_name[], const char *new_value)
+{
+	char	*buf;
+	char	*var;
+
+	buf = ft_strjoin(env_name, "=");
+	if (!buf)
+		return (-1);
+	var = ft_strjoin(buf, new_value);
+	if (!var)
+	{
+		free(buf);
+		return (-1);
+	}
+	free(buf);
+	env_remove(env_name);
+	env_add(var);
+	free(var);
+	return (0);
+}
+
 int	chg_dir(char *path)
 {
-	char	*ret;
 	char	pwd[PATH_MAX];
-	char	*oldpwd;
-	char	*ret_tmp;
+	char	*new_pwd;
+	char	*old_pwd;
+	int		ctl;
 
-	oldpwd = ft_strdup(getcwd(pwd, PATH_MAX));
-	if (chdir(path) != 0)
-		return (errorer("cd", path, "change directory failure", EXIT_FAILURE));
-	ret = getcwd(pwd, PATH_MAX);
-	if (!ret)
-		return (errorer("cd", path,
-				"getcwd : error retrieving current directory", EXIT_FAILURE));
-	//free(ret);
-	ret = ft_strdup(pwd);
-	ret_tmp = ft_strjoin("PWD=", ret);
-	oldpwd = ft_strjoin("OLDPWD=", oldpwd);
-	env_remove("PWD");
-	env_add(ret_tmp);
-	env_remove("OLDPWD");
-	env_add(oldpwd);
-	return (free(ret), free(oldpwd), free(ret_tmp), 0);
+	new_pwd = getcwd(pwd, PATH_MAX);
+	if (!new_pwd || chdir(path) != 0)
+	{
+		error_handler("chdir error");
+		return (-1);
+	}
+	old_pwd = ft_strdup(pwd);
+	new_pwd = getcwd(pwd, PATH_MAX);
+	if (!new_pwd)
+	{
+		free(old_pwd);
+		error_handler("getcwd error");
+		return (-1);
+	}
+	ctl = change_env_var("OLDPWD", old_pwd) + change_env_var("PWD", new_pwd);
+	free(old_pwd);
+	if (ctl)
+		return (-1);
+	return (0);
 }
 
 int	ft_cd(char *arg)
@@ -49,20 +71,20 @@ int	ft_cd(char *arg)
 	char	*path;
 
 	if (!arg || arg[0] == ' '
-		|| arg[0] == '\0' || ft_strncmp(arg, "--", 3) == 0)
+		|| arg[0] == '\0' || !ft_strncmp(arg, "--", 3))
 	{
 		path = (char *)ft_getenv("HOME");
 		if (!path || *path == '\0' || *path == ' ')
-			return (errorer("cd", 0, "HOME not set", EXIT_FAILURE));
+			return (error_handler("HOME is not set"));
 		if (chg_dir(path) != 0)
 			return (1);
 		return (0);
 	}
-	if (ft_strncmp(arg, "-", 2) == 0)
+	if (!ft_strncmp(arg, "-", 2))
 	{
 		path = (char *)ft_getenv("OLDPWD");
 		if (!path)
-			return (errorer("cd", 0, "OLDPWD not set", EXIT_FAILURE));
+			return (error_handler("OLDPWD is not set"));
 		if (chg_dir(path) != 0)
 			return (1);
 		return (0);
@@ -70,32 +92,4 @@ int	ft_cd(char *arg)
 	if (chg_dir(arg) != 0)
 		return (1);
 	return (0);
-}
-
-#include "builtin.h"
-#include "libft/libft.h"
-
-int main(int argc, char *argv[], char *env[])
-{
-	(void)argv;
-	(void)argc;
-	env[0] = ft_strdup("VAR1=val1");
-	env[1] = ft_strdup("VAR2=val1");
-	env[2] = ft_strdup("HOME=/home/hohhoh");
-	env[3] = ft_strdup("PWD=/home/hohhoh/Desktop/minishell");
-	env[4] = ft_strdup("OLDPWD=");
-	env[5] = ft_strdup("VAR3=val3");
-	env[6] = ft_strdup("VAR4=val4");
-	env[7] = ft_strdup("VAR5=val5");
-	env[8] = ft_strdup("VAR6=val6");
-	env[9] = ft_strdup("VAR7=val7");
-	env[10] = 0;
-	env_init(env);
-	for (int i = 0; i < 10; ++i) free(env[i]);
-	ft_env();
-	printf("\n\n##############\n\n");
-	ft_cd("..");
-	ft_env();
-	env_deinit();
-	system("leaks ")
 }

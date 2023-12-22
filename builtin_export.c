@@ -46,14 +46,13 @@ int	export_isvalid(char *str)
 
 	i = 0;
 	if (ft_isdigit(str[0]))
-		return (errorer("export", str, "not a valid identifier", EXIT_FAILURE));
+		return (error_handler("not a valid identifier"));
 	while (str[i] && str[i] != '=')
 	{
 		if (ft_isalnum(str[i]) || str[i] == '_')
 			i++;
 		else
-			return (errorer("export", str,
-					"not a valid identifier", EXIT_FAILURE));
+			return (error_handler("not a valid identifier"));
 	}
 	return (1);
 }
@@ -78,19 +77,15 @@ int	ft_export(char **arg)
 
 	i = 0;
 	if (!*g_env())
-		return (errorer("export", "environment table does not exist",
-				NULL, EXIT_FAILURE));
+		return (error_handler("environment table does not exist"));
 	if (!arg)
 		just_export();
 	else
 	{
 		while (i < arr_size((void **)arg))
 		{
-			if (export_isvalid(arg[i]))
-			{
-				if (!export_repeat_check(arg[i]))
-					env_add (arg[i]);
-			}
+			if (export_isvalid(arg[i]) && !export_repeat_check(arg[i]))
+				env_add(arg[i]);
 			else
 			{
 				ft_putstr_fd("export: not a valid identifier", 2);
