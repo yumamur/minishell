@@ -22,6 +22,8 @@ int	export_repeat_check(char *str)
 
 	i = 0;
 	tmp = ft_strdup(str);
+	if (!tmp)
+		return (-1);
 	while (str[i] != '=')
 		i++;
 	while (str[i])
@@ -46,13 +48,13 @@ int	export_isvalid(char *str)
 
 	i = 0;
 	if (ft_isdigit(str[0]))
-		return (error_handler("not a valid identifier"));
+		return (error_handler("not a valid identifier", 0));
 	while (str[i] && str[i] != '=')
 	{
 		if (ft_isalnum(str[i]) || str[i] == '_')
 			i++;
 		else
-			return (error_handler("not a valid identifier"));
+			return (error_handler("not a valid identifier", 0));
 	}
 	return (1);
 }
@@ -77,7 +79,7 @@ int	ft_export(char **arg)
 
 	i = 0;
 	if (!*g_env())
-		return (error_handler("environment table does not exist"));
+		return (error_handler("environment table does not exist", 1));
 	if (!arg)
 		just_export();
 	else

@@ -25,6 +25,6 @@ int	ft_pwd(void)
 	if (!ptr)
 		printf("%s\n", pwd);
 	else
-		return (error_handler("pwd error"));
+		return (error_handler("pwd error", 1));
 	return (0);
 }

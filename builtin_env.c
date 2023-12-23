@@ -22,7 +22,7 @@ int	ft_env(void)
 	i = 0;
 	env = (char **)*g_env();
 	if (!env)
-		return (error_handler("environment table is not set"));
+		return (error_handler("environment table is not set", 0));
 	while (env[i])
 	{
 		if (ft_strchr(env[i], '='))

@@ -27,11 +27,11 @@ int	ft_unset(char **arg)
 		{
 			if (export_isvalid(arg[i]))
 				if (env_remove(arg[i]) == -1)
-					return (error_handler("not a valid identifier"));
+					return (error_handler("not a valid identifier", 0));
 			i++;
 		}
 	}
 	else
-		return (error_handler("wrong argument count"));
+		return (error_handler("wrong argument count", 0));
 	return (0);
 }

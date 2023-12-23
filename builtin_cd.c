@@ -48,7 +48,7 @@ int	chg_dir(char *path)
 	new_pwd = getcwd(pwd, PATH_MAX);
 	if (!new_pwd || chdir(path) != 0)
 	{
-		error_handler("chdir error");
+		error_handler("chdir error", 1);
 		return (-1);
 	}
 	old_pwd = ft_strdup(pwd);
@@ -56,7 +56,7 @@ int	chg_dir(char *path)
 	if (!new_pwd)
 	{
 		free(old_pwd);
-		error_handler("getcwd error");
+		error_handler("getcwd error", 1);
 		return (-1);
 	}
 	ctl = change_env_var("OLDPWD", old_pwd) + change_env_var("PWD", new_pwd);
@@ -75,7 +75,7 @@ int	ft_cd(char *arg)
 	{
 		path = (char *)ft_getenv("HOME");
 		if (!path || *path == '\0' || *path == ' ')
-			return (error_handler("HOME is not set"));
+			return (error_handler("HOME is not set", 0));
 		if (chg_dir(path) != 0)
 			return (1);
 		return (0);
@@ -84,7 +84,7 @@ int	ft_cd(char *arg)
 	{
 		path = (char *)ft_getenv("OLDPWD");
 		if (!path)
-			return (error_handler("OLDPWD is not set"));
+			return (error_handler("OLDPWD is not set", 0));
 		if (chg_dir(path) != 0)
 			return (1);
 		return (0);
