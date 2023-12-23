@@ -2,7 +2,7 @@
 #include "pt_util.h"
 
 const char	*ft_getenv(const char *name);
-void 		***g_env(void);
+void		***g_env(void);
 
 // int	is_sorted(void)
 // {

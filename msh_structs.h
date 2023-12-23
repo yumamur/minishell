@@ -14,13 +14,18 @@ typedef enum e_token
 	APPEND,
 	HEREDOC,
 	OR,
-	AND
+	AND,
+	FILE_IN,
+	FILE_OUT,
+	FILE_APPEND,
+	EOF_HEREDOC,
+	INVALID
 }	t_token;
 
 typedef struct s_tokenized
 {
-	t_c_char	*str;
-	t_token		token;
+	char	*str;
+	t_token	token;
 }	t_tokenized;
 
 typedef struct s_tokenized_list

@@ -48,8 +48,8 @@ t_tokenzied_list	*lexer(t_c_char **words)
 	int					i;
 
 	tokended = NULL;
-	i = 0;
-	while (words[i])
+	i = -1;
+	while (words[++i])
 	{
 		if (words[i][0] == '|' && ft_strlen(words[i]) == 1)
 			add_node(&tokended, words[i], PIPE);
@@ -67,7 +67,6 @@ t_tokenzied_list	*lexer(t_c_char **words)
 			add_node(&tokended, words[i], AND);
 		else
 			add_node(&tokended, words[i], WORD);
-		i++;
 	}
 	return (tokended);
 }

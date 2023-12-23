@@ -1,5 +1,5 @@
-#ifndef MSH_ENV_H
-# define MSH_ENV_H
+#ifndef ENV_UTIL_H
+# define ENV_UTIL_H
 
 char *const	**g_env(void);
 int			env_init(char **data);

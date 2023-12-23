@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "pt_util.h"
 
-void ***g_env(void)
+void	***g_env(void)
 {
 	static void	**env;
 

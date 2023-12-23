@@ -108,8 +108,6 @@ static void	fixer(char	**str)
 	}
 }
 
-
-
 char	**ft_str_wordtab(char *str)
 {
 	char	**ret;
@@ -118,12 +116,9 @@ char	**ft_str_wordtab(char *str)
 
 	s[0] = add_spaces(str);
 	ct_word = count_words(s[0]);
+	if (!ct_word)
+		return (NULL);
 	s[1] = s[0];
-	if (ct_word == 0)
-	{
-		ft_putendl_fd("minishell : parse error", STDOUT_FILENO);
-		return (0);
-	}
 	ret = malloc(++ct_word * sizeof(char *));
 	if (!ret)
 		return (0);
