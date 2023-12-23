@@ -1,5 +1,5 @@
 #include "libft/libft.h"
-#include "liblpc/lpc.h"
+#include "lpc.h"
 #include "msh_structs.h"
 
 t_tokenized	*copy_token(t_tokenized obj)

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/resource.h>
 #include <unistd.h>
@@ -115,10 +114,11 @@ char	**ft_str_wordtab(char *str)
 {
 	char	**ret;
 	int		ct_word;
-	char	*s;
+	char	*s[2];
 
-	s = add_spaces(str);
-	ct_word = count_words(s);
+	s[0] = add_spaces(str);
+	ct_word = count_words(s[0]);
+	s[1] = s[0];
 	if (ct_word == 0)
 	{
 		ft_putendl_fd("minishell : parse error", STDOUT_FILENO);
@@ -128,14 +128,14 @@ char	**ft_str_wordtab(char *str)
 	if (!ret)
 		return (0);
 	ct_word = 0;
-	while (*s)
+	while (*(s[0]))
 	{
-		while ((*s == '\t' || *s == ' '))
-			*s++ = 0;
-		if (*s)
-			ret[ct_word++] = s;
-		while (*s && *s != '\t' && *s != ' ')
-			++s;
+		while ((*(s[0]) == '\t' || *(s[0]) == ' '))
+			*(s[0])++ = 0;
+		if (*(s[0]))
+			ret[ct_word++] = s[0];
+		while (*(s[0]) && *(s[0]) != '\t' && *(s[0]) != ' ')
+			++(s[0]);
 	}
 	ret[ct_word] = 0;
 	fixer(ret);

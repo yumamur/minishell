@@ -7,6 +7,7 @@ SANITIZER	=	-fsanitize=address
 
 SRC_UTIL	=	env_util.c \
 				env_util_core.c \
+				error_handler.c \
 				getenv.c \
 				prompt.c \
 				pt_util.c \
@@ -15,24 +16,40 @@ SRC_UTIL	=	env_util.c \
 SRC_EXEC	=	execute.c
 #				exec_utils.c
 
-SRC_PARSE	=	str_wordtab.c
+SRC_PARSE	=	lexer.c \
+				parse.c \
+				parse_validate.c \
+				parse_separate.c \
+				parse_redirection_files.c \
+				str_wordtab.c \
+				str_wordtab_util.c
 
 SRC_SIGNAL	=	signal.c
+
+LPC			=	lpc_export.c \
+				lpc_flush.c \
+				lpc_int_addr.c \
+				lpc_int_constructor.c \
+				lpc_int_destroyer.c \
+				lpc_int_errmsg.c \
+				lpc_int_load.c \
+				lpc_int_storage.c
+
 
 SRCS		=	main.c \
 				$(SRC_SIGNAL) \
 				$(SRC_EXEC) \
 				$(SRC_PARSE) \
-				$(SRC_UTIL)
+				$(SRC_UTIL) \
+				$(LPC)
 
 OBJS	= $(patsubst %.c, obj/%.o, $(SRCS))
 
 LIBFT		= .lib/libft.a
-LIBLPC		= .lib/liblpc.so
 LIBREADLINE	= .lib/libreadline.a
 LIBHISTORY	= .lib/libhistory.a
 
-LIBS		= -lcurses $(LIBFT) $(LIBLPC) $(LIBREADLINE) $(LIBHISTORY)
+LIBS		= -lcurses $(LIBFT) $(LIBREADLINE) $(LIBHISTORY)
 
 .PHONY = all create_objdir clean fclean re
 
@@ -49,11 +66,6 @@ $(LIBFT):
 	@printf "Building libft\n"
 	@make -sC libft bonus clean
 	@mv libft/libft.a .lib/
-
-$(LIBLPC):
-	@printf "Building liblpc\n"
-	@make -sC liblpc clean
-	@mv liblpc/liblpc.so .lib/
 
 ################################
 #                              #
@@ -88,7 +100,6 @@ clean:
 fclean:
 	@rm -rf obj/ $(NAME) $(LIBFT)
 	@make -sC libft fclean
-	@make -sC liblpc fclean
 
 re: fclean all
 

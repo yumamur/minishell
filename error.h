@@ -16,9 +16,9 @@
 # define MSH_ECD "cd: "
 # define MSH_EPWD "pwd: "
 
-int /*__attribute__((deprecated("this is deprecated", "error_handler()")))*/
+int __attribute__((deprecated("this is deprecated", "error_handler()")))
 	errorer(char *command, char *detail, char *error_message, int error_nb);
 
-void	error_handler(char errmsg[]);
+int	error_handler(char errmsg[]);
 
 #endif

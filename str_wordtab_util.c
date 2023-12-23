@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "lpc.h"
 #include <stdlib.h>
 
 int	is_special_or_quote(char c, int q_s)
@@ -62,6 +63,7 @@ char	*str_update(const char *str, int in_quote, int i, int j)
 	char *new_str;
 
 	new_str = malloc(create_new_str(str));
+	lpc_export(new_str, NULL);
 	while (str[i])
 	{
 		if (is_special_or_quote(str[i], 0))

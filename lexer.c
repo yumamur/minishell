@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft/libft.h"
-#include "liblpc/lpc.h"
+#include "lpc.h"
 #include "lexer.h"
 #include "msh_structs.h"
 #include "typeft.h"
