@@ -8,6 +8,7 @@ int		is_syntax_valid(t_tokenzied_list *lst);
 t_list	*separate_by_pipe(t_tokenzied_list *tkn_list);
 void	create_redirection_files(void *inner_list);
 void	validate_cmds(void *inner_list);
+int		is_cmds_valid(t_list *head);
 
 void	free_parse(t_list *parsed)
 {
@@ -31,7 +32,7 @@ t_list	*parse(char *input)
 	tab = ft_str_wordtab(input);
 	lex = lexer((const char **)tab);
 	free(tab);
-	if (is_syntax_valid(lex))
+	if (!is_syntax_valid(lex))
 	{
 		error_handler("syntax is invalid", 0);
 		return (NULL);
@@ -39,5 +40,10 @@ t_list	*parse(char *input)
 	cmds = separate_by_pipe(lex);
 	ft_lstiter(cmds, validate_cmds);
 	ft_lstiter(cmds, create_redirection_files);
+	if (!is_cmds_valid(cmds))
+	{
+		free_parse(cmds);
+		return (NULL);
+	}
 	return (cmds);
 }

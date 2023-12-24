@@ -3,23 +3,26 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define CMD_PROMT "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m"
+volatile sig_atomic_t	g_signum;
 
-extern volatile sig_atomic_t	g_signum;
+void	signum_assign(int sig)
+{
+	g_signum = sig;
+}
 
 void	sighandler(int sig)
 {
 	g_signum = sig;
 	if (g_signum == SIGCONT || g_signum == SIGQUIT)
 	{
+		write(1, "\n", 1);
 		rl_on_new_line();
-		write(ttyslot(), CMD_PROMT, sizeof(CMD_PROMT));
 		rl_redisplay();
 	}
 	if (g_signum == SIGINT)
 	{
 		rl_replace_line("", 1);
-		write(ttyslot(), "\n"CMD_PROMT, sizeof(CMD_PROMT) + 1);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -31,7 +34,7 @@ int	set_sighandler(void)
 	struct sigaction	sigint;
 
 	sigint = (struct sigaction){};
-	sigint.sa_handler = sighandler;
+	sigint.sa_handler = signum_assign;
 	if (sigaddset(&sigint.sa_mask, SIGINT)
 		|| sigaddset(&sigint.sa_mask, SIGQUIT)
 		|| sigaddset(&sigint.sa_mask, SIGCONT))
