@@ -67,11 +67,12 @@ void	validate_cmds(t_list *head)
 {
 	t_tokenized	*ptr;
 
-	ptr = head->content;
-	while (ptr)
+	while (head)
 	{
-		if (ptr->token == WORD && ptr->str[0] != '\'' && ptr->str[0] != '"')
+		ptr = head->content;
+		if (ptr->token == WORD)
 			return ;
+		head = head->next;
 	}
 	ptr = head->content;
 	ptr->token = INVALID;
