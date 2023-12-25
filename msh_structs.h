@@ -27,6 +27,7 @@ typedef enum e_token
 	HEREDOC,
 	OR,
 	AND,
+	CMD,
 	FILE_IN,
 	FILE_OUT,
 	FILE_APPEND,

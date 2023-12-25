@@ -13,8 +13,8 @@ SRC_UTIL	=	env_util.c \
 				pt_util.c \
 				pt_util_alloc.c
 
-SRC_EXEC	=	execute.c
-#				exec_utils.c
+SRC_EXEC	=	execute.c \
+				execute_util.c
 
 SRC_PARSE	=	lexer.c \
 				parse.c \
@@ -37,6 +37,8 @@ LPC			=	lpc_export.c \
 
 
 SRCS		=	main.c \
+				constructor.c \
+				destructor.c \
 				$(SRC_SIGNAL) \
 				$(SRC_EXEC) \
 				$(SRC_PARSE) \

@@ -16,27 +16,6 @@
 const char	*ft_getenv(const char *name);
 void		***g_env(void);
 
-// int	is_sorted(void)
-// {
-// 	short	**ptr;
-
-// 	ptr = (short **)*g_env();
-// 	while (*ptr)
-// 	{
-// 	}
-// 	return (0);
-// }
-
-// static void	env_sort(void)
-// {
-// 	char	**ptr;
-
-// 	while (is_sorted())
-// 	{
-
-// 	}
-// }
-
 int	env_init(void **data)
 {
 	static int	initialized;
@@ -47,6 +26,20 @@ int	env_init(void **data)
 	if (!*g_env())
 		return (-1);
 	initialized = -1;
+	return (0);
+}
+
+int	env_deinit(void)
+{
+	int	i;
+
+	i = arr_size(*g_env());
+	if (i < 0)
+		return (-1);
+	while (i)
+		free((*g_env())[--i]);
+	free(*g_env());
+	*g_env() = NULL;
 	return (0);
 }
 

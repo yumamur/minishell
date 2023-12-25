@@ -1,7 +1,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include "libft/libft.h"
-#include "pt_util.h"
+#include "error.h"
 
 int	ft_exit_atoi(char *arg, int last_cmd_exit)
 {
@@ -64,8 +64,10 @@ int	ft_exit(char **arg)
 {
 	if (!arg[0])
 		exit(0);
-	if (ft_atoi(arg[0]) < 0 || ft_atoi(arg[0]))
-		exit();
 	if (arg[1])
 		return(errorer("exit", "too many argument for exit", NULL, EXIT_FAILURE));
+	if (ft_atoi(arg[0]) < 0 || ft_atoi(arg[0]))
+		exit(1);
+	else
+		exit(1253);
 }

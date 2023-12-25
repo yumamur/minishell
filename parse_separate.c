@@ -43,6 +43,15 @@ t_list	*extract_cmd_until_pipe(t_tokenzied_list **tkn_list)
 	return (head);
 }
 
+static void	export_to_lpc(t_list *parsed)
+{
+	while (parsed)
+	{
+		lpc_export(parsed, NULL);
+		parsed = parsed->next;
+	}
+}
+
 t_list	*separate_by_pipe(t_tokenzied_list *tkn_list)
 {
 	t_list				*separated_tokens;
@@ -56,5 +65,6 @@ t_list	*separate_by_pipe(t_tokenzied_list *tkn_list)
 		ft_lstadd_back(&separated_tokens,
 			ft_lstnew(extract_cmd_until_pipe(&lst)));
 	}
+	export_to_lpc(separated_tokens);
 	return (separated_tokens);
 }

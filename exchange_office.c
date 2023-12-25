@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "typeft.h"
 #include "libft/libft.h"
 #include "env_util.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 char	*ft_space(char *s)
 {
@@ -82,37 +80,3 @@ char	**dollar_check(char **arg)
 	}
 	return (arg);
 }
-
-// #include "env_util.h"
-// #include "builtin.h"
-// #include <stdio.h>
-// char	**ft_str_wordtab(char *str);
-// int main()
-// {
-// 	char    *arg[4];
-// 	char    *env[5];
-// 	char    **ret;
-
-// 	arg[0] = ft_strdup("taha $abc \"duqcheck $abc a\" \'oneqcheck $abc b\' $abc \"taha $abc  tatata\" $abc \"taha$abc taha\"$abc,; $afc");
-// 	//arg[1] = ft_strdup("$abc \"taha$abc taha\"$abc,; \'$afc");
-// 	//arg[2] = ft_strdup("\"taha $abc  tatata\"");
-// 	//arg[3] = NULL;
-
-// 	env[0] = ft_strdup("VAR1=ABC");
-// 	env[1] = ft_strdup("VAR2");
-// 	env[2] = ft_strdup("VAR3=taha");
-// 	env[3] = ft_strdup("abc=1234");
-// 	env[4] = NULL;
-
-// 	env_init(env);
-// 	ft_env();
-// 	printf("-----------------\n");
-// 	ret = ft_str_wordtab(arg[0]);
-// 	dollar_check(ret);
-// 	int i = 0;
-// 	while (ret[i])
-// 	{
-// 		printf("(%s)\n", ret[i]);
-// 		i++;
-// 	}
-// }

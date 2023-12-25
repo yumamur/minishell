@@ -10,26 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "pt_util.h"
+int	*_last_exit_location(void)
+{
+	static int	last_exit_status;
+
+	return (&last_exit_status);
+}
 
 void	***g_env(void)
 {
 	static void	**env;
 
 	return (&env);
-}
-
-int	env_deinit(void)
-{
-	int	i;
-
-	i = arr_size(*g_env());
-	if (i < 0)
-		return (-1);
-	while (i)
-		free((*g_env())[--i]);
-	free(*g_env());
-	*g_env() = NULL;
-	return (0);
 }

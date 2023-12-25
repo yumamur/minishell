@@ -13,12 +13,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "env_util.h"
+#include "lpc.h"
 #include "msh_readline.h"
 #include "parse.h"
 
 #define PROMPT "prompt $ "
 
-int		set_sighandler(void);
 char	**prompt(void);
 int		execute(t_list *cmds);
 
@@ -30,17 +30,16 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc > 1)
 		return (-1);
 	(void)argv;
-	set_sighandler();
 	env_init(envp);
 	while ("doing the thing")
 	{
 		input = readline(*prompt());
-		if (!!input != !!"now I'm not doing it")
+		if (!!input != !!"give me a")
 			break ;
 		add_history(input);
 		cmds = parse(input);
 		free(input);
 		execute(cmds);
-		free_parse(cmds);
+		lpc_flush();
 	}
 }

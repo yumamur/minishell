@@ -71,7 +71,10 @@ void	validate_cmds(t_list *head)
 	{
 		ptr = head->content;
 		if (ptr->token == WORD)
+		{
+			ptr->token = CMD;
 			return ;
+		}
 		head = head->next;
 	}
 	ptr = head->content;
