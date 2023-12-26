@@ -1,7 +1,7 @@
 #include "libft/libft.h"
 #include "msh_structs.h"
 
-int	set_next_token(t_tokenzied_list *node, t_token to_set)
+int	set_next_token(t_tokenized_list *node, t_token to_set)
 {
 	if (node->token == WORD)
 	{
@@ -15,9 +15,9 @@ int	set_next_token(t_tokenzied_list *node, t_token to_set)
 	}
 }
 
-int	is_syntax_valid(t_tokenzied_list *lst)
+int	is_syntax_valid(t_tokenized_list *lst)
 {
-	t_tokenzied_list	*ptr;
+	t_tokenized_list	*ptr;
 	int					err;
 
 	if (lst->token == PIPE || lst->token == OR || lst->token == AND)
