@@ -17,6 +17,7 @@ void	arr_free(void **arr);
 void	**arr_copy(void **arr);
 void	**arr_deep_copy(void **arr);
 void	**arr_realloc(void **arr, int to_add);
+void	**arr_map(void **arr, void	*(*f)(void *));
 int		arr_size(void **arr);
 int		arr_index(void **arr, void *to_find);
 int		arr_discard_n(void **arr, int n);

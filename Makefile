@@ -59,10 +59,10 @@ all: $(NAME)
 
 $(NAME): $(LIBREADLINE) $(LIBHISTORY) $(LIBFT) $(LIBLPC) $(HDR) $(OBJS)
 	@printf "Building $(NAME)\n"
-	@$(CC) $(CFLAGS) $(SANITIZER) $(OBJS) $(LINKS) $(LIBS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SANITIZER) $(OBJS) $(LINKS) $(LIBS) -o $(NAME) -g
 
 obj/%.o: %.c | create_objdir 
-	@$(CC) $(CFLAGS) $(SANITIZER) -c $< -o $@
+	@$(CC) $(CFLAGS) $(SANITIZER) -c $< -o $@ -g
 
 $(LIBFT):
 	@printf "Building libft\n"

@@ -22,6 +22,7 @@ int	is_syntax_valid(t_tokenzied_list *lst)
 
 	if (lst->token == PIPE || lst->token == OR || lst->token == AND)
 		return (lst->token = INVALID);
+	err = 0;
 	ptr = lst->next;
 	while (ptr)
 	{

@@ -21,6 +21,8 @@
 
 char	**prompt(void);
 int		execute(t_list *cmds);
+int		*_last_exit_location(void);
+#include <stdio.h>
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -33,7 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 	env_init(envp);
 	while ("doing the thing")
 	{
-		input = readline(*prompt());
+		input = readline(PROMPT);
 		if (!!input != !!"give me a")
 			break ;
 		add_history(input);

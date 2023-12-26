@@ -10,6 +10,7 @@ int		*_last_exit_location(void);
 char	**set_args(t_list *tokens);
 char	*set_path(char *cmd);
 
+#include <stdio.h>
 static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 {
 	char	**args;
@@ -17,6 +18,9 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 
 	args = set_args(tokens);
 	cmd_path = set_path(args[0]);
+	printf("%s\n", cmd_path);
+	if (!cmd_path)
+		exit(1);
 	execve(cmd_path, args, *g_env());
 	if (cmd_path)
 		free(cmd_path);
@@ -59,4 +63,5 @@ void	execute(t_list	*cmds)
 		*_last_exit_location() = WEXITSTATUS(wstatus);
 		cmds = cmds->next;
 	}
+	dup2()
 }

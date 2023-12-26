@@ -5,6 +5,7 @@
 #include "lpc.h"
 #include <unistd.h>
 
+#include <stdio.h>
 static int	count_args(t_list *tokens)
 {
 	t_tokenized *ptr;
@@ -47,13 +48,26 @@ char	**set_args(t_list *tokens)
 	return (args);
 }
 
+static void	*join_slash(void *str)
+{
+	char	*ret;
+
+	if (!str)
+		return (NULL);
+	ret = ft_strjoin(str, "/");
+	return (ret);
+}
+
 char	*set_path(char *cmd)
 {
 	char	*cmd_path;
 	char	**all_paths;
+	void	**tmp;
 	int		i;
 
-	all_paths = ft_split(ft_getenv("PATH"), ':');
+	tmp = (void **)ft_split(ft_getenv("PATH"), ':');
+	all_paths = (char **)arr_map(tmp, join_slash);
+	arr_free(tmp);
 	i = arr_size((void **)all_paths);
 	while (--i)
 	{

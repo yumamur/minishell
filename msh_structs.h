@@ -46,7 +46,7 @@ typedef struct s_tokenized_list
 	t_c_char				*str;
 	t_token					token;
 	struct s_tokenized_list	*next;
-}	t_tokenzied_list;
+}	t_tokenized_list;
 
 typedef struct s_cmd
 {

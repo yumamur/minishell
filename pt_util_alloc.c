@@ -91,3 +91,21 @@ char __attribute__((malloc))
 	ret[i] = 0;
 	return (ret);
 }
+
+void	__attribute__((malloc))
+	**arr_map(void **arr, void	*(*f)(void *))
+{
+	void	**map;
+	int		i;
+
+	if (!arr || !f)
+		return (NULL);
+	map = malloc((arr_size(arr) + 1) * sizeof(void *));
+	if (!map)
+		return (NULL);
+	i = -1;
+	while (arr[++i])
+		map[i] = f(arr[i]);
+	map[i] = NULL;
+	return (map);
+}

@@ -15,8 +15,8 @@
 #include "libft/libft.h"
 #include "error.h"
 
-int		is_syntax_valid(t_tokenzied_list *lst);
-t_list	*separate_by_pipe(t_tokenzied_list *tkn_list);
+int		is_syntax_valid(t_tokenized_list *lst);
+t_list	*separate_by_pipe(t_tokenized_list *tkn_list);
 void	create_redirection_files(void *inner_list);
 void	validate_cmds(void *inner_list);
 int		is_cmds_valid(t_list *head);
@@ -24,7 +24,7 @@ int		is_cmds_valid(t_list *head);
 t_list	*parse(char *input)
 {
 	t_list				*cmds;
-	t_tokenzied_list	*lex;
+	t_tokenized_list	*lex;
 	char				**tab;
 
 	if (!*input)
