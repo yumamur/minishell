@@ -17,13 +17,14 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 
 	args = set_args(tokens);
 	cmd_path = set_path(args[0]);
-	if (!cmd_path)
-		exit(1);
-	execve(cmd_path, args, *g_env());
 	if (cmd_path)
+	{
+		execve(cmd_path, args, *g_env());
 		free(cmd_path);
+	}
+	error_handler(args[0], 1);
 	lpc_flush();
-	exit(error_handler(args[0], 1));
+	exit(EXIT_FAILURE);
 }
 
 int	fork_pipes(t_list *tokens)
