@@ -22,7 +22,6 @@
 char	**prompt(void);
 int		execute(t_list *cmds);
 int		*_last_exit_location(void);
-#include <stdio.h>
 
 int	main(int argc, char *argv[], char *envp[])
 {

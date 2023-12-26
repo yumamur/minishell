@@ -19,12 +19,12 @@
 #include "msh_structs.h"
 #include "typeft.h"
 
-void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
+void	add_node(t_tokenized_list **head, t_c_char *cmd, t_token token)
 {
-	t_tokenzied_list	*new_node;
-	t_tokenzied_list	*tmp;
+	t_tokenized_list	*new_node;
+	t_tokenized_list	*tmp;
 
-	new_node = malloc(sizeof(t_tokenzied_list));
+	new_node = malloc(sizeof(t_tokenized_list));
 	if (!new_node)
 		return ;
 	new_node->str = cmd;
@@ -42,9 +42,9 @@ void	add_node(t_tokenzied_list **head, t_c_char *cmd, t_token token)
 	lpc_export(new_node, NULL);
 }
 
-t_tokenzied_list	*lexer(t_c_char **words)
+t_tokenized_list	*lexer(t_c_char **words)
 {
-	t_tokenzied_list	*tokended;
+	t_tokenized_list	*tokended;
 	int					i;
 
 	tokended = NULL;
@@ -72,7 +72,7 @@ t_tokenzied_list	*lexer(t_c_char **words)
 }
 
 
-// void	printer_list(t_tokenzied_list *tokended)
+// void	printer_list(t_tokenized_list *tokended)
 // {
 // 	while (tokended)
 // 	{
@@ -92,7 +92,7 @@ t_tokenzied_list	*lexer(t_c_char **words)
 // 	// 	printf("%s\n", ret[i]);
 // 	// 	i++;
 // 	// }
-// 	t_tokenzied_list *tokended = malloc(sizeof(t_tokenzied_list *));
+// 	t_tokenized_list *tokended = malloc(sizeof(t_tokenized_list *));
 // 	tokended = lexer(ret);
 // 	printer_list(tokended);
 // }
