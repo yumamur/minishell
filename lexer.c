@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:37:43 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/26 15:54:09 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/27 16:29:03 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,3 @@ t_tokenized_list	*lexer(t_c_char **words)
 	}
 	return (tokended);
 }
-
-
-// void	printer_list(t_tokenized_list *tokended)
-// {
-// 	while (tokended)
-// 	{
-// 		printf("str   :   %s    token   :  %d\n", tokended->str, tokended->token);
-// 		tokended = tokended->next;
-// 	}
-// }
-
-// int	main()
-// {
-// 	t_c_char **ret;
-// 	char *arg = ft_strdup("aa >> bb << cc || dd && ee ");//"taha \"bjk |talisca>q7\" echo |once a>a<a<a<a<aa<a<a<a<aa<a<a<a<a<a<a<a<a<a<a<<a<a<a<a<a<a<a<a<a<a<a<a<a<a |sonra celik|cat<1|grep taha|cat>>cikti||&&<<");
-// 	ret = (t_c_char **)ft_str_wordtab(arg);
-// 	// int	i = 0;
-// 	// while (ret[i])
-// 	// {
-// 	// 	printf("%s\n", ret[i]);
-// 	// 	i++;
-// 	// }
-// 	t_tokenized_list *tokended = malloc(sizeof(t_tokenized_list *));
-// 	tokended = lexer(ret);
-// 	printer_list(tokended);
-// }
