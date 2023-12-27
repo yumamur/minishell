@@ -4,6 +4,12 @@ CC			=	clang
 CFLAGS		=	-Wall -Werror -Wextra
 SANITIZER	=	-fsanitize=address
 
+SRC_BUILTIN	=	builtin_cd.c \
+				builtin_echo.c \
+				builtin_env.c \
+				builtin_export.c \
+				builtin_pwd.c \
+				builtin_unset.c
 
 SRC_UTIL	=	env_util.c \
 				env_util_core.c \
@@ -14,13 +20,13 @@ SRC_UTIL	=	env_util.c \
 				pt_util_alloc.c
 
 SRC_EXEC	=	execute.c \
+				execute_set.c \
 				execute_util.c
 
 SRC_PARSE	=	lexer.c \
 				parse.c \
 				parse_validate.c \
 				parse_separate.c \
-				parse_redirection_files.c \
 				str_wordtab.c \
 				str_wordtab_util.c
 
@@ -39,6 +45,7 @@ LPC			=	lpc_export.c \
 SRCS		=	main.c \
 				constructor.c \
 				destructor.c \
+				$(SRC_BUILTIN) \
 				$(SRC_SIGNAL) \
 				$(SRC_EXEC) \
 				$(SRC_PARSE) \

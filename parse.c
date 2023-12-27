@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "libft/libft.h"
 #include "error.h"
+#include <stdio.h>
 
 int		is_syntax_valid(t_tokenized_list *lst);
 t_list	*separate_by_pipe(t_tokenized_list *tkn_list);
@@ -39,7 +40,6 @@ t_list	*parse(char *input)
 	}
 	cmds = separate_by_pipe(lex);
 	ft_lstiter(cmds, validate_cmds);
-	ft_lstiter(cmds, create_redirection_files);
 	if (!is_cmds_valid(cmds))
 		return (NULL);
 	return (cmds);

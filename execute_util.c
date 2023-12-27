@@ -1,14 +1,63 @@
-#include "env_util.h"
-#include "msh_structs.h"
-#include "pt_util.h"
-#include "libft/libft.h"
-#include "lpc.h"
-#include <unistd.h>
-
+#include <fcntl.h>
 #include <stdio.h>
-static int	count_args(t_list *tokens)
+#include "msh_structs.h"
+#include "libft/libft.h"
+
+int	is_builtin(const char *cmd)
 {
-	t_tokenized *ptr;
+	if (!ft_strncmp(cmd, "echo", 5)
+		|| !ft_strncmp(cmd, "env", 4)
+		|| !ft_strncmp(cmd, "cd", 3)
+		|| !ft_strncmp(cmd, "export", 7)
+		|| !ft_strncmp(cmd, "pwd", 4)
+		|| !ft_strncmp(cmd, "unset", 6)
+		|| !ft_strncmp(cmd, "exit", 5))
+		return (1);
+	return (0);
+}
+
+void	assign_files_to_open(t_list *lst, t_tokenized to_open[2])
+{
+	t_tokenized	*ptr;
+
+	to_open[0] = (t_tokenized){};
+	to_open[1] = (t_tokenized){};
+	while (lst)
+	{
+		ptr = lst->content;
+		if (ptr->token == FILE_IN || ptr->token == APPEND)
+			to_open[0] = *ptr;
+		else if (ptr->token == FILE_OUT)
+			to_open[1] = *ptr;
+		lst = lst->next;
+	}
+}
+
+int	open_file_redirect(t_tokenized *tkn)
+{
+	int	fd;
+
+	if (!tkn->str)
+		return (0);
+	if (tkn->token == FILE_IN)
+		fd = open(tkn->str, O_RDONLY);
+	else if (tkn->token == FILE_OUT)
+		fd = open(tkn->str, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	else
+		fd = open(tkn->str, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	if (fd == -1)
+		return (-1);
+	if ((tkn->token == FILE_IN || tkn->token == FILE_APPEND)
+		&& dup2(fd, STDIN_FILENO))
+		return (-1);
+	else if (dup2(fd, STDIN_FILENO))
+		return (-1);
+	return (0);
+}
+
+int	count_args(t_list *tokens)
+{
+	t_tokenized	*ptr;
 	int			count;
 
 	count = 0;
@@ -22,33 +71,7 @@ static int	count_args(t_list *tokens)
 	return (count);
 }
 
-char	**set_args(t_list *tokens)
-{
-	char		**args;
-	int			arg_ct[2];
-	t_tokenized	*ptr;
-
-	arg_ct[0] = count_args(tokens);
-	args = malloc(sizeof(char *) * (arg_ct[0] + 1));
-	lpc_export(args, arr_free, NULL);
-	if (!args)
-		return (NULL);
-	arg_ct[1] = 0;
-	while (arg_ct[1] < arg_ct[0])
-	{
-		ptr = tokens->content;
-		if (ptr->token == CMD || ptr->token == WORD)
-		{
-			args[arg_ct[1]] = ft_strdup(ptr->str);
-			++arg_ct[1];
-		}
-		tokens = tokens->next;
-	}
-	args[arg_ct[1]] = NULL;
-	return (args);
-}
-
-static void	*join_slash(void *str)
+void	*join_slash(void *str)
 {
 	char	*ret;
 
@@ -56,27 +79,4 @@ static void	*join_slash(void *str)
 		return (NULL);
 	ret = ft_strjoin(str, "/");
 	return (ret);
-}
-
-char	*set_path(char *cmd)
-{
-	char	*cmd_path;
-	char	**all_paths;
-	void	**tmp;
-	int		i;
-
-	tmp = (void **)ft_split(ft_getenv("PATH"), ':');
-	all_paths = (char **)arr_map(tmp, join_slash);
-	arr_free(tmp);
-	i = arr_size((void **)all_paths);
-	while (--i)
-	{
-		cmd_path = ft_strjoin(all_paths[i], cmd);
-		if (!access(cmd_path, F_OK))
-			break ;
-		free(cmd_path);
-		cmd_path = NULL;
-	}
-	arr_free((void **)all_paths);
-	return (cmd_path);
 }

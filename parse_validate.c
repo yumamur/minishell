@@ -4,15 +4,9 @@
 int	set_next_token(t_tokenized_list *node, t_token to_set)
 {
 	if (node->token == WORD)
-	{
-		node->token = to_set;
-		return (0);
-	}
+		return (node->token = to_set);
 	else
-	{
-		node->token = INVALID;
-		return (-1);
-	}
+		return (node->token = INVALID);
 }
 
 int	is_syntax_valid(t_tokenized_list *lst)

@@ -13,12 +13,12 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-int	ft_cd(char *arg);
-int	ft_echo(char **arg);
-int	ft_exit(char **arg, int last_cmd_exit);
-int	ft_export(char **arg);
-int	ft_pwd(void);
-int	ft_unset(char **arg);
-int	ft_env(void);
+int	ft_cd(char **args);
+int	ft_echo(char **args);
+int	ft_exit(char **args);
+int	ft_export(char **args);
+int	ft_pwd(char **args);
+int	ft_unset(char **args);
+int	ft_env(char **args);
 
 #endif

@@ -14,6 +14,7 @@
 #include "env_util.h"
 #include "libft/libft.h"
 #include "error.h"
+#include "pt_util.h"
 
 #define PATH_MAX 1024
 
@@ -66,21 +67,22 @@ int	chg_dir(char *path)
 	return (0);
 }
 
-int	ft_cd(char *arg)
+int	ft_cd(char **arg)
 {
 	char	*path;
 
-	if (!arg || arg[0] == ' '
-		|| arg[0] == '\0' || !ft_strncmp(arg, "--", 3))
+	if (arr_size((void **)arg) > 1)
+		return (error_handler("cd: too many arguments", 0));
+	if (!arg || !ft_strncmp(arg[0], "--", 3))
 	{
 		path = (char *)ft_getenv("HOME");
-		if (!path || *path == '\0' || *path == ' ')
+		if (!path)
 			return (error_handler("HOME is not set", 0));
 		if (chg_dir(path) != 0)
 			return (1);
 		return (0);
 	}
-	if (!ft_strncmp(arg, "-", 2))
+	if (!ft_strncmp(*arg, "-", 2))
 	{
 		path = (char *)ft_getenv("OLDPWD");
 		if (!path)
@@ -89,7 +91,7 @@ int	ft_cd(char *arg)
 			return (1);
 		return (0);
 	}
-	if (chg_dir(arg) != 0)
+	if (chg_dir(*arg) != 0)
 		return (1);
 	return (0);
 }
