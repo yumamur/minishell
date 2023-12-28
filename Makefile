@@ -25,8 +25,9 @@ SRC_EXEC	=	execute.c \
 
 SRC_PARSE	=	lexer.c \
 				parse.c \
-				parse_validate.c \
 				parse_separate.c \
+				parse_validate.c \
+				parse_validate_util.c \
 				str_wordtab.c \
 				str_wordtab_util.c
 

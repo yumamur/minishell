@@ -27,10 +27,8 @@ void	add_node(t_tokenized_list **head, t_c_char *cmd, t_token token)
 	new_node = malloc(sizeof(t_tokenized_list));
 	if (!new_node)
 		return ;
-	new_node->str = cmd;
-	new_node->token = token;
-	new_node->next = NULL;
-	if (*head == NULL)
+	*new_node = (t_tokenized_list){.str = cmd, .token = token, .next = NULL};
+	if (!*head)
 		*head = new_node;
 	else
 	{
