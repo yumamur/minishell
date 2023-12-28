@@ -32,6 +32,8 @@ static int	exec_builtin(char **args)
 	err = 0;
 	if (!ft_strncmp(args[0], "cd", 3))
 		err = ft_cd(args + 1);
+	else if (!ft_strncmp(args[0], "exit", 5))
+		err = ft_exit(args + 1);
 	else if (!ft_strncmp(args[0], "echo", 5))
 		err = ft_echo(args + 1);
 	else if (!ft_strncmp(args[0], "env", 4))

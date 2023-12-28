@@ -7,6 +7,7 @@ SANITIZER	=	-fsanitize=address
 SRC_BUILTIN	=	builtin_cd.c \
 				builtin_echo.c \
 				builtin_env.c \
+				builtin_exit.c \
 				builtin_export.c \
 				builtin_pwd.c \
 				builtin_unset.c

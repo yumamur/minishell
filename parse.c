@@ -39,7 +39,7 @@ t_list	*parse(char *input)
 		return (NULL);
 	}
 	cmds = separate_by_pipe(lex);
-	if (!is_cmds_valid(cmds) || env_variable_extension(cmds))
+	if (!is_cmds_valid(cmds)/*  || env_variable_extension(cmds) */)
 		return (NULL);
 	return (cmds);
 }

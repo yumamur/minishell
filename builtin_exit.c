@@ -12,10 +12,14 @@
 
 #include <limits.h>
 #include <stdlib.h>
-#include "libft/libft.h"
 #include "error.h"
+#include "pt_util.h"
+#include "libft/libft.h"
+#include "lpc.h"
 
-int	ft_exit_atoi(char *arg, int last_cmd_exit)
+extern int	*_last_exit_location();
+
+int	ft_exit_atoi(char *arg)
 {
 	int			i;
 	long		neg;
@@ -35,25 +39,23 @@ int	ft_exit_atoi(char *arg, int last_cmd_exit)
 		num = num * 10 + (arg[i] - 48);
 		if (((i == 18 && neg == 1) && (arg[i] > '7' && arg[i] <= '9'))
 			|| ((i == 19 && neg == -1) && (arg[i] == '9')))
-			last_cmd_exit = 2;
-		else
-		 	(void)last_cmd_exit;
+			*_last_exit_location() = 2;
 		i++;
 	}
 	return (num * neg);
 }
 
-void	exit_door(char *arg, int last_cmd_exit)
+void	exit_door(char *arg)
 {
 	long long	errnum;
 
-	errnum = ft_exit_atoi(arg, last_cmd_exit);
+	errnum = ft_exit_atoi(arg);
 	if (!(errnum < LLONG_MAX && errnum > LLONG_MIN))
 	{
 		free(arg);
 		exit(-1);
 	}
-	last_cmd_exit = errnum % 256;
+	*_last_exit_location() = errnum % 256;
 }
 
 int	numeric_ctrl(char *arg)
@@ -66,7 +68,7 @@ int	numeric_ctrl(char *arg)
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
-			return (errorer("exit", arg, "exit arguments must be numeric", EXIT_FAILURE));
+			return (error_handler("exit argument must be numeric", 0));
 		i++;
 	}
 	return (0);
@@ -74,12 +76,13 @@ int	numeric_ctrl(char *arg)
 
 int	ft_exit(char **arg)
 {
+	if (arr_size((void **)arg) > 1)
+		return(error_handler("too many arguments, expected 1", 0));
+	lpc_flush();
 	if (!arg[0])
 		exit(0);
-	if (arg[1])
-		return(errorer("exit", "too many argument for exit", NULL, EXIT_FAILURE));
 	if (ft_atoi(arg[0]) < 0 || ft_atoi(arg[0]))
 		exit(1);
 	else
-		exit(1253);
+		exit(123212637);
 }
