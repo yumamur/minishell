@@ -6,12 +6,13 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:29:28 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/14 14:35:01 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 17:08:34 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "env_util.h"
+#include "lpc.h"
 #include <stdlib.h>
 
 char	*ft_space(char *s)
@@ -23,24 +24,23 @@ char	*ft_space(char *s)
 	a = ft_strlen(s);
 	i = -1;
 	sa = malloc(a + 1);
+	if (!sa)
+		return (NULL);
+	lpc_export(sa, NULL);
 	while (++i < a)
 		sa[i] = ' ';
 	sa[i] = '\0';
 	return (sa);
 }
 
-char	*exchanger(char *arg)
+char	*exchanger(char *arg, int i, int t_s)
 {
 	int			tmp;
-	int			tmp_start;
-	int			i;
-	char		*result;
-	char		*result2;
+	char		*r;
+	char		*r2;
 	const char	*dollar_value;
 
-	result2 = ft_strdup("");
-	i = 0;
-	tmp_start = 0;
+	r2 = ft_strdup("");
 	while (arg[i])
 	{
 		if (arg[i] == '$')
@@ -51,31 +51,20 @@ char	*exchanger(char *arg)
 			dollar_value = ft_getenv(ft_substr(arg, tmp, i - tmp));
 			if (!dollar_value)
 				dollar_value = ft_space(ft_substr(arg, tmp - 1, i - tmp));
-			result = ft_strjoin(ft_substr(arg, tmp_start,
-						tmp - tmp_start -1), dollar_value);
-			result2 = ft_strjoin(result2, result);
-			tmp_start = i;
+			r = ft_strjoin(ft_substr(arg, t_s, tmp - t_s -1), dollar_value);
+			r2 = ft_strjoin(r2, r);
+			t_s = i;
 			if (!ft_strchr(arg + i, '$'))
-				result2 = ft_strjoin(result2,
-						ft_substr(arg, i, ft_strlen(arg)));
+				r2 = ft_strjoin(r2, ft_substr(arg, i, ft_strlen(arg)));
 		}
 		i++;
 	}
-	return (result2);
+	return (r2);
 }
 
-char	**dollar_check(char **arg)
+char	*dollar_check(char *arg)
 {
-	int	i;
-
-	i = 0;
-	while (arg[i])
-	{
-		if (arg[i][0] == '\'')
-			i++;
-		else if (ft_strchr(arg[i], '$'))
-			arg[i] = exchanger(arg[i]);
-		i++;
-	}
-	return (arg);
+	if (arg[0] == '\'')
+		return (arg);
+	return (exchanger(arg, 0, 0));
 }
