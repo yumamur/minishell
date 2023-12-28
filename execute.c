@@ -13,7 +13,7 @@ char	**set_args(t_list *tokens);
 char	*set_path(char *cmd);
 void	set_redirections(t_list *tokens);
 
-static void __attribute__((noreturn))	exec_builtin(char **args)
+static int	exec_builtin(char **args)
 {
 	int	err;
 
@@ -31,9 +31,7 @@ static void __attribute__((noreturn))	exec_builtin(char **args)
 	else
 		err = ft_export(args + 1);
 	lpc_flush();
-	if (err)
-		exit(EXIT_FAILURE);
-	exit(EXIT_SUCCESS);
+	return (err);
 }
 
 static void	__attribute__((noreturn))	execute_child(t_list *tokens)
@@ -43,16 +41,11 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 
 	args = set_args(tokens);
 	set_redirections(tokens);
-	if (is_builtin(args[0]))
-		exec_builtin(args);
-	else
+	cmd_path = set_path(args[0]);
+	if (cmd_path)
 	{
-		cmd_path = set_path(args[0]);
-		if (cmd_path)
-		{
-			execve(cmd_path, args, *g_env());
-			free(cmd_path);
-		}
+		execve(cmd_path, args, *g_env());
+		free(cmd_path);
 	}
 	error_handler(args[0], 1);
 	lpc_flush();
@@ -71,6 +64,37 @@ static int	fork_pipes(t_list *tokens)
 	return (pid);
 }
 
+static int	execute_single_cmd(t_list *tokens)
+{
+	int		pid;
+	int		fds[2];
+	char	**args;
+
+	args = set_args(tokens);
+	set_redirections(tokens);
+	if (is_builtin(args[0]))
+		pid = exec_builtin(args);
+	else
+	{
+		if (pipe(fds))
+			return (error_handler("pipe", 1));
+		pid = fork();
+		if (pid == -1)
+			return (error_handler("fork", 1));
+		else if (!pid)
+		{
+			close(fds[1]);
+			dup2(fds[0], STDIN_FILENO);
+			execute_child(tokens);
+		}
+		close(fds[0]);
+		dup2(fds[1], STDOUT_FILENO);
+		waitpid(pid, _last_exit_location(), 0);
+		*_last_exit_location() = WEXITSTATUS(*_last_exit_location());
+	}
+	return (pid);
+}
+
 void	execute(t_list	*cmds)
 {
 	int	pid;
@@ -78,11 +102,16 @@ void	execute(t_list	*cmds)
 
 	if (!cmds)
 		return ;
-	while (cmds)
+	if (ft_lstsize(cmds) == 1)
+		execute_single_cmd(cmds->content);
+	else
 	{
-		pid = fork_pipes(cmds->content);
-		waitpid(pid, &wstatus, 0);
-		*_last_exit_location() = WEXITSTATUS(wstatus);
-		cmds = cmds->next;
+		while (cmds)
+		{
+			pid = fork_pipes(cmds->content);
+			waitpid(pid, &wstatus, 0);
+			*_last_exit_location() = WEXITSTATUS(wstatus);
+			cmds = cmds->next;
+		}
 	}
 }

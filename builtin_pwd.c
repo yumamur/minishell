@@ -16,13 +16,15 @@
 
 #define PATH_MAX 1024
 
-int	ft_pwd(void)
+int	ft_pwd(char **arg)
 {
 	char	*ptr;
 	char	pwd[PATH_MAX];
 
+	if (*arg)
+		return (error_handler("wrong number of arguments", 0));
 	ptr = getcwd(pwd, PATH_MAX);
-	if (!ptr)
+	if (ptr)
 		printf("%s\n", pwd);
 	else
 		return (error_handler("pwd error", 1));

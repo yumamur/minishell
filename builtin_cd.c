@@ -18,7 +18,7 @@
 
 #define PATH_MAX 1024
 
-int	change_env_var(char env_name[], const char *new_value)
+int	change_env_var(char env_name[], const char new_value[])
 {
 	char	*buf;
 	char	*var;
@@ -27,12 +27,9 @@ int	change_env_var(char env_name[], const char *new_value)
 	if (!buf)
 		return (-1);
 	var = ft_strjoin(buf, new_value);
-	if (!var)
-	{
-		free(buf);
-		return (-1);
-	}
 	free(buf);
+	if (!var)
+		return (-1);
 	env_remove(env_name);
 	env_add(var);
 	free(var);
@@ -44,12 +41,11 @@ int	chg_dir(char *path)
 	char	pwd[PATH_MAX];
 	char	*new_pwd;
 	char	*old_pwd;
-	int		ctl;
 
-	new_pwd = getcwd(pwd, PATH_MAX);
-	if (!new_pwd || chdir(path) != 0)
+	old_pwd = getcwd(pwd, PATH_MAX);
+	if (!old_pwd || chdir(path))
 	{
-		error_handler("chdir error", 1);
+		error_handler("cd", 1);
 		return (-1);
 	}
 	old_pwd = ft_strdup(pwd);
@@ -57,13 +53,12 @@ int	chg_dir(char *path)
 	if (!new_pwd)
 	{
 		free(old_pwd);
-		error_handler("getcwd error", 1);
+		error_handler("cd", 1);
 		return (-1);
 	}
-	ctl = change_env_var("OLDPWD", old_pwd) + change_env_var("PWD", new_pwd);
+	change_env_var("OLDPWD", old_pwd);
+	change_env_var("PWD", pwd);
 	free(old_pwd);
-	if (ctl)
-		return (-1);
 	return (0);
 }
 
@@ -73,13 +68,13 @@ int	ft_cd(char **arg)
 
 	if (arr_size((void **)arg) > 1)
 		return (error_handler("cd: too many arguments", 0));
-	if (!arg || !ft_strncmp(arg[0], "--", 3))
+	if (!*arg || !ft_strncmp(arg[0], "--", 3))
 	{
 		path = (char *)ft_getenv("HOME");
 		if (!path)
 			return (error_handler("HOME is not set", 0));
-		if (chg_dir(path) != 0)
-			return (1);
+		if (chg_dir(path))
+			return (-1);
 		return (0);
 	}
 	if (!ft_strncmp(*arg, "-", 2))
@@ -87,11 +82,11 @@ int	ft_cd(char **arg)
 		path = (char *)ft_getenv("OLDPWD");
 		if (!path)
 			return (error_handler("OLDPWD is not set", 0));
-		if (chg_dir(path) != 0)
-			return (1);
+		if (chg_dir(path))
+			return (-1);
 		return (0);
 	}
-	if (chg_dir(*arg) != 0)
-		return (1);
+	if (chg_dir(*arg))
+		return (-1);
 	return (0);
 }
