@@ -64,7 +64,6 @@ char	*exchanger(char *arg)
 	return (result2);
 }
 
-
 char	**dollar_check(char **arg)
 {
 	int	i;

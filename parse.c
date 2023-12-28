@@ -31,14 +31,18 @@ t_list	*parse(char *input)
 	if (!*input)
 		return (NULL);
 	tab = ft_str_wordtab(input);
+	printf("wordtab\n");
 	lex = lexer((const char **)tab);
+	printf("lexer\n");
 	free(tab);
 	if (!is_syntax_valid(lex))
 	{
 		error_handler("syntax is invalid", 0);
 		return (NULL);
 	}
+	printf("first validation\n");
 	cmds = separate_by_pipe(lex);
+	printf("separate\n");
 	if (!is_cmds_valid(cmds))
 		return (NULL);
 	return (cmds);
