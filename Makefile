@@ -17,8 +17,7 @@ SRC_UTIL	=	env_util.c \
 				getenv.c \
 				prompt.c \
 				pt_util.c \
-				pt_util_alloc.c \
-				quote_check.c
+				pt_util_alloc.c
 
 SRC_EXEC	=	execute.c \
 				execute_set.c \
@@ -30,7 +29,8 @@ SRC_PARSE	=	lexer.c \
 				parse_validate.c \
 				parse_validate_util.c \
 				str_wordtab.c \
-				str_wordtab_util.c
+				str_wordtab_util.c \
+				quote_check.c
 
 SRC_SIGNAL	=	signal.c
 
