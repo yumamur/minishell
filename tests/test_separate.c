@@ -3,6 +3,7 @@
 #include "../msh_structs.h"
 #include "../lexer.h"
 #include "../parse.h"
+#include "../env_util.h"
 #include "../lpc.h"
 
 
@@ -16,18 +17,23 @@ void	puttoken(void *ptr)
 	printf(" = %s\n", tkn->str);
 }
 
-int main(int argc, char *argv[])
+char	**dollar_check(char **arg);
+
+int main(int argc, char *argv[], char *envp[])
 {
 	char				**tab;
 	t_tokenized_list	*lex;
-	char *tmp;
+	char				*input;
 
 	(void)argc;
-	tmp = ft_strdup(argv[0]);
-	tab = ft_str_wordtab(tmp);
+	env_init(envp);
+	input = ft_strdup(argv[1]);
+	tab = ft_str_wordtab(input);
+	tab = dollar_check(tab);
 	for (int i = 0; tab[i]; ++i) printf("%s\n", tab[i]);
 
 	lex = lexer((const char **)tab);
+	free(input);
 	typeof(lex) ptr = lex;
 	while (ptr)
 	{
@@ -35,6 +41,7 @@ int main(int argc, char *argv[])
 		ptr = ptr->next;
 	}
 	lpc_flush();
+	env_deinit();
 }
 
 // int	main(int argc, char *argv[])

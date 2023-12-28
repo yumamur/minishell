@@ -26,7 +26,7 @@ t_tokenized	*copy_token(t_tokenized obj)
 	return (ret);
 }
 
-t_list __attribute__((noinline))	*extract_cmd_until_pipe(t_tokenized_list **tkn_list)
+t_list	*extract_cmd_until_pipe(t_tokenized_list **tkn_list)
 {
 	t_list	*head;
 
@@ -57,6 +57,7 @@ t_list	*separate_by_pipe(t_tokenized_list *tkn_list)
 	t_list				*separated_tokens;
 	t_tokenized_list	*lst;
 
+	separated_tokens = NULL;
 	if (!tkn_list)
 		return (NULL);
 	lst = tkn_list;

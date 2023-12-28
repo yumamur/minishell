@@ -17,7 +17,6 @@
 
 int	is_builtin(const char *cmd)
 {
-	printf("cmd == %s\n", cmd);
 	if (!ft_strncmp(cmd, "echo", 5)
 		|| !ft_strncmp(cmd, "env", 4)
 		|| !ft_strncmp(cmd, "cd", 3)
@@ -38,7 +37,7 @@ void	assign_files_to_open(t_list *lst, t_tokenized to_open[2])
 	while (lst)
 	{
 		ptr = lst->content;
-		if (ptr->token == FILE_IN)
+		if (ptr->token == FILE_IN || ptr->token == EOF_HEREDOC)
 			to_open[0] = *ptr;
 		else if (ptr->token == FILE_OUT || ptr->token == APPEND)
 			to_open[1] = *ptr;
