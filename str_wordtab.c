@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:40:30 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/28 15:29:34 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:11:34 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,15 @@
 #include "libft/libft.h"
 
 int		quote_control(char *str);
-char	*add_spaces(const char *str);
+char	*str_update(const char *str);
+
+char	*add_spaces(const char *str)
+{
+	char	*new_str;
+
+	new_str = str_update(str);
+	return (new_str);
+}
 
 static int	count_words(char *str)
 {
