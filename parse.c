@@ -35,7 +35,7 @@ t_list	*parse(char *input)
 	free(tab);
 	if (!is_syntax_valid(lex))
 	{
-		error_handler("syntax is invalid", -2);
+		error_handler("syntax is invalid", 0);
 		return (NULL);
 	}
 	cmds = separate_by_pipe(lex);

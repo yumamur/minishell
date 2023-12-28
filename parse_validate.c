@@ -21,13 +21,11 @@ int	set_next_token(t_tokenized_list *node, t_token to_set)
 		return (node->token = INVALID);
 }
 
-int	is_syntax_valid(t_tokenized_list *lst)
+static int	validate_redirection_tokens(t_tokenized_list *lst)
 {
 	t_tokenized_list	*ptr;
 	int					err;
 
-	if (lst->token == PIPE || lst->token == OR || lst->token == AND)
-		return (lst->token = INVALID);
 	err = 0;
 	ptr = lst->next;
 	while (ptr)
@@ -48,6 +46,16 @@ int	is_syntax_valid(t_tokenized_list *lst)
 		ptr = ptr->next;
 	}
 	return (1);
+}
+
+int	is_syntax_valid(t_tokenized_list *lst)
+{
+	int	err;
+
+	if (lst->token == PIPE || lst->token == OR || lst->token == AND)
+		return (lst->token = INVALID);
+	err = validate_redirection_tokens(lst);
+	return (err);
 }
 
 int	is_cmds_valid(t_list *head)

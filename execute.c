@@ -120,16 +120,12 @@ void	execute(t_list	*cmds)
 
 	if (!cmds)
 		return ;
-	if (ft_lstsize(cmds) == 1)
-		execute_single_cmd(cmds->content);
-	else
+	while (ft_lstsize(cmds) > 1)
 	{
-		while (cmds)
-		{
-			pid = fork_pipes(cmds->content);
-			waitpid(pid, &wstatus, 0);
-			*_last_exit_location() = WEXITSTATUS(wstatus);
-			cmds = cmds->next;
-		}
+		pid = fork_pipes(cmds->content);
+		waitpid(pid, &wstatus, 0);
+		*_last_exit_location() = WEXITSTATUS(wstatus);
+		cmds = cmds->next;
 	}
+	execute_single_cmd(cmds->content);
 }

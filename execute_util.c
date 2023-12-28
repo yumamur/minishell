@@ -17,6 +17,7 @@
 
 int	is_builtin(const char *cmd)
 {
+	printf("cmd == %s\n", cmd);
 	if (!ft_strncmp(cmd, "echo", 5)
 		|| !ft_strncmp(cmd, "env", 4)
 		|| !ft_strncmp(cmd, "cd", 3)
@@ -76,7 +77,7 @@ int	count_args(t_list *tokens)
 	while (tokens)
 	{
 		ptr = tokens->content;
-		if (ptr->token == CMD || ptr->token == WORD)
+		if (ptr->token == WORD)
 			++count;
 		tokens = tokens->next;
 	}

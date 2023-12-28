@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include <stdio.h>
 
 int	arg_counter(char **arg)
 {
@@ -31,9 +32,9 @@ int	ft_echo(char **arg)
 	n_flag = 0;
 	i = 0;
 	arg_size = arg_counter(arg);
-	if (arg_size > 1)
+	if (arg_size >= 1)
 	{
-		if (ft_strcmp(arg[0], "-n") == 0)
+		if (!ft_strcmp(arg[0], "-n"))
 		{
 			n_flag = 1;
 			i = 1;
