@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:28:44 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/28 18:35:13 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 19:03:03 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "env_util.h"
 #include "pt_util.h"
 #include "error.h"
+#include <inttypes.h>
+#include <stdio.h>
 
 int	export_repeat_check(char *str)
 {
@@ -24,17 +26,17 @@ int	export_repeat_check(char *str)
 	tmp = ft_strdup(str);
 	if (!tmp)
 		return (-1);
-	while (str[i] != '=')
+	while (tmp[i] != '=')
 		i++;
-	while (str[i])
+	while (tmp[i])
 	{
-		str[i] = 0;
+		tmp[i] = 0;
 		i++;
 	}
-	if (ft_getenv(str))
+	if (ft_getenv(tmp))
 	{
-		env_remove(str);
-		env_add(tmp);
+		env_remove(tmp);
+		env_add(str);
 		free(tmp);
 		return (1);
 	}
@@ -73,6 +75,7 @@ void	just_export(void)
 	}
 }
 
+
 int	ft_export(char **arg)
 {
 	int	i;
@@ -88,10 +91,11 @@ int	ft_export(char **arg)
 		{
 			if (export_isvalid(arg[i]) && !export_repeat_check(arg[i]))
 				env_add(arg[i]);
-			else
+			else if (!export_repeat_check(arg[i]))
 			{
-				ft_putstr_fd("export: not a valid identifier", 2);
+				ft_putstr_fd("export: not a valid identifier\n", 2);
 				ft_putstr_fd(arg[i], 2);
+				ft_putstr_fd("\n", 2);
 			}
 			i++;
 		}
