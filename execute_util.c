@@ -37,9 +37,9 @@ void	assign_files_to_open(t_list *lst, t_tokenized to_open[2])
 	while (lst)
 	{
 		ptr = lst->content;
-		if (ptr->token == FILE_IN || ptr->token == APPEND)
+		if (ptr->token == FILE_IN)
 			to_open[0] = *ptr;
-		else if (ptr->token == FILE_OUT)
+		else if (ptr->token == FILE_OUT || ptr->token == APPEND)
 			to_open[1] = *ptr;
 		lst = lst->next;
 	}

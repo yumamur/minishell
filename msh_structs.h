@@ -27,7 +27,6 @@ typedef enum e_token
 	HEREDOC,
 	OR,
 	AND,
-	CMD,
 	FILE_IN,
 	FILE_OUT,
 	FILE_APPEND,
@@ -53,8 +52,5 @@ typedef struct s_cmd
 	t_c_char	*cmd;
 	t_c_char	**args;
 }	t_cmd;
-
-typedef struct s_parse_arg __attribute__((deprecated))	t_parse_arg;
-typedef struct s_minishell __attribute__((deprecated))	t_minishell;
 
 #endif

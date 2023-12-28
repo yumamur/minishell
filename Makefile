@@ -112,5 +112,7 @@ fclean:
 
 re: fclean all
 
+rest: clean all
+
 create_objdir:
 	@mkdir -p obj/

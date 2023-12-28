@@ -38,7 +38,7 @@ char	**set_args(t_list *tokens)
 	while (arg_ct[1] < arg_ct[0])
 	{
 		ptr = tokens->content;
-		if (ptr->token == CMD || ptr->token == WORD)
+		if (ptr->token == WORD)
 		{
 			args[arg_ct[1]] = ft_strdup(ptr->str);
 			++arg_ct[1];
@@ -80,5 +80,5 @@ void	set_redirections(t_list *tokens)
 	if (open_file_redirect(&to_open[0]))
 		error_handler(to_open[0].str, 1);
 	if (open_file_redirect(&to_open[1]))
-		error_handler(to_open[0].str, 1);
+		error_handler(to_open[1].str, 1);
 }

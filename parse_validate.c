@@ -69,21 +69,3 @@ int	is_cmds_valid(t_list *head)
 	}
 	return (1);
 }
-
-void	validate_cmds(t_list *head)
-{
-	t_tokenized	*ptr;
-
-	while (head)
-	{
-		ptr = head->content;
-		if (ptr->token == WORD)
-		{
-			ptr->token = CMD;
-			return ;
-		}
-		head = head->next;
-	}
-	ptr = head->content;
-	ptr->token = INVALID;
-}

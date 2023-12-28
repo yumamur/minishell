@@ -35,11 +35,10 @@ t_list	*parse(char *input)
 	free(tab);
 	if (!is_syntax_valid(lex))
 	{
-		error_handler("syntax is invalid", 0);
+		error_handler("syntax is invalid", -2);
 		return (NULL);
 	}
 	cmds = separate_by_pipe(lex);
-	ft_lstiter(cmds, validate_cmds);
 	if (!is_cmds_valid(cmds))
 		return (NULL);
 	return (cmds);

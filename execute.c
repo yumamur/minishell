@@ -53,13 +53,16 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 
 	args = set_args(tokens);
 	set_redirections(tokens);
+	if (is_builtin(args[0]))
+		exit(exec_builtin(args));
 	cmd_path = set_path(args[0]);
 	if (cmd_path)
 	{
 		execve(cmd_path, args, *g_env());
 		free(cmd_path);
 	}
-	error_handler(args[0], 1);
+	if (args && args[0])
+		error_handler(args[0], 1);
 	lpc_flush();
 	exit(EXIT_FAILURE);
 }
@@ -67,7 +70,10 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 static int	fork_pipes(t_list *tokens)
 {
 	int	pid;
+	int	fds[2];
 
+	if (pipe(fds))
+		return (error_handler("pipe", 1));
 	pid = fork();
 	if (pid == -1)
 		return (error_handler("fork", 1));
