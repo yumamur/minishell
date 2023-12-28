@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:28:27 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/14 14:28:28 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:15:36 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 #include "env_util.h"
 #include "error.h"
 
-int	ft_env(void)
+int	ft_env(char **arg)
 {
 	int		i;
 	char	**env;
 
+	if (arg)
+		error_handler("invalid argument", 0);
 	i = 0;
 	env = (char **)*g_env();
 	if (!env)
