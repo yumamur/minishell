@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:37:54 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/21 15:50:39 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:16:13 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,51 +57,49 @@ int	create_new_str(const char *str)
 	return (len + 1);
 }
 
-
-char	*str_update(const char *str, int in_quote, int i, int j)
+void	str_update_util(const char *str, int *i, char *new_str, int *j)
 {
-	char *new_str;
+	int	in_quote;
 
-	new_str = malloc(create_new_str(str));
-	lpc_export(new_str, NULL);
-	while (str[i])
+	in_quote = 0;
+	if (is_special_or_quote(str[*i], 0))
+		in_quote = !in_quote;
+	if (!in_quote && token_control(str, *i) == 1)
 	{
-		if (is_special_or_quote(str[i], 0))
-			in_quote = !in_quote;
-		if (!in_quote && token_control(str, i) == 1)
-		{
-			if (i > 0 && str[i - 1] != ' ')
-				new_str[j++] = ' ';
-			new_str[j++] = str[i++];
-			new_str[j++] = str[i++];
-			if (str[i] != ' ' && str[i] != '\0')
-				new_str[j++] = ' ';
-		}
-		else if (!in_quote && is_special_or_quote(str[i], 1))
-		{
-			if (i > 0 && str[i - 1] != ' ')
-				new_str[j++] = ' ';
-			new_str[j++] = str[i++];
-			if (str[i] != ' ' && str[i] != '\0' && !is_special_or_quote(str[i], 1))
-				new_str[j++] = ' ';
-		}
-		else
-			new_str[j++] = str[i++];
+		if (i > 0 && str[*i - 1] != ' ')
+			new_str[(*j)++] = ' ';
+		new_str[(*j)++] = str[(*i)++];
+		new_str[(*j)++] = str[(*i)++];
+		if (str[*i] != ' ' && str[*i] != '\0')
+			new_str[(*j)++] = ' ';
 	}
-	new_str[j] = '\0';
-	return new_str;
+	else if (!in_quote && is_special_or_quote(str[*i], 1))
+	{
+		if (i > 0 && str[(*i) - 1] != ' ')
+			new_str[(*j)++] = ' ';
+		new_str[(*j)++] = str[(*i)++];
+		if (str[*i] != ' ' && str[*i] != '\0'
+			&& !is_special_or_quote(str[*i], 1))
+			new_str[(*j)++] = ' ';
+	}
+	else
+		new_str[(*j)++] = str[(*i)++];
 }
 
-char	*add_spaces(const char *str)
+char	*str_update(const char *str)
 {
 	char	*new_str;
 	int		i;
 	int		j;
-	int		in_quote;
 
 	i = 0;
 	j = 0;
-	in_quote = 0;
-	new_str = str_update(str, in_quote, i, j);
+	new_str = malloc(create_new_str(str));
+	lpc_export(new_str, NULL);
+	while (str[i])
+	{
+		str_update_util(str, &i, new_str, &j);
+	}
+	new_str[j] = '\0';
 	return (new_str);
 }
