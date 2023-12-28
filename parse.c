@@ -14,13 +14,13 @@
 #include "lexer.h"
 #include "libft/libft.h"
 #include "error.h"
-#include <stdio.h>
 
 int		is_syntax_valid(t_tokenized_list *lst);
 t_list	*separate_by_pipe(t_tokenized_list *tkn_list);
 void	create_redirection_files(void *inner_list);
 void	validate_cmds(void *inner_list);
 int		is_cmds_valid(t_list *head);
+int		env_variable_extension(t_list *cmds);
 
 t_list	*parse(char *input)
 {
@@ -31,19 +31,15 @@ t_list	*parse(char *input)
 	if (!*input)
 		return (NULL);
 	tab = ft_str_wordtab(input);
-	printf("wordtab\n");
 	lex = lexer((const char **)tab);
-	printf("lexer\n");
 	free(tab);
 	if (!is_syntax_valid(lex))
 	{
 		error_handler("syntax is invalid", 0);
 		return (NULL);
 	}
-	printf("first validation\n");
 	cmds = separate_by_pipe(lex);
-	printf("separate\n");
-	if (!is_cmds_valid(cmds))
+	if (!is_cmds_valid(cmds) || env_variable_extension(cmds))
 		return (NULL);
 	return (cmds);
 }
