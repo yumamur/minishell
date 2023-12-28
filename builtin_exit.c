@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:29:13 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/27 16:29:15 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:25:56 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft/libft.h"
 #include "lpc.h"
 
-extern int	*_last_exit_location();
+extern int	*_last_exit_location(void);
 
 int	ft_exit_atoi(char *arg)
 {
@@ -77,7 +77,7 @@ int	numeric_ctrl(char *arg)
 int	ft_exit(char **arg)
 {
 	if (arr_size((void **)arg) > 1)
-		return(error_handler("too many arguments, expected 1", 0));
+		return (error_handler("too many arguments, expected 1", 0));
 	lpc_flush();
 	if (!arg[0])
 		exit(0);

@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:28:44 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/14 14:28:58 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:35:13 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_export(char **arg)
 	i = 0;
 	if (!*g_env())
 		return (error_handler("environment table does not exist", 1));
-	if (!arg)
+	if (!*arg)
 		just_export();
 	else
 	{

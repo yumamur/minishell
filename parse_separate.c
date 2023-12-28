@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 00:57:48 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 00:57:49 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:32:27 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_list	*extract_cmd_until_pipe(t_tokenized_list **tkn_list)
 {
 	t_list	*head;
 
+	head = NULL;
 	while (*tkn_list && (*tkn_list)->token != PIPE)
 	{
 		ft_lstadd_back(&head, ft_lstnew(
