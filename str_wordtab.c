@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:40:30 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/21 15:57:42 by muhcelik         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:29:34 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,8 @@
 #include <unistd.h>
 #include "libft/libft.h"
 
+int		quote_control(char *str);
 char	*add_spaces(const char *str);
-
-int	control(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-		{
-			(i)++;
-			while (str[i] && str[i] != '\'')
-			{
-				(i)++;
-				if (str[i] == '\t')
-					str[i] = -2;
-				else if (str[i] == ' ')
-					str[i] = -3;
-			}
-			if (str[i] == '\'' && (i)++)
-				return (1);
-			else
-				return (0);
-		}
-		else if (str[i] == '"')
-		{
-			(i)++;
-			while (str[i] && str[i] != '"')
-			{
-				(i)++;
-				if (str[i] == '\t')
-					str[i] = -2;
-				else if (str[i] == ' ')
-					str[i] = -3;
-			}
-			if (str[i] == '"' && (i)++)
-				return (1);
-			else
-				return (0);
-		}
-		break ;
-	}
-	return (0);
-}
 
 static int	count_words(char *str)
 {
@@ -72,7 +29,7 @@ static int	count_words(char *str)
 			++str;
 		if (*str == '\"' || *str == '\'')
 		{
-			if (control(str) == 1)
+			if (quote_control(str) == 1)
 			{
 				ret++;
 				str = ft_strchr(str + 1, *str) + 1;
