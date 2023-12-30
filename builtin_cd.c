@@ -18,24 +18,6 @@
 
 #define PATH_MAX 1024
 
-int	change_env_var(char env_name[], const char new_value[])
-{
-	char	*buf;
-	char	*var;
-
-	buf = ft_strjoin(env_name, "=");
-	if (!buf)
-		return (-1);
-	var = ft_strjoin(buf, new_value);
-	free(buf);
-	if (!var)
-		return (-1);
-	env_remove(env_name);
-	env_add(var);
-	free(var);
-	return (0);
-}
-
 int	chg_dir(char *path)
 {
 	char	pwd[PATH_MAX];
@@ -56,8 +38,8 @@ int	chg_dir(char *path)
 		error_handler("cd", 1);
 		return (-1);
 	}
-	change_env_var("OLDPWD", old_pwd);
-	change_env_var("PWD", pwd);
+	env_change_val("OLDPWD", old_pwd);
+	env_change_val("PWD", pwd);
 	free(old_pwd);
 	return (0);
 }

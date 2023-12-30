@@ -11,38 +11,22 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
+#include "lpc.h"
 #include "env_util.h"
 #include "pt_util.h"
 #include "error.h"
 
-int	export_repeat_check(char *str)
+static int	is_var_existing(char *var)
 {
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	tmp = ft_strdup(str);
-	if (!tmp)
-		return (-1);
-	while (str[i] != '=')
-		i++;
-	while (str[i])
-	{
-		str[i] = 0;
-		i++;
-	}
-	if (ft_getenv(str))
-	{
-		env_remove(str);
-		env_add(tmp);
-		free(tmp);
+	var = ft_strdup(var);
+	lpc_export(var, NULL);
+	*ft_strchr(var, '=') = 0;
+	if (ft_getenv(var))
 		return (1);
-	}
-	free(tmp);
 	return (0);
 }
 
-int	export_isvalid(char *str)
+static int	is_valid(char *str)
 {
 	int	i;
 

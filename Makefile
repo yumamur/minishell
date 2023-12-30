@@ -2,7 +2,7 @@ NAME = minishell
 
 CC			=	clang
 CFLAGS		=	-Wall -Werror -Wextra
-SANITIZER	=	-fsanitize=address
+# SANITIZER	=	-fsanitize=address -g
 
 SRC_BUILTIN	=	builtin_cd.c \
 				builtin_echo.c \

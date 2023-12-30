@@ -15,16 +15,23 @@
 #include "typeft.h"
 #include <stdlib.h>
 
+static void	nullify_load_addresses(t_lpc_addr *arr, int	cap)
+{
+	while (cap--)
+		arr[cap] = (t_lpc_addr){};
+}
+
 int	lpc_int_load_init(t_lpc_load *load)
 {
 	if (!load)
 		return (-1);
 	*load = (t_lpc_load){};
-	load->addr = malloc(2 * sizeof(t_lpc_addr));
+	load->addr = malloc(4 * sizeof(t_lpc_addr));
 	if (!load->addr)
 		return (-1);
-	load->cap = 2;
+	load->cap = 4;
 	load->size = 0;
+	nullify_load_addresses(load->addr, load->cap);
 	return (0);
 }
 
@@ -38,6 +45,8 @@ int	lpc_int_enlarge_load(t_lpc_load *load)
 	tmp = malloc(load->cap * 2 * sizeof(t_lpc_addr));
 	if (!tmp)
 		return (-1);
+	load->cap *= 2;
+	nullify_load_addresses(tmp, load->cap);
 	i = 0;
 	while (i < load->size)
 	{
@@ -46,7 +55,6 @@ int	lpc_int_enlarge_load(t_lpc_load *load)
 	}
 	free(load->addr);
 	load->addr = tmp;
-	load->cap *= 2;
 	return (0);
 }
 

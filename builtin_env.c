@@ -19,8 +19,8 @@ int	ft_env(char **arg)
 	int		i;
 	char	**env;
 
-	if (arg)
-		error_handler("invalid argument", 0);
+	if (*arg)
+		return (error_handler("invalid argument", 0));
 	i = 0;
 	env = (char **)*g_env();
 	if (!env)

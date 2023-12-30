@@ -67,6 +67,7 @@ t_list	*separate_by_pipe(t_tokenized_list *tkn_list)
 		ft_lstadd_back(&separated_tokens,
 			ft_lstnew(extract_cmd_until_pipe(&lst)));
 	}
+	ft_lstiter(separated_tokens, (void (*)(void *))export_to_lpc);
 	export_to_lpc(separated_tokens);
 	return (separated_tokens);
 }

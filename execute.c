@@ -78,9 +78,19 @@ static int	fork_pipes(t_list *tokens)
 		return (error_handler("pipe", 1));
 	pid = fork();
 	if (pid == -1)
+	{
+		close(fds[0]);
+		close(fds[1]);
 		return (error_handler("fork", 1));
+	}
 	else if (!pid)
+	{
+		close(fds[0]);
+		dup2(fds[1], STDOUT_FILENO);
 		execute_child(tokens);
+	}
+	close(fds[1]);
+	dup2(fds[0], STDIN_FILENO);
 	return (pid);
 }
 

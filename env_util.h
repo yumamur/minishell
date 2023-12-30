@@ -19,5 +19,6 @@ int			env_init(char **data);
 int			env_deinit(void);
 int			env_add(const char *var);
 int			env_remove(char *to_remove);
+int			env_change_val(char var_name[], char *new_val);
 
 #endif

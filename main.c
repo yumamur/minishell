@@ -17,7 +17,7 @@
 #include "msh_readline.h"
 #include "parse.h"
 
-#define PROMPT "prompt $ "
+#define PROMPT "\033[mprompt $ "
 
 char	**prompt(void);
 int		execute(t_list *cmds);

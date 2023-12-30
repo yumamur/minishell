@@ -13,6 +13,7 @@
 #include "env_util.h"
 #include "pt_util.h"
 #include "error.h"
+#include <stdio.h>
 
 int	export_isvalid(char *str);
 
@@ -20,18 +21,17 @@ int	ft_unset(char **arg)
 {
 	int	i;
 
-	i = 0;
-	if (arr_size((void **)arg) >= 1)
+	i = arr_size((void **)arg);
+	if (!i || i == -1)
+		return (error_handler("wrong argument count", 0));
+	while (i--)
 	{
-		while (i < arr_size((void **)arg))
+		if (export_isvalid(arg[i]))
 		{
-			if (export_isvalid(arg[i]))
-				if (env_remove(arg[i]) == -1)
-					return (error_handler("not a valid identifier", 0));
-			i++;
+			printf("%s\n", arg[i]);
+			if (env_remove(arg[i]) == -1)
+				return (error_handler("not a valid identifier", 0));
 		}
 	}
-	else
-		return (error_handler("wrong argument count", 0));
 	return (0);
 }

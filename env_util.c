@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "libft/libft.h"
 #include "pt_util.h"
+#include "error.h"
 
 const char	*ft_getenv(const char *name);
 void		***g_env(void);
@@ -67,7 +69,32 @@ int	env_remove(char *to_remove)
 	if (!var)
 		return (-1);
 	var -= ft_strlen(to_remove) + 1;
+	printf("var  %s\n", var);
+	int	i = arr_index(*g_env(), var);
+	printf("VAR ======== %s\n", (char *)(*g_env())[i]);
 	free(var);
-	arr_discard_n(*g_env(), arr_index(*g_env(), var));
+	arr_discard_n(*g_env(), i);
+	printf("VAR ======== %s\n", (char *)(*g_env())[i]);
+	return (0);
+}
+
+int	env_change_val(char var_name[], char *new_val)
+{
+	char	*var;
+	int		i;
+
+	var = (void *)ft_getenv(var_name);
+	if (!var)
+		return (-1);
+	var -= ft_strlen(var_name) + 1;
+	i = arr_index(*g_env(), var);
+	free(var);
+	var = ft_strjoin(var_name, "=");
+	if (!var)
+		return (error_handler("malloc error", 1));
+	(*g_env())[i] = ft_strjoin(var, new_val);
+	free(var);
+	if (!(*g_env())[i])
+		return (error_handler("malloc error", 1));
 	return (0);
 }

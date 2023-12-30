@@ -55,11 +55,8 @@ void __attribute__((malloc))
 	ret = malloc((len + to_add + 1) * sizeof(void *));
 	if (!ret)
 		return (NULL);
-	while (to_add)
-	{
+	while (to_add--)
 		ret[len + to_add] = NULL;
-		--to_add;
-	}
 	while (len--)
 		ret[len] = arr[len];
 	free(arr);

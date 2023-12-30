@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "error.h"
 #include "pt_util.h"
+#include "env_util.h"
 #include "libft/libft.h"
 #include "lpc.h"
 
@@ -78,6 +79,7 @@ int	ft_exit(char **arg)
 {
 	if (arr_size((void **)arg) > 1)
 		return (error_handler("too many arguments, expected 1", 0));
+	env_deinit();
 	lpc_flush();
 	if (!arg[0])
 		exit(0);
