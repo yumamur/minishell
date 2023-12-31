@@ -10,12 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include "libft/libft.h"
 #include "env_util.h"
 #include "pt_util.h"
 #include "error.h"
-#include <stdio.h>
 
-int	export_isvalid(char *str);
+static int	is_valid(char *str)
+{
+	if (ft_isdigit(*str))
+		return (0);
+	while (*str && *str != '=')
+	{
+		if (ft_isalnum(*str) || *str == '_')
+			++str;
+		else
+			return (0);
+	}
+	if (!*str)
+		return (0);
+	return (1);
+}
 
 int	ft_unset(char **arg)
 {
@@ -26,7 +41,7 @@ int	ft_unset(char **arg)
 		return (error_handler("wrong argument count", 0));
 	while (i--)
 	{
-		if (export_isvalid(arg[i]))
+		if (is_valid(arg[i]))
 		{
 			printf("%s\n", arg[i]);
 			if (env_remove(arg[i]) == -1)

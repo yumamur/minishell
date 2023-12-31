@@ -12,6 +12,7 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "builtin.h"
 #include "env_util.h"
 #include "lpc.h"
 #include "msh_readline.h"
@@ -21,7 +22,6 @@
 
 char	**prompt(void);
 int		execute(t_list *cmds);
-int		*_last_exit_location(void);
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		input = readline(PROMPT);
 		if (!!input != !!"give me a")
-			break ;
+			ft_exit((char **){NULL});
 		add_history(input);
 		cmds = parse(input);
 		free(input);

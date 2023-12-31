@@ -16,6 +16,8 @@ int	arr_size(void **arr)
 
 	if (!arr)
 		return (-1);
+	if (!*arr)
+		return (0);
 	i = 0;
 	while (arr[i])
 		++i;

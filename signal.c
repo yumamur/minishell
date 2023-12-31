@@ -17,14 +17,8 @@
 
 volatile sig_atomic_t	g_signum;
 
-void	signum_assign(int sig)
+void	sighandler(void)
 {
-	g_signum = sig;
-}
-
-void	sighandler(int sig)
-{
-	g_signum = sig;
 	if (g_signum == SIGCONT || g_signum == SIGQUIT)
 	{
 		write(1, "\n", 1);
@@ -39,6 +33,12 @@ void	sighandler(int sig)
 		rl_redisplay();
 	}
 	g_signum = 0;
+}
+
+void	signum_assign(int sig)
+{
+	g_signum = sig;
+	sighandler();
 }
 
 int	set_sighandler(void)

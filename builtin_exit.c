@@ -10,81 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include "libft/libft.h"
 #include "error.h"
 #include "pt_util.h"
 #include "env_util.h"
-#include "libft/libft.h"
 #include "lpc.h"
 
-extern int	*_last_exit_location(void);
-
-int	ft_exit_atoi(char *arg)
+int	random_status(void)
 {
-	int			i;
-	long		neg;
-	long long	num;
+	unsigned int	buf;
+	int				fd;
 
-	i = 0;
-	neg = 1;
-	num = 0;
-	if ((arg[i] && (arg[i] == '-')) || (arg[i] == '+'))
-		if (arg[i++] == '-')
-			neg *= -1;
-	while (arg[i] == ' ' || arg[i] == '\n' || arg[i] == '\t' || arg[i] == '\v'
-		|| arg[i] == '\f' || arg[i] == '\r')
-		i++;
-	while (arg[i] >= 48 && arg[i] <= 57)
+	fd = open("/dev/random", O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	if (read(fd, &buf, 4) == -1)
 	{
-		num = num * 10 + (arg[i] - 48);
-		if (((i == 18 && neg == 1) && (arg[i] > '7' && arg[i] <= '9'))
-			|| ((i == 19 && neg == -1) && (arg[i] == '9')))
-			*_last_exit_location() = 2;
-		i++;
+		close(fd);
+		return (-1);
 	}
-	return (num * neg);
-}
-
-void	exit_door(char *arg)
-{
-	long long	errnum;
-
-	errnum = ft_exit_atoi(arg);
-	if (!(errnum < LLONG_MAX && errnum > LLONG_MIN))
-	{
-		free(arg);
-		exit(-1);
-	}
-	*_last_exit_location() = errnum % 256;
-}
-
-int	numeric_ctrl(char *arg)
-{
-	int	i;
-
-	i = 0;
-	if (arg[i] == '-' || arg[i] == '+')
-		i++;
-	while (arg[i])
-	{
-		if (!ft_isdigit(arg[i]))
-			return (error_handler("exit argument must be numeric", 0));
-		i++;
-	}
-	return (0);
+	close(fd);
+	return (buf);
 }
 
 int	ft_exit(char **arg)
 {
+	int	status;
+
 	if (arr_size((void **)arg) > 1)
 		return (error_handler("too many arguments, expected 1", 0));
 	env_deinit();
 	lpc_flush();
-	if (!arg[0])
+	write(2, "See you soon\n", 13);
+	if (!arg)
 		exit(0);
-	if (ft_atoi(arg[0]) < 0 || ft_atoi(arg[0]))
-		exit(1);
+	status = ft_atoi(arg[0]);
+	if (status)
+		exit(status);
 	else
-		exit(123212637);
+		exit(random_status());
 }
