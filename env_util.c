@@ -57,7 +57,7 @@ int	env_add(const char *var)
 	var_dup = ft_strdup(var);
 	if (!var_dup)
 		return (-1);
-	(*g_env())[arr_size(*g_env()) - 1] = var_dup;
+	(*g_env())[arr_size(*g_env())] = var_dup;
 	return (0);
 }
 
@@ -69,12 +69,8 @@ int	env_remove(char *to_remove)
 	if (!var)
 		return (-1);
 	var -= ft_strlen(to_remove) + 1;
-	printf("var  %s\n", var);
-	int	i = arr_index(*g_env(), var);
-	printf("VAR ======== %s\n", (char *)(*g_env())[i]);
 	free(var);
-	arr_discard_n(*g_env(), i);
-	printf("VAR ======== %s\n", (char *)(*g_env())[i]);
+	arr_discard_n(*g_env(), arr_index(*g_env(), var));
 	return (0);
 }
 
