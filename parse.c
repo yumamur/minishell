@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "msh_structs.h"
-#include "lexer.h"
+#include "parse_lexer.h"
 #include "libft/libft.h"
 #include "error.h"
 

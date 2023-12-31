@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   parse_lexer.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,19 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef PARSE_LEXER_H
+# define PARSE_LEXER_H
 
-# include <stdlib.h>
 # include "typeft.h"
-# include "msh_structs.h"//kullanilmamis
+# include "msh_structs.h"
 
-t_c_char			**parse_cmd(t_c_char *cmd, int a, t_c_char **arg);
 t_tokenized_list	*lexer(t_c_char **words);
 char				**ft_str_wordtab(char *str);
-int					is_seperator(t_c_char *strr);
-int					is_seperator_in(t_c_char *str);
-int					is_double_seperator_in(t_c_char *str);
-char				*ft_strsubdup(const char *s, size_t start, size_t end);
 
 #endif

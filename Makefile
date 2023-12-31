@@ -14,9 +14,8 @@ SRC_BUILTIN	=	builtin_cd.c \
 
 SRC_UTIL	=	env_util.c \
 				env_util_core.c \
+				env_util_getenv.c \
 				error_handler.c \
-				getenv.c \
-				prompt.c \
 				pt_util.c \
 				pt_util_alloc.c
 
@@ -24,16 +23,17 @@ SRC_EXEC	=	execute.c \
 				execute_set.c \
 				execute_util.c
 
-SRC_PARSE	=	lexer.c \
-				parse.c \
+SRC_PARSE	=	parse.c \
+				parse_lexer.c \
+				parse_quote_check.c \
 				parse_separate.c \
+				parse_str_wordtab.c \
+				parse_str_wordtab_util.c \
 				parse_validate.c \
-				parse_validate_util.c \
-				str_wordtab.c \
-				str_wordtab_util.c \
-				quote_check.c
+				parse_validate_util.c
 
-SRC_SIGNAL	=	signal.c
+SRC_TERM	=	signal.c \
+				term_attr.c
 
 LPC			=	lpc_export.c \
 				lpc_flush.c \
@@ -48,8 +48,8 @@ LPC			=	lpc_export.c \
 SRCS		=	main.c \
 				constructor.c \
 				destructor.c \
+				$(SRC_TERM) \
 				$(SRC_BUILTIN) \
-				$(SRC_SIGNAL) \
 				$(SRC_EXEC) \
 				$(SRC_PARSE) \
 				$(SRC_UTIL) \

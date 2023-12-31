@@ -11,11 +11,14 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "env_util.h"
 #include "msh_prompt.h"
+
+extern void	unset_sighandler(void);
+extern void	unset_term_attr(void);
 
 void __attribute__((destructor(101)))	destructor(void)
 {
-	env_deinit();
 	free(*prompt());
+	// unset_term_attr();
+	unset_sighandler();
 }

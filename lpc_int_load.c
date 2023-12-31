@@ -15,7 +15,7 @@
 #include "typeft.h"
 #include <stdlib.h>
 
-static void	nullify_load_addresses(t_lpc_addr *arr, int	cap)
+static void	nullify_load_addresses(t_lpc_addr *arr, int cap)
 {
 	while (cap--)
 		arr[cap] = (t_lpc_addr){};

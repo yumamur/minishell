@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+
 int	*_last_exit_location(void)
 {
 	static int	last_exit_status;
@@ -22,4 +24,18 @@ void	***g_env(void)
 	static void	**env;
 
 	return (&env);
+}
+
+struct sigaction	*oldact(void)
+{
+	static struct sigaction	oldact;
+
+	return (&oldact);
+}
+
+char	**prompt(void)
+{
+	static char	*pt_prompt;
+
+	return (&pt_prompt);
 }
