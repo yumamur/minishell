@@ -11,16 +11,9 @@
 /* ************************************************************************** */
 
 #include "msh_structs.h"
-#include "parse_lexer.h"
+#include "parse_util.h"
 #include "libft/libft.h"
 #include "error.h"
-
-int		is_syntax_valid(t_tokenized_list *lst);
-t_list	*separate_by_pipe(t_tokenized_list *tkn_list);
-void	create_redirection_files(void *inner_list);
-void	validate_cmds(void *inner_list);
-int		is_cmds_valid(t_list *head);
-int		env_variable_extension(t_list *cmds);
 
 t_list	*parse(char *input)
 {
@@ -39,7 +32,7 @@ t_list	*parse(char *input)
 		return (NULL);
 	}
 	cmds = separate_by_pipe(lex);
-	if (!is_cmds_valid(cmds)/*  || env_variable_extension(cmds) */)
+	if (!is_cmds_valid(cmds) || env_variable_extension(cmds))
 		return (NULL);
 	return (cmds);
 }

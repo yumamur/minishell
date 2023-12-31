@@ -13,9 +13,8 @@
 #ifndef MSH_CORE_H
 # define MSH_CORE_H
 
-# define PROMPT_DEFAULT "minishell @ "
-# define PROMPT_V2
-# define PROMPT_V3
+# define PROMPT1 "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m\n"
+# define PROMPT2 "\033[31m└─>\033[m "
 
 char *const			**g_env(void);
 int					*_last_exit_location(void);

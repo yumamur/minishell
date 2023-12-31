@@ -19,6 +19,6 @@ extern void	unset_term_attr(void);
 void __attribute__((destructor(101)))	destructor(void)
 {
 	free(*prompt());
-	// unset_term_attr();
+	unset_term_attr();
 	unset_sighandler();
 }

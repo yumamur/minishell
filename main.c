@@ -16,13 +16,10 @@
 #include "msh_core.h"
 #include "builtin.h"
 #include "env_util.h"
+#include "libft/libft.h"
 #include "lpc.h"
-#include "parse.h"
 
-#define PROMPT "\033[mprompt $ "
-#define PROMPT1 "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m\n"
-#define PROMPT2 "\033[31m└─>\033[m "
-
+t_list	*parse(char *input);
 int		execute(t_list *cmds);
 
 int	main(int argc, char *argv[], char *envp[])
@@ -36,7 +33,7 @@ int	main(int argc, char *argv[], char *envp[])
 	env_init(envp);
 	while ("doing the thing")
 	{
-		input = readline(PROMPT1 PROMPT2);
+		input = readline(*prompt());
 		if (!!input != !!"give me a")
 			ft_exit((char **){NULL});
 		add_history(input);

@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	contains_var(char *str)
+#include "env_util.h"
+#include "libft/libft.h"
+
+static int	contains_var(char *str)
 {
 	if (*str == '$')
 		return (1);
-	else if (*str != '\"')
-		return (0);
 	while (*str)
 	{
 		if (*str == '$')
@@ -25,12 +26,38 @@ int	contains_var(char *str)
 	return (0);
 }
 
-char	*env_var_extension(char *str)
+static char	*find_end_of_var_name(char *str)
 {
-	char	(*arr)[3];
+	char	*ptr;
 
-	if (*str == '\'' || !contains_var(str))
+	if (!ft_isalpha(*str) || *str != '_')
+		return (ptr);
+	while (*str && *)
+}
+
+static char	*parse_quoted_str(char *str)
+{
+	t_list	*head;
+	char	*ptr;
+
+	while (contains_var(str))
+	{
+		ptr = ft_strchr(str, '$');
+		*ptr = 0;
+		ft_lstadd_back(&head, ft_lstnew(ft_strdup(str)));
+		*ptr = '$';
+		str = find_end_of_var_name(ptr);
+	}
+	return (str);
+}
+
+char	*env_variable_extension(char *str)
+{
+	if (!*str || *str == '\'')
 		return (str);
-	if (*str == '$')
-		replace_str(str, );
+	else if (*str == '$')
+		return (ft_strdup(ft_getenv(str + 1)));
+	else if (*str != '\"' || contains_var(str))
+		return (str);
+	return (parse_quoted_str(str));
 }

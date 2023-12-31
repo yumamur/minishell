@@ -21,11 +21,13 @@ int	set_term_attr(void);
 void __attribute__((constructor(101)))	constuctor(void)
 {
 	if (isatty(0))
-		*prompt() = ft_strdup(PROMPT_DEFAULT);
+		*prompt() = ft_strjoin(PROMPT1, PROMPT2);
 	else if (!isatty(1))
 		exit(error_handler("We need a tty in order to operate", 0));
 	else
 		*prompt() = NULL;
 	if (set_sighandler())
 		exit(error_handler("error setting signal handler, exiting", 1));
+	if (set_term_attr())
+		exit(error_handler("error setting terminal attributes, exiting", 1));
 }

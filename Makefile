@@ -23,6 +23,7 @@ SRC_EXEC	=	execute.c \
 				execute_util.c
 
 SRC_PARSE	=	parse.c \
+				parse_env_var_extension.c \
 				parse_lexer.c \
 				parse_quote_check.c \
 				parse_separate.c \
