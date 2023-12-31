@@ -11,15 +11,17 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include "msh_core.h"
+#include "env_util.h"
 #include "error.h"
 #include "libft/libft.h"
-#include "msh_core.h"
 
 int	set_sighandler(void);
 int	set_term_attr(void);
 
 void __attribute__((constructor(101)))	constuctor(void)
 {
+	env_init(__environ);
 	if (isatty(0))
 		*prompt() = ft_strjoin("\033[m", PROMPT1 PROMPT2);
 	else if (!isatty(1))

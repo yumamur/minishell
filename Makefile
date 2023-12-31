@@ -22,7 +22,6 @@ SRC_EXEC	=	execute.c \
 				execute_set.c \
 				execute_util.c
 
-				# parse_env_var_extension.c \
 SRC_PARSE	=	parse.c \
 				parse_lexer.c \
 				parse_quote_check.c \
@@ -31,6 +30,7 @@ SRC_PARSE	=	parse.c \
 				parse_str_wordtab_util.c \
 				parse_validate.c \
 				parse_validate_util.c
+# parse_env_var_extension.c \
 
 SRC_TERM	=	signal.c \
 				term_attr.c

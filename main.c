@@ -15,22 +15,17 @@
 #include "msh_readline.h"
 #include "msh_core.h"
 #include "builtin.h"
-#include "env_util.h"
 #include "libft/libft.h"
 #include "lpc.h"
 
 t_list	*parse(char *input);
 int		execute(t_list *cmds);
 
-int	main(int argc, char *argv[], char *envp[])
+int	main(void)
 {
 	char	*input;
 	t_list	*cmds;
 
-	if (argc > 1)
-		return (-1);
-	(void)argv;
-	env_init(envp);
 	while ("doing the thing")
 	{
 		input = readline(*prompt());
