@@ -18,17 +18,15 @@
 
 static int	is_valid(char *str)
 {
-	if (ft_isdigit(*str))
+	if (!(ft_isalpha(*str) || *str == '_'))
 		return (0);
-	while (*str && *str != '=')
+	while (*str)
 	{
 		if (ft_isalnum(*str) || *str == '_')
 			++str;
 		else
 			return (0);
 	}
-	if (!*str)
-		return (0);
 	return (1);
 }
 

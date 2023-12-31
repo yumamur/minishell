@@ -21,7 +21,7 @@ int	set_term_attr(void);
 void __attribute__((constructor(101)))	constuctor(void)
 {
 	if (isatty(0))
-		*prompt() = ft_strjoin(PROMPT1, PROMPT2);
+		*prompt() = ft_strjoin("\033[m", PROMPT1 PROMPT2);
 	else if (!isatty(1))
 		exit(error_handler("We need a tty in order to operate", 0));
 	else
