@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "error.h"
 #include "libft/libft.h"
-#include "msh_prompt.h"
+#include "msh_core.h"
 
 int	set_sighandler(void);
 int	set_term_attr(void);

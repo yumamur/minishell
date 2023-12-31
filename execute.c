@@ -13,8 +13,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include "msh_core.h"
 #include "builtin.h"
-#include "env_util.h"
 #include "error.h"
 #include "libft/libft.h"
 #include "lpc.h"

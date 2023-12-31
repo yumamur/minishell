@@ -44,7 +44,7 @@ int	ft_exit(char **arg)
 	env_deinit();
 	lpc_flush();
 	write(2, "See you soon\n", 13);
-	if (!arg)
+	if (!*arg)
 		exit(0);
 	status = ft_atoi(arg[0]);
 	if (status)

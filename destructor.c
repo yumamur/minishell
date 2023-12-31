@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "msh_prompt.h"
+#include "msh_core.h"
 
 extern void	unset_sighandler(void);
 extern void	unset_term_attr(void);

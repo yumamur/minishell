@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include "env_util.h"
+#include "msh_core.h"
 #include "error.h"
 
 int	ft_env(char **arg)

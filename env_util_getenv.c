@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "msh_core.h"
 #include "typeft.h"
-#include "env_util.h"
 #include "libft/libft.h"
 
 static t_c_char	inline	*ft_getenv_inline(t_c_char *name)

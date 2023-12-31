@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "lpc.h"
+#include "msh_core.h"
 #include "env_util.h"
 #include "error.h"
-#include <stdio.h>
+#include "libft/libft.h"
+#include "lpc.h"
 
 int	ft_env(char **args);
 

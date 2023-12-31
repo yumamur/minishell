@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_demo.c                                      :+:      :+:    :+:   */
+/*   msh_core.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 00:59:50 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 00:59:51 by muhcelik         ###   ########.fr       */
+/*   Created: 2023/12/27 16:33:30 by muhcelik          #+#    #+#             */
+/*   Updated: 2023/12/27 16:33:31 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef MSH_CORE_H
+# define MSH_CORE_H
 
-#define CMD_PROMT "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m"
-#define CMD_PROMT2 "\033[38;2;200;60;120m└─>\033[m "
+# define PROMPT_DEFAULT "minishell @ "
+# define PROMPT_V2
+# define PROMPT_V3
 
-void	display_prompt(void);
+char *const			**g_env(void);
+int					*_last_exit_location(void);
+char				**prompt(void);
+struct sigaction	*oldact(void);
+
+#endif

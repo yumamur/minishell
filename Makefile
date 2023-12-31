@@ -13,7 +13,6 @@ SRC_BUILTIN	=	builtin_cd.c \
 				builtin_unset.c
 
 SRC_UTIL	=	env_util.c \
-				env_util_core.c \
 				env_util_getenv.c \
 				error_handler.c \
 				pt_util.c \
@@ -46,6 +45,7 @@ LPC			=	lpc_export.c \
 
 
 SRCS		=	main.c \
+				msh_core.c \
 				constructor.c \
 				destructor.c \
 				$(SRC_TERM) \

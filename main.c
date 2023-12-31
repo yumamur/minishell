@@ -12,17 +12,17 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "msh_readline.h"
+#include "msh_core.h"
 #include "builtin.h"
 #include "env_util.h"
 #include "lpc.h"
-#include "msh_readline.h"
 #include "parse.h"
 
 #define PROMPT "\033[mprompt $ "
 #define PROMPT1 "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m\n"
 #define PROMPT2 "\033[31m└─>\033[m "
 
-char	**prompt(void);
 int		execute(t_list *cmds);
 
 int	main(int argc, char *argv[], char *envp[])
