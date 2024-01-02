@@ -1,7 +1,20 @@
 #include "msh_core.h"
 #include "env_util.h"
 #include "libft/libft.h"
-#include <stdio.h>
+#include "typeft.h"
+
+t_bool	contains_variable(char *str)
+{
+	while (*str)
+	{
+		if (*str == '\'')
+			str = ft_strchr(str, '\'');
+		else if (*str == '$')
+			return (TRUE);
+		++str;
+	}
+	return (FALSE);
+}
 
 static void	bypass_single_qt(char **str, size_t *len)
 {
@@ -36,7 +49,6 @@ static void	length_of_var_name(char **str, size_t *len)
 	while (*ptr && (ft_isalnum(*ptr) || *ptr == '_'))
 		++ptr;
 	buf = *ptr;
-	printf("%li %c\n", ptr - *str, *ptr);
 	*ptr = 0;
 	*len += ft_strlen(ft_getenv(*str + 1));
 	*ptr = buf;

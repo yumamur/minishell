@@ -14,6 +14,7 @@
 #include "parse_util.h"
 #include "libft/libft.h"
 #include "error.h"
+#include <stdio.h>
 
 void	apply_extension(void *ptr)
 {
