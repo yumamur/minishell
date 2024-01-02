@@ -45,7 +45,6 @@ void __attribute__((malloc))
 	return (ret);
 }
 
-#include <stdio.h>
 void __attribute__((malloc))
 	**arr_realloc(void **arr, int to_add)
 {
@@ -53,7 +52,6 @@ void __attribute__((malloc))
 	int		len;
 
 	len = arr_size(arr);
-	printf("len = %d\n", len);
 	ret = ft_calloc(len + to_add + 1, sizeof(void *));
 	if (!ret)
 		return (NULL);

@@ -10,54 +10,58 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env_util.h"
+#include "error.h"
 #include "libft/libft.h"
+#include "typeft.h"
+#include "lpc.h"
 
-static int	contains_var(char *str)
+size_t	calculate_length(char *str);
+
+t_bool	contains_variable(char *str)
 {
-	if (*str == '$')
-		return (1);
 	while (*str)
 	{
-		if (*str == '$')
-			return (1);
-		++str;
+		if (*str == '\'')
+			str = ft_strchr(str, '\'');
+		else if (*str == '$')
+			return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
-static char	*find_end_of_var_name(char *str)
+void	enxtend_string(char *str, char *result)
 {
-	char	*ptr;
+	size_t	len;
 
-	if (!ft_isalpha(*str) || *str != '_')
-		return (ptr);
-	while (*str && *)
-}
-
-static char	*parse_quoted_str(char *str)
-{
-	t_list	*head;
-	char	*ptr;
-
-	while (contains_var(str))
+	while (*str)
 	{
-		ptr = ft_strchr(str, '$');
-		*ptr = 0;
-		ft_lstadd_back(&head, ft_lstnew(ft_strdup(str)));
-		*ptr = '$';
-		str = find_end_of_var_name(ptr);
+		if (*str == '\'')
+		{
+			len = ft_strchr(str, '\'') - str;
+			ft_memcpy(result, str, len);
+			str += len;
+			result += len;
+		}
+		else if (*str != '$' || !*(str + 1))
+			*result++ = *str++;
+		else if (*(str + 1) == '?')
+			
 	}
-	return (str);
 }
 
 char	*env_variable_extension(char *str)
 {
-	if (!*str || *str == '\'')
+	char	*result;
+
+	if (contains_variable(str) == FALSE)
 		return (str);
-	else if (*str == '$')
-		return (ft_strdup(ft_getenv(str + 1)));
-	else if (*str != '\"' || contains_var(str))
+	result = malloc(calculate_length(str) + 1);
+	if (!result)
+	{
+		error_handler("memory error", 1);
 		return (str);
-	return (parse_quoted_str(str));
+	}
+	lpc_export(result, NULL);
+	enxtend_string(str, result);
+	return (result);
 }

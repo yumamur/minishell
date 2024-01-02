@@ -14,17 +14,27 @@
 #include "env_util.h"
 #include "error.h"
 #include "libft/libft.h"
-#include "lpc.h"
 
 int	ft_env(char **args);
 
 static int	is_var_existing(char *var)
 {
+	char	*ptr;
+
 	var = ft_strdup(var);
-	lpc_export(var, NULL);
-	*ft_strchr(var, '=') = 0;
+	ptr = ft_strchr(var, '=');
+	if (ptr)
+		*ptr = 0;
 	if (ft_getenv(var))
+	{
+		if (ptr)
+			*ptr = '=';
+		free(var);
 		return (1);
+	}
+	free(var);
+	if (ptr)
+		*ptr = '=';
 	return (0);
 }
 
@@ -39,14 +49,14 @@ static int	is_valid(char *str)
 		else
 			return (0);
 	}
-	if (!*str)
-		return (0);
 	return (1);
 }
 
 static char	*val_trick(char *var)
 {
 	var = ft_strchr(var, '=');
+	if (!*var)
+		return (var);
 	*var = 0;
 	++var;
 	return (var);

@@ -31,7 +31,8 @@ int	main(void)
 		input = readline(*prompt());
 		if (!!input != !!"give me a")
 			ft_exit((char **){NULL});
-		add_history(input);
+		if (*input)
+			add_history(input);
 		cmds = parse(input);
 		free(input);
 		execute(cmds);

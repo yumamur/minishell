@@ -24,6 +24,6 @@ t_list				*separate_by_pipe(t_tokenized_list *tkn_list);
 void				create_redirection_files(void *inner_list);
 void				validate_cmds(void *inner_list);
 int					is_cmds_valid(t_list *head);
-int					env_variable_extension(t_list *cmds);
+char				*env_variable_extension(char *str);
 
 #endif

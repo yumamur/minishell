@@ -2,7 +2,9 @@ NAME = minishell
 
 CC			=	clang
 CFLAGS		=	-Wall -Werror -Wextra
-# SANITIZER	=	-fsanitize=address -g
+DEFINE		=
+INCLUDE		=
+SANITIZER	=	-g
 
 SRC_BUILTIN	=	builtin_cd.c \
 				builtin_echo.c \
@@ -23,6 +25,8 @@ SRC_EXEC	=	execute.c \
 				execute_util.c
 
 SRC_PARSE	=	parse.c \
+				parse_env_var_extension.c \
+				parse_env_var_extension_util.c \
 				parse_lexer.c \
 				parse_quote_check.c \
 				parse_separate.c \
@@ -30,7 +34,6 @@ SRC_PARSE	=	parse.c \
 				parse_str_wordtab_util.c \
 				parse_validate.c \
 				parse_validate_util.c
-# parse_env_var_extension.c \
 
 SRC_TERM	=	signal.c \
 				term_attr.c
@@ -68,12 +71,14 @@ LIBS		= -lcurses $(LIBFT) $(LIBREADLINE) $(LIBHISTORY)
 
 all: $(NAME)
 
+DEFINES:=	$(patsubst %, -D%, $(DEFINE))
+INCLUDES:=	$(patsubst %, -include %, $(INCLUDE))
 $(NAME): $(LIBREADLINE) $(LIBHISTORY) $(LIBFT) $(LIBLPC) $(HDR) $(OBJS)
 	@printf "Building $(NAME)\n"
-	@$(CC) $(CFLAGS) $(SANITIZER) $(OBJS) $(LINKS) $(LIBS) -o $(NAME) -g
+	@$(CC) $(CFLAGS) $(SANITIZER) $(DEFINES) $(INCLUDES) $(OBJS) $(LINKS) $(LIBS) -o $(NAME) -g
 
 obj/%.o: %.c | create_objdir 
-	@$(CC) $(CFLAGS) $(SANITIZER) -c $< -o $@ -g
+	@$(CC) $(CFLAGS) $(SANITIZER) $(DEFINES) $(INCLUDES) -c $< -o $@ -g
 
 $(LIBFT):
 	@printf "Building libft\n"
