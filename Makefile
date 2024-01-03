@@ -12,7 +12,8 @@ SRC_BUILTIN	=	builtin_cd.c \
 				builtin_exit.c \
 				builtin_export.c \
 				builtin_pwd.c \
-				builtin_unset.c
+				builtin_unset.c \
+				builtin_export_util.c
 
 SRC_UTIL	=	env_util.c \
 				env_util_getenv.c \
