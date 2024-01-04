@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft/libft.h"
 #include "pt_util.h"
 #include "typeft.h"
+#include "error.h"
 
 void		***g_env(void);
 const char	*ft_getenv(const char *name);
@@ -82,19 +82,14 @@ int	env_change_val(char var_name[], char *new_val)
 	var = ft_getenv2(var_name);
 	if (!var)
 		return (-1);
-	i = arr_index(*g_env(), var_name);
-	if (!new_val)
-		(*g_env())[i] = ft_strdup(var_name);
-	else
-	{
-		var = ft_strjoin(var_name, "=");
-		free((*g_env())[i]);
-		(*g_env())[i] = ft_strjoin(var, new_val);
-		free(var);
-	}
+	i = arr_index(*g_env(), var);
+	free(var);
+	var = ft_strjoin(var_name, "=");
+	if (!var)
+		return (error_handler("malloc error", 1));
+	(*g_env())[i] = ft_strjoin(var, new_val);
+	free(var);
 	if (!(*g_env())[i])
-		return (0);
-	// if (var)
-	// 	free(var);
+		return (error_handler("malloc error", 1));
 	return (0);
 }
