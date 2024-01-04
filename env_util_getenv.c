@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getenv.c                                           :+:      :+:    :+:   */
+/*   env_util_getenv.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 00:59:39 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 00:59:40 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:20:17 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_getenv2(t_c_char *name)
 	int		l_var;
 
 	ptr = **g_env();
-	l_name = ft_strlen(l_name);
+	l_name = ft_strlen(name);
 	while (ptr)
 	{
 		chr = ft_strchr(ptr, '=');
@@ -78,7 +78,8 @@ char	*ft_getenv2(t_c_char *name)
 		else
 			l_var = ft_strlen(ptr);
 		if (l_name == l_var && !ft_strncmp(name, ptr, l_name))
-			return (ptr);
+			break ;
 		++ptr;
 	}
+	return (ptr);
 }

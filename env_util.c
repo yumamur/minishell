@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 01:00:40 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 01:00:41 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:50:12 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #include "libft/libft.h"
 #include "pt_util.h"
 #include "error.h"
+#include "typeft.h"
 
 const char	*ft_getenv(const char *name);
 void		***g_env(void);
+char	*ft_getenv2(t_c_char *name);
+
 
 int	env_init(void **data)
 {
@@ -79,7 +82,7 @@ int	env_change_val(char var_name[], char *new_val)
 	char	*var;
 	int		i;
 
-	var = (void *)ft_getenv(var_name);
+	var = ft_getenv2(var_name);
 	if (!var)
 		return (-1);
 	var -= ft_strlen(var_name) + 1;
