@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:28:44 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/28 19:03:03 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/03 13:51:11 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 #include "env_util.h"
 #include "error.h"
 #include "libft/libft.h"
+#include <stdio.h>
 
-int	ft_env(char **args);
+int	just_export(void);
+int	export_is_repeat(char *var);
 
 static int	is_var_existing(char *var)
 {
@@ -25,7 +27,7 @@ static int	is_var_existing(char *var)
 	ptr = ft_strchr(var, '=');
 	if (ptr)
 		*ptr = 0;
-	if (ft_getenv(var))
+	if (ft_getenv(var))// || export_is_repeat(var) == 1)
 	{
 		if (ptr)
 			*ptr = '=';
@@ -54,6 +56,8 @@ static int	is_valid(char *str)
 
 static char	*val_trick(char *var)
 {
+	// if (ft_strchr(var, '='))
+	// 	var = ft_strchr(var, '=');
 	var = ft_strchr(var, '=');
 	if (!*var)
 		return (var);
@@ -89,7 +93,7 @@ int	ft_export(char **args)
 	if (!*g_env())
 		return (error_handler("environment table does not exist", 1));
 	if (!*args)
-		return (ft_env(args));
+		return (just_export());
 	else
 		return (validate_and_export(args));
 }
