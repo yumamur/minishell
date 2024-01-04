@@ -6,14 +6,13 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 01:00:40 by muhcelik          #+#    #+#             */
-/*   Updated: 2024/01/04 16:50:12 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/05 00:42:46 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "libft/libft.h"
 #include "pt_util.h"
-#include "error.h"
 #include "typeft.h"
 
 void		***g_env(void);
@@ -84,15 +83,19 @@ int	env_change_val(char var_name[], char *new_val)
 	var = ft_getenv2(var_name);
 	if (!var)
 		return (-1);
-	var -= ft_strlen(var_name) + 1;
-	i = arr_index(*g_env(), var);
-	free(var);
-	var = ft_strjoin(var_name, "=");
-	if (!var)
-		return (error_handler("malloc error", 1));
-	(*g_env())[i] = ft_strjoin(var, new_val);
-	free(var);
+	i = arr_index(*g_env(), var_name);
+	if (!new_val)
+		(*g_env())[i] = ft_strdup(var_name);
+	else
+	{
+		var = ft_strjoin(var_name, "=");
+		free((*g_env())[i]);
+		(*g_env())[i] = ft_strjoin(var, new_val);
+		free(var);
+	}
 	if (!(*g_env())[i])
-		return (error_handler("malloc error", 1));
+		return (0);
+	// if (var)
+	// 	free(var);
 	return (0);
 }

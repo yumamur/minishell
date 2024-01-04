@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:28:44 by muhcelik          #+#    #+#             */
-/*   Updated: 2024/01/04 16:18:28 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/05 00:36:50 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include "libft/libft.h"
 #include <stdio.h>
 
-int	just_export(void);
-int	export_is_repeat(char *var);
+int		just_export(void);
+int		export_is_repeat(char *var);
 char	*ft_getenv2(t_c_char *name);
+int		env_change_val(char var_name[], char *new_val);
 
 static int	is_var_existing(char *var)
 {
@@ -30,11 +31,10 @@ static int	is_var_existing(char *var)
 		*ptr = 0;
 	if (ft_getenv2(var))// || export_is_repeat(var) == 1)
 	{
-		if (ptr)
-			*ptr = '=';
 		free(var);
 		return (1);
 	}
+	free(var);
 	return (0);
 }
 
@@ -59,8 +59,8 @@ static char	*val_trick(char *var)
 	if (!var)
 		return (0);
 	var = ft_strchr(var, '=');
-	if (!*var)
-		return (var);
+	if (!var)
+		return (NULL);
 	*var = 0;
 	++var;
 	return (var);

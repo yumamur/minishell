@@ -6,13 +6,15 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 00:59:39 by muhcelik          #+#    #+#             */
-/*   Updated: 2024/01/04 16:20:17 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/05 00:38:47 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh_core.h"
 #include "typeft.h"
 #include "libft/libft.h"
+
+int	export_is_repeat(char *var);
 
 static t_c_char	inline	*ft_getenv_inline(t_c_char *name)
 {
@@ -65,20 +67,35 @@ char	*ft_getenv2(t_c_char *name)
 {
 	char	*ptr;
 	char	*chr;
-	int		l_name;
-	int		l_var;
+	// int		l_name;
+	// int		l_var;
 
 	ptr = **g_env();
-	l_name = ft_strlen(name);
+	// l_name = ft_strlen(name);
 	while (ptr)
 	{
 		chr = ft_strchr(ptr, '=');
-		if (chr)
-			l_var = chr - ptr;
+		if (!chr)
+		{
+			if (export_is_repeat((char *)name))
+			{
+				return ((char *)name);
+			}
+			return (NULL);
+		}
 		else
-			l_var = ft_strlen(ptr);
-		if (l_name == l_var && !ft_strncmp(name, ptr, l_name))
-			break ;
+			if (ft_getenv(name))
+			{
+				return ((char *)ft_getenv(name));
+			}
+		if (!ft_strcmp(name, ptr))
+			break;
+		// if (chr)
+		// 	l_var = chr - ptr;
+		// else
+		// 	l_var = ft_strlen(ptr);
+		// if (l_name == l_var && !ft_strncmp(name, ptr, l_name))
+		// 	break ;
 		++ptr;
 	}
 	return (ptr);
