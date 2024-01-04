@@ -29,7 +29,7 @@ static int	is_var_existing(char *var)
 	ptr = ft_strchr(var, '=');
 	if (ptr)
 		*ptr = 0;
-	if (ft_getenv2(var))// || export_is_repeat(var) == 1)
+	if (ft_getenv2(var))
 	{
 		free(var);
 		return (1);
@@ -40,7 +40,7 @@ static int	is_var_existing(char *var)
 
 static int	is_valid(char *str)
 {
-	if (ft_isdigit(*str))
+	if (!ft_isalpha(*str) && *str != '_')
 		return (0);
 	while (*str && *str != '=')
 	{
@@ -54,8 +54,6 @@ static int	is_valid(char *str)
 
 static char	*val_trick(char *var)
 {
-	// if (ft_strchr(var, '='))
-	// 	var = ft_strchr(var, '=');
 	if (!var)
 		return (0);
 	var = ft_strchr(var, '=');

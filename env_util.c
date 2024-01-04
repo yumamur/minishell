@@ -87,7 +87,10 @@ int	env_change_val(char var_name[], char *new_val)
 	var = ft_strjoin(var_name, "=");
 	if (!var)
 		return (error_handler("malloc error", 1));
-	(*g_env())[i] = ft_strjoin(var, new_val);
+	if (new_val)
+		(*g_env())[i] = ft_strjoin(var, new_val);
+	else
+		(*g_env())[i] = ft_strdup(var);
 	free(var);
 	if (!(*g_env())[i])
 		return (error_handler("malloc error", 1));
