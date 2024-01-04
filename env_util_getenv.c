@@ -13,6 +13,7 @@
 #include "msh_core.h"
 #include "typeft.h"
 #include "libft/libft.h"
+#include <stdio.h>
 
 int	export_is_repeat(char *var);
 
@@ -65,38 +66,23 @@ t_c_char	*ft_getenv(t_c_char *name)
 
 char	*ft_getenv2(t_c_char *name)
 {
-	char	*ptr;
-	char	*chr;
-	// int		l_name;
-	// int		l_var;
+	char *const	*ptr;
+	char		*chr;
+	int			l_name;
+	int			l_var;
 
-	ptr = **g_env();
-	// l_name = ft_strlen(name);
-	while (ptr)
+	ptr = *g_env();
+	l_name = ft_strlen(name);
+	while (*ptr)
 	{
-		chr = ft_strchr(ptr, '=');
-		if (!chr)
-		{
-			if (export_is_repeat((char *)name))
-			{
-				return ((char *)name);
-			}
-			return (NULL);
-		}
+		chr = ft_strchr(*ptr, '=');
+		if (chr)
+			l_var = chr - *ptr;
 		else
-			if (ft_getenv(name))
-			{
-				return ((char *)ft_getenv(name));
-			}
-		if (!ft_strcmp(name, ptr))
-			break;
-		// if (chr)
-		// 	l_var = chr - ptr;
-		// else
-		// 	l_var = ft_strlen(ptr);
-		// if (l_name == l_var && !ft_strncmp(name, ptr, l_name))
-		// 	break ;
+			l_var = ft_strlen(*ptr);
+		if (l_name == l_var && !ft_strncmp(name, *ptr, l_name))
+			break ;
 		++ptr;
 	}
-	return (ptr);
+	return (*ptr);
 }
