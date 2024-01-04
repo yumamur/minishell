@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft/libft.h"
 #include "env_util.h"
 #include "pt_util.h"
@@ -40,11 +39,7 @@ int	ft_unset(char **arg)
 	while (i--)
 	{
 		if (is_valid(arg[i]))
-		{
-			printf("%s\n", arg[i]);
-			if (env_remove(arg[i]) == -1)
-				return (error_handler("not a valid identifier", 0));
-		}
+			env_remove(arg[i]);
 	}
 	return (0);
 }
