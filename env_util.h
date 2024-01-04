@@ -14,6 +14,7 @@
 # define ENV_UTIL_H
 
 const char	*ft_getenv(const char *name);
+char	*ft_getenv2(t_c_char *name);
 int			env_init(char **data);
 int			env_deinit(void);
 int			env_add(const char *var);
