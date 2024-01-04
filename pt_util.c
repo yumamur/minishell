@@ -6,9 +6,12 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 01:00:46 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 01:00:47 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/05 00:40:41 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft/libft.h"
+#include <stdio.h>
 
 int	arr_size(void **arr)
 {
@@ -35,7 +38,7 @@ int	arr_index(void **arr, void *to_find)
 	i = 0;
 	while (arr[i])
 	{
-		if (arr[i] == to_find)
+		if (!ft_strncmp(arr[i], to_find, ft_strlen(to_find)))
 			return (i);
 		++i;
 	}
