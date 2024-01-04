@@ -60,3 +60,25 @@ t_c_char	*ft_getenv(t_c_char *name)
 		return (ft_getenv_inline(name));
 	return (NULL);
 }
+
+char	*ft_getenv2(t_c_char *name)
+{
+	char	*ptr;
+	char	*chr;
+	int		l_name;
+	int		l_var;
+
+	ptr = **g_env();
+	l_name = ft_strlen(l_name);
+	while (ptr)
+	{
+		chr = ft_strchr(ptr, '=');
+		if (chr)
+			l_var = chr - ptr;
+		else
+			l_var = ft_strlen(ptr);
+		if (l_name == l_var && !ft_strncmp(name, ptr, l_name))
+			return (ptr);
+		++ptr;
+	}
+}
