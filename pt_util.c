@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <stdio.h>
-
 int	arr_size(void **arr)
 {
 	int	i;
@@ -38,7 +35,7 @@ int	arr_index(void **arr, void *to_find)
 	i = 0;
 	while (arr[i])
 	{
-		if (!ft_strncmp(arr[i], to_find, ft_strlen(to_find)))
+		if (to_find == arr[i])
 			return (i);
 		++i;
 	}
