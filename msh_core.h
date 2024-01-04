@@ -20,5 +20,7 @@ char *const			**g_env(void);
 int					*_last_exit_location(void);
 char				**prompt(void);
 struct sigaction	*oldact(void);
+int					set_sighandler(void);
+int					set_term_attr(void);
 
 #endif

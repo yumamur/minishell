@@ -41,7 +41,7 @@ t_list	*parse(char *input)
 	tab = ft_str_wordtab(input);
 	if (!tab)
 	{
-		error_handler("syntax error. Probably caused by an un-terminated quote",
+		error_handler("syntax error. Probably caused by an un-terminated quote, can't quite tell...",
 			0);
 		return (NULL);
 	}

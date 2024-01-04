@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/resource.h>
 #include <unistd.h>
@@ -17,14 +18,6 @@
 
 int		quote_control(char *str);
 char	*str_update(const char *str);
-
-char	*add_spaces(const char *str)
-{
-	char	*new_str;
-
-	new_str = str_update(str);
-	return (new_str);
-}
 
 static int	count_words(char *str)
 {
@@ -79,7 +72,7 @@ char	**ft_str_wordtab(char *str)
 	int		ct_word;
 	char	*s[2];
 
-	s[0] = add_spaces(str);
+	s[0] = str_update(str);
 	ct_word = count_words(s[0]);
 	if (!ct_word)
 		return (NULL);

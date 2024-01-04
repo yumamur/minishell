@@ -16,10 +16,9 @@
 #include "error.h"
 #include "typeft.h"
 
-const char	*ft_getenv(const char *name);
 void		***g_env(void);
-char	*ft_getenv2(t_c_char *name);
-
+const char	*ft_getenv(const char *name);
+char		*ft_getenv2(t_c_char *name);
 
 int	env_init(void **data)
 {
@@ -72,8 +71,8 @@ int	env_remove(char *to_remove)
 	if (!var)
 		return (-1);
 	var -= ft_strlen(to_remove) + 1;
-	free(var);
 	arr_discard_n(*g_env(), arr_index(*g_env(), var));
+	free(var);
 	return (0);
 }
 

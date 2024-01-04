@@ -15,10 +15,10 @@
 #include "env_util.h"
 #include "error.h"
 #include "libft/libft.h"
-#include <crt_externs.h>
 
-int	set_sighandler(void);
-int	set_term_attr(void);
+#if __MACH__ || __APPLE__
+
+# include <crt_externs.h>
 
 void __attribute__((constructor(101)))	constuctor(void)
 {
@@ -34,3 +34,22 @@ void __attribute__((constructor(101)))	constuctor(void)
 	if (set_term_attr())
 		exit(error_handler("error setting terminal attributes, exiting", 1));
 }
+
+#elif unix || __unix || __unix__
+
+void __attribute__((constructor(101)))	constuctor(void)
+{
+	env_init(__environ);
+	if (isatty(0))
+		*prompt() = ft_strjoin("\033[m", PROMPT1 PROMPT2);
+	else if (!isatty(1))
+		exit(error_handler("We need a tty in order to operate", 0));
+	else
+		*prompt() = NULL;
+	if (set_sighandler())
+		exit(error_handler("error setting signal handler, exiting", 1));
+	if (set_term_attr())
+		exit(error_handler("error setting terminal attributes, exiting", 1));
+}
+
+#endif

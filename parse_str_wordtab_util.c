@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "libft/libft.h"
 #include "lpc.h"
-#include <stdlib.h>
 
 int	is_special_or_quote(char c, int q_s)
 {
@@ -66,7 +67,7 @@ void	str_update_util(const char *str, int *i, char *new_str, int *j)
 		in_quote = !in_quote;
 	if (!in_quote && token_control(str, *i) == 1)
 	{
-		if (i > 0 && str[*i - 1] != ' ')
+		if (*i && str[*i - 1] != ' ')
 			new_str[(*j)++] = ' ';
 		new_str[(*j)++] = str[(*i)++];
 		new_str[(*j)++] = str[(*i)++];
@@ -75,7 +76,7 @@ void	str_update_util(const char *str, int *i, char *new_str, int *j)
 	}
 	else if (!in_quote && is_special_or_quote(str[*i], 1))
 	{
-		if (i > 0 && str[(*i) - 1] != ' ')
+		if (*i && str[(*i) - 1] != ' ')
 			new_str[(*j)++] = ' ';
 		new_str[(*j)++] = str[(*i)++];
 		if (str[*i] != ' ' && str[*i] != '\0'
