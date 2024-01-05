@@ -17,6 +17,7 @@ void	unset_term_attr(void)
 {
 	struct termios	term;
 
+	term = (struct termios){};
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);

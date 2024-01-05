@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "msh_readline.h"
@@ -30,7 +31,9 @@ int	main(void)
 	{
 		input = readline(*prompt());
 		if (!!input != !!"give me a")
+		{
 			ft_exit((char **){NULL});
+		}
 		if (*input)
 			add_history(input);
 		cmds = parse(input);

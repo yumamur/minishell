@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <unistd.h>
 #include "env_util.h"
 #include "error.h"
 #include "msh_structs.h"
+#include "msh_core.h"
 #include "pt_util.h"
 #include "libft/libft.h"
 #include "lpc.h"
@@ -22,6 +24,45 @@ void	*join_slash(void *str);
 int		count_args(t_list *tokens);
 void	assign_files_to_open(t_list *lst, t_tokenized to_open[3]);
 int		open_file_redirect(t_tokenized *tkn);
+void	close_all_pipes();
+
+int	init_pipeline(t_list *cmds)
+{
+	int	i;
+
+	*g_pipe() = (t_pipehack){};
+	g_pipe()->size = ft_lstsize(cmds) - 1;
+	if (!g_pipe()->size)
+		return (-1);
+	g_pipe()->arr_pipe = ft_calloc(sizeof(t_pipe), g_pipe()->size);
+	if (!g_pipe()->arr_pipe)
+		return (error_handler("memory error", 1));
+	lpc_export(g_pipe()->arr_pipe, NULL);
+	i = -1;
+	while (++i < g_pipe()->size)
+	{
+		if (pipe(g_pipe()->arr_pipe[i].fds))
+			return (error_handler("pipe", 1));
+	}
+	return (0);
+}
+
+void	set_pipeline(void)
+{
+	int	i;
+
+	i = g_pipe()->index;
+	if (!i)
+		dup2(g_pipe()->arr_pipe[i].fds[1], STDOUT_FILENO);
+	else if (i == g_pipe()->size)
+		dup2(g_pipe()->arr_pipe[i - 1].fds[0], STDIN_FILENO);
+	else
+	{
+		dup2(g_pipe()->arr_pipe[i].fds[1], STDOUT_FILENO);
+		dup2(g_pipe()->arr_pipe[i - 1].fds[0], STDIN_FILENO);
+	}
+	close_all_pipes();
+}
 
 char	**set_args(t_list *tokens)
 {

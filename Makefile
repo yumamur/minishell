@@ -23,7 +23,8 @@ SRC_UTIL	=	env_util.c \
 
 SRC_EXEC	=	execute.c \
 				execute_set.c \
-				execute_util.c
+				execute_util.c \
+				execute_util2.c
 
 SRC_PARSE	=	parse.c \
 				parse_env_var_extension.c \

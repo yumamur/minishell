@@ -17,6 +17,18 @@
 
 # define MAX_REDIRECTION 256
 
+typedef struct s_pipe
+{
+	int fds[2];
+}   t_pipe;
+
+typedef struct s_pipehack
+{
+	t_pipe  *arr_pipe;
+	int		size;
+	int		index;
+}   t_pipehack;
+
 typedef enum e_token
 {
 	WORD,

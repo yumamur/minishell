@@ -14,7 +14,6 @@
 #include "env_util.h"
 #include "error.h"
 #include "libft/libft.h"
-#include <stdio.h>
 
 int		just_export(void);
 int		export_is_repeat(char *var);
