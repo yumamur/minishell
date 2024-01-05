@@ -111,6 +111,8 @@ static int	execute_single_cmd(t_list *tokens)
 		waitpid(pid, _last_exit_location(), 0);
 		*_last_exit_location() = WEXITSTATUS(*_last_exit_location());
 	}
+	close(g_pipe()->fd);
+	g_pipe()->fd = -1;
 	return (pid);
 }
 
@@ -129,6 +131,11 @@ void	execute(t_list	*cmds)
 		{
 			fork_cmds(cmds->content);
 			++g_pipe()->index;
+			if (g_pipe()->fd != -1)
+			{
+				close(g_pipe()->fd);
+				g_pipe()->fd = -1;
+			}
 			cmds = cmds->next;
 		}
 		while (waitpid(-1, &wstatus, 0) > 0)

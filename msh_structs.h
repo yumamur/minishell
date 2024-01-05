@@ -27,6 +27,7 @@ typedef struct s_pipehack
 	t_pipe  *arr_pipe;
 	int		size;
 	int		index;
+	int		fd;
 }   t_pipehack;
 
 typedef enum e_token

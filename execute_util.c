@@ -12,8 +12,11 @@
 
 #include <fcntl.h>
 #include <stdio.h>
+#include "msh_core.h"
 #include "msh_structs.h"
 #include "libft/libft.h"
+
+int	heredoc(t_tokenized *tkn);
 
 int	is_builtin(const char *cmd)
 {
@@ -39,7 +42,7 @@ void	assign_files_to_open(t_list *lst, t_tokenized to_open[2])
 		ptr = lst->content;
 		if (ptr->token == FILE_IN || ptr->token == EOF_HEREDOC)
 			to_open[0] = *ptr;
-		else if (ptr->token == FILE_OUT || ptr->token == APPEND)
+		else if (ptr->token == FILE_OUT || ptr->token == FILE_APPEND)
 			to_open[1] = *ptr;
 		lst = lst->next;
 	}
@@ -58,14 +61,18 @@ int	open_file_redirect(t_tokenized *tkn)
 		fd = open(tkn->str, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (tkn->token == FILE_APPEND)
 		fd = open(tkn->str, O_CREAT | O_APPEND | O_WRONLY, 0644);
+	else if (tkn->token == EOF_HEREDOC)
+		fd = heredoc(tkn);
 	if (fd == -1)
 		return (-1);
-	if ((tkn->token == FILE_IN || tkn->token == FILE_APPEND)
+	g_pipe()->fd = fd;
+	if ((tkn->token == FILE_IN || tkn->token == EOF_HEREDOC)
 		&& dup2(fd, STDIN_FILENO) == -1)
 		return (-1);
-	else if (tkn->token == FILE_OUT && dup2(fd, STDOUT_FILENO) == -1)
+	else if ((tkn->token == FILE_OUT || tkn->token == FILE_APPEND)
+		&& dup2(fd, STDOUT_FILENO) == -1)
 		return (-1);
-	close(fd);
+
 	return (0);
 }
 
