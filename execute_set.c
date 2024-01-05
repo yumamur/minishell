@@ -97,6 +97,8 @@ char	*set_path(char *cmd)
 	char	*cmd_path;
 	int		i;
 
+	if (!access(cmd, F_OK))
+		return (cmd);
 	tmp = (void **)ft_split(ft_getenv("PATH"), ':');
 	all_paths = (char **)arr_map(tmp, join_slash);
 	arr_free(tmp);

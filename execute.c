@@ -60,7 +60,7 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens, int opr)
 	args = set_args(tokens);
 	if (opr)
 		set_pipeline();
-	// set_redirections(tokens);
+	set_redirections(tokens);
 	if (is_builtin(args[0]))
 		exit(exec_builtin(args));
 	cmd_path = set_path(args[0]);
@@ -96,9 +96,11 @@ static int	execute_single_cmd(t_list *tokens)
 	char	**args;
 
 	args = set_args(tokens);
-	// set_redirections(tokens);
 	if (is_builtin(args[0]))
+	{
+		set_redirections(tokens);
 		pid = exec_builtin(args);
+	}
 	else
 	{
 		pid = fork();

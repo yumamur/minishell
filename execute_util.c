@@ -51,19 +51,21 @@ int	open_file_redirect(t_tokenized *tkn)
 
 	if (!tkn->str)
 		return (0);
+	fd = -1;
 	if (tkn->token == FILE_IN)
 		fd = open(tkn->str, O_RDONLY);
 	else if (tkn->token == FILE_OUT)
 		fd = open(tkn->str, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	else
+	else if (tkn->token == FILE_APPEND)
 		fd = open(tkn->str, O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (fd == -1)
 		return (-1);
 	if ((tkn->token == FILE_IN || tkn->token == FILE_APPEND)
-		&& dup2(fd, STDIN_FILENO))
+		&& dup2(fd, STDIN_FILENO) == -1)
 		return (-1);
-	else if (dup2(fd, STDIN_FILENO))
+	else if (tkn->token == FILE_OUT && dup2(fd, STDOUT_FILENO) == -1)
 		return (-1);
+	close(fd);
 	return (0);
 }
 

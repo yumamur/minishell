@@ -42,6 +42,7 @@ static void	length_of_last_exit(char **str, size_t *len)
 static void	length_of_var_name(char **str, size_t *len)
 {
 	char	*ptr;
+	char	*val;
 	int		buf;
 
 	ptr = *str;
@@ -50,7 +51,9 @@ static void	length_of_var_name(char **str, size_t *len)
 		++ptr;
 	buf = *ptr;
 	*ptr = 0;
-	*len += ft_strlen(ft_getenv(*str + 1));
+	val = (char *)ft_getenv(*str + 1);
+	if (val)
+		*len += ft_strlen(val);
 	*ptr = buf;
 	*str = ptr;
 }
