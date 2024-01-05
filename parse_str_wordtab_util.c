@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_wordtab_util.c                                 :+:      :+:    :+:   */
+/*   parse_str_wordtab_util.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 13:37:54 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/28 16:16:13 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:18:59 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ int	create_new_str(const char *str)
 
 void	str_update_util(const char *str, int *i, char *new_str, int *j)
 {
-	int	in_quote;
-
-	in_quote = 0;
-	if (is_special_or_quote(str[*i], 0))
-		in_quote = !in_quote;
-	if (!in_quote && token_control(str, *i) == 1)
+	if (str[*i] == '"' || str[*i] == '\'')
+	{
+		new_str[(*j)++] = str[(*i)++];
+		while ((str[*i]) && (str[*i] != '"' || str[*i] != '\''))
+			new_str[(*j)++] = str[(*i)++];
+		new_str[(*j)++] = str[(*i)++];
+		return ;
+	}
+	else if (token_control(str, *i) == 1)
 	{
 		if (*i && str[*i - 1] != ' ')
 			new_str[(*j)++] = ' ';
@@ -74,7 +77,7 @@ void	str_update_util(const char *str, int *i, char *new_str, int *j)
 		if (str[*i] != ' ' && str[*i] != '\0')
 			new_str[(*j)++] = ' ';
 	}
-	else if (!in_quote && is_special_or_quote(str[*i], 1))
+	else if (is_special_or_quote(str[*i], 1))
 	{
 		if (*i && str[(*i) - 1] != ' ')
 			new_str[(*j)++] = ' ';
