@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 14:28:27 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/28 15:15:36 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/05 02:01:04 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_env(char **arg)
 {
 	int		i;
 	char	**env;
+	char	*equal_pos;
 
 	if (*arg)
 		return (error_handler("invalid argument", 0));
@@ -27,7 +28,8 @@ int	ft_env(char **arg)
 		return (error_handler("environment table is not set", 0));
 	while (env[i])
 	{
-		if (ft_strchr(env[i], '='))
+		equal_pos = ft_strchr(env[i], '=');
+		if (equal_pos && *(equal_pos + 1) != '\0')
 			ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
