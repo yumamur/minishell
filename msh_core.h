@@ -16,10 +16,13 @@
 # define PROMPT1 "\033[31m┌──(\033[m\033[32;1mminishell\033[m\033[31m)\033[m\n"
 # define PROMPT2 "\033[31m└─>\033[m "
 
+# include "msh_structs.h"
+
 char *const			**g_env(void);
 int					*_last_exit_location(void);
 char				**prompt(void);
 struct sigaction	*oldact(void);
+t_pipehack			*g_pipe();
 int					set_sighandler(void);
 int					set_term_attr(void);
 

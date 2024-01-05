@@ -18,12 +18,16 @@
 #include "error.h"
 #include "libft/libft.h"
 #include "lpc.h"
+#include "msh_structs.h"
 
 int		*_last_exit_location(void);
 int		is_builtin(char *str);
+int		init_pipeline(t_list *cmds);
 char	**set_args(t_list *tokens);
 char	*set_path(char *cmd);
 void	set_redirections(t_list *tokens);
+void	set_pipeline(void);
+void	close_all_pipes();
 
 static int	exec_builtin(char **args)
 {
@@ -48,13 +52,15 @@ static int	exec_builtin(char **args)
 	return (err);
 }
 
-static void	__attribute__((noreturn))	execute_child(t_list *tokens)
+static void	__attribute__((noreturn))	execute_child(t_list *tokens, int opr)
 {
 	char	**args;
 	char	*cmd_path;
 
 	args = set_args(tokens);
-	set_redirections(tokens);
+	if (opr)
+		set_pipeline();
+	// set_redirections(tokens);
 	if (is_builtin(args[0]))
 		exit(exec_builtin(args));
 	cmd_path = set_path(args[0]);
@@ -69,28 +75,18 @@ static void	__attribute__((noreturn))	execute_child(t_list *tokens)
 	exit(EXIT_FAILURE);
 }
 
-static int	fork_pipes(t_list *tokens)
+static int	fork_cmds(t_list *tokens)
 {
 	int	pid;
-	int	fds[2];
 
-	if (pipe(fds))
-		return (error_handler("pipe", 1));
 	pid = fork();
 	if (pid == -1)
 	{
-		close(fds[0]);
-		close(fds[1]);
+		close_all_pipes();
 		return (error_handler("fork", 1));
 	}
 	else if (!pid)
-	{
-		close(fds[0]);
-		dup2(fds[1], STDOUT_FILENO);
-		execute_child(tokens);
-	}
-	close(fds[1]);
-	dup2(fds[0], STDIN_FILENO);
+		execute_child(tokens, 1);
 	return (pid);
 }
 
@@ -100,7 +96,7 @@ static int	execute_single_cmd(t_list *tokens)
 	char	**args;
 
 	args = set_args(tokens);
-	set_redirections(tokens);
+	// set_redirections(tokens);
 	if (is_builtin(args[0]))
 		pid = exec_builtin(args);
 	else
@@ -109,7 +105,7 @@ static int	execute_single_cmd(t_list *tokens)
 		if (pid == -1)
 			return (error_handler("fork", 1));
 		else if (!pid)
-			execute_child(tokens);
+			execute_child(tokens, 0);
 		waitpid(pid, _last_exit_location(), 0);
 		*_last_exit_location() = WEXITSTATUS(*_last_exit_location());
 	}
@@ -118,7 +114,6 @@ static int	execute_single_cmd(t_list *tokens)
 
 void	execute(t_list	*cmds)
 {
-	int	pid;
 	int	wstatus;
 
 	if (!cmds)
@@ -127,12 +122,18 @@ void	execute(t_list	*cmds)
 		execute_single_cmd(cmds->content);
 	else
 	{
+		init_pipeline(cmds);
 		while (cmds)
 		{
-			pid = fork_pipes(cmds->content);
-			waitpid(pid, &wstatus, 0);
-			*_last_exit_location() = WEXITSTATUS(wstatus);
+			fork_cmds(cmds->content);
+			++g_pipe()->index;
 			cmds = cmds->next;
+		}
+		while (waitpid(-1, &wstatus, 0) > 0)
+		{
+			if (WIFEXITED(wstatus))
+				*_last_exit_location() = WEXITSTATUS(wstatus);
+			close_all_pipes();
 		}
 	}
 }

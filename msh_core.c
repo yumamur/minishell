@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <signal.h>
+#include "msh_structs.h"
 
 int	*_last_exit_location(void)
 {
@@ -38,4 +39,11 @@ char	**prompt(void)
 	static char	*pt_prompt;
 
 	return (&pt_prompt);
+}
+
+t_pipehack	*g_pipe(void)
+{
+	static t_pipehack	var;
+
+	return (&var);
 }
