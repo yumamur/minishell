@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 01:04:13 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 01:04:14 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/06 03:12:58 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ t_list	*parse(char *input)
 	tab = ft_str_wordtab(input);
 	if (!tab)
 	{
-		error_handler("syntax error. Probably caused by an un-terminated quote, can't quite tell...",
-			0);
+		error_handler ("syntax error.", 0);
 		return (NULL);
 	}
 	lex = lexer((const char **)tab);

@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 01:02:01 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/24 01:02:02 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/06 03:15:14 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@
 
 typedef struct s_pipe
 {
-	int fds[2];
-}   t_pipe;
+	int	fds[2];
+}	t_pipe;
 
 typedef struct s_pipehack
 {
-	t_pipe  *arr_pipe;
+	t_pipe	*arr_pipe;
 	int		size;
 	int		index;
 	int		fd;
-}   t_pipehack;
+}	t_pipehack;
 
 typedef enum e_token
 {
