@@ -8,7 +8,7 @@ t_bool	contains_variable(char *str)
 	while (*str)
 	{
 		if (*str == '\'')
-			str = ft_strchr(str, '\'');
+			str = ft_strchr(str + 1, '\'');
 		else if (*str == '$')
 			return (TRUE);
 		++str;

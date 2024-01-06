@@ -25,6 +25,7 @@ int		count_args(t_list *tokens);
 void	assign_files_to_open(t_list *lst, t_tokenized to_open[3]);
 int		open_file_redirect(t_tokenized *tkn);
 void	close_all_pipes(void);
+void	sanitize_strings(char **args);
 
 int	init_pipeline(t_list *cmds)
 {
@@ -87,6 +88,7 @@ char	**set_args(t_list *tokens)
 		tokens = tokens->next;
 	}
 	args[arg_ct[1]] = NULL;
+	sanitize_strings(args);
 	return (args);
 }
 

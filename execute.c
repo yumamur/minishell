@@ -119,10 +119,7 @@ void	execute(t_list *cmds)
 	if (!cmds)
 		return ;
 	if (ft_lstsize(cmds) == 1)
-	{
 		execute_single_cmd(cmds->content);
-		close_qwe();
-	}
 	else
 	{
 		init_pipeline(cmds);
@@ -140,4 +137,5 @@ void	execute(t_list *cmds)
 			close_all_pipes();
 		}
 	}
+	close_qwe();
 }
