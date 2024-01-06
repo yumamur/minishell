@@ -27,6 +27,7 @@ char	**set_args(t_list *tokens);
 char	*set_path(char *cmd);
 void	set_redirections(t_list *tokens);
 void	set_pipeline(void);
+void	close_qwe(void);
 void	close_all_pipes();
 
 static int	exec_builtin(char **args)
@@ -97,10 +98,7 @@ static int	execute_single_cmd(t_list *tokens)
 
 	args = set_args(tokens);
 	if (is_builtin(args[0]))
-	{
-		set_redirections(tokens);
 		pid = exec_builtin(args);
-	}
 	else
 	{
 		pid = fork();
@@ -111,19 +109,20 @@ static int	execute_single_cmd(t_list *tokens)
 		waitpid(pid, _last_exit_location(), 0);
 		*_last_exit_location() = WEXITSTATUS(*_last_exit_location());
 	}
-	close(g_pipe()->fd);
-	g_pipe()->fd = -1;
 	return (pid);
 }
 
-void	execute(t_list	*cmds)
+void	execute(t_list *cmds)
 {
 	int	wstatus;
 
 	if (!cmds)
 		return ;
 	if (ft_lstsize(cmds) == 1)
+	{
 		execute_single_cmd(cmds->content);
+		close_qwe();
+	}
 	else
 	{
 		init_pipeline(cmds);
@@ -131,11 +130,7 @@ void	execute(t_list	*cmds)
 		{
 			fork_cmds(cmds->content);
 			++g_pipe()->index;
-			if (g_pipe()->fd != -1)
-			{
-				close(g_pipe()->fd);
-				g_pipe()->fd = -1;
-			}
+			close_qwe();
 			cmds = cmds->next;
 		}
 		while (waitpid(-1, &wstatus, 0) > 0)

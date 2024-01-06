@@ -13,14 +13,18 @@ void	heredoc_loop(char *str, int fd)
 	{
 		rl = readline("> ");
 		if (!rl)
-		{
 			break ;
-		}
 		else if (!ft_strncmp(rl, str, ft_strlen(str) + 1))
 			break ;
 		ft_putstr_fd(rl, fd);
 		ft_putstr_fd("\n", fd);
 	}
+}
+
+void	close_qwe(void)
+{
+	if (g_pipe()->fd != -1)
+		close(g_pipe()->fd);
 }
 
 int	heredoc(t_tokenized *tkn)
