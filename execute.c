@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:28:20 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/27 16:28:21 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/06 03:21:00 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*set_path(char *cmd);
 void	set_redirections(t_list *tokens);
 void	set_pipeline(void);
 void	close_qwe(void);
-void	close_all_pipes();
+void	close_all_pipes(void);
 
 static int	exec_builtin(char **args)
 {

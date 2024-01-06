@@ -6,7 +6,7 @@
 /*   By: muhcelik <muhcelik@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:30:05 by muhcelik          #+#    #+#             */
-/*   Updated: 2023/12/27 16:30:06 by muhcelik         ###   ########.fr       */
+/*   Updated: 2024/01/06 03:22:17 by muhcelik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*join_slash(void *str);
 int		count_args(t_list *tokens);
 void	assign_files_to_open(t_list *lst, t_tokenized to_open[3]);
 int		open_file_redirect(t_tokenized *tkn);
-void	close_all_pipes();
+void	close_all_pipes(void);
 
 int	init_pipeline(t_list *cmds)
 {
