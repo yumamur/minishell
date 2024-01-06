@@ -28,7 +28,7 @@ char	*set_path(char *cmd);
 void	set_redirections(t_list *tokens);
 void	set_pipeline(void);
 void	close_qwe(void);
-void	close_all_pipes();
+void	close_all_pipes(void);
 
 static int	exec_builtin(char **args)
 {

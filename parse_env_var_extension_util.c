@@ -21,6 +21,11 @@ static void	bypass_single_qt(char **str, size_t *len)
 	char	*ptr;
 
 	ptr = ft_strchr((*str) + 1, '\'');
+	if (!ptr)
+	{
+		(*str)++;
+		return ;
+	}
 	*len += ptr - *str + 1;
 	*str = ptr + 1;
 }

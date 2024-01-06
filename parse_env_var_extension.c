@@ -16,6 +16,7 @@
 #include "libft/libft.h"
 #include "typeft.h"
 #include "lpc.h"
+#include <stdio.h>
 
 size_t	calculate_length(char *str);
 t_bool	contains_variable(char *str);
@@ -24,7 +25,7 @@ void	bypass_single_qt(char **src, char **dst)
 {
 	size_t	len;
 
-	len = ft_strchr(*src, '\'') - *src;
+	len = ft_strchr(*src, '\'') - *src + 1;
 	ft_memcpy(*dst, *src, len);
 	*dst += len;
 	*src += len;

@@ -34,6 +34,7 @@ SRC_PARSE	=	parse.c \
 				parse_separate.c \
 				parse_str_wordtab.c \
 				parse_str_wordtab_util.c \
+				parse_str_wordtab_util2.c \
 				parse_validate.c \
 				parse_validate_util.c
 

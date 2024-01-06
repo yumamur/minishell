@@ -15,6 +15,8 @@
 #include "libft/libft.h"
 #include "lpc.h"
 
+void	str_update_util2(const char *str, int *i, char *new_str, int *j);
+
 int	is_special_or_quote(char c, int q_s)
 {
 	if ((q_s == 1) && (c == '|' || c == '&' || c == '<' || c == '>'))
@@ -69,14 +71,7 @@ void	str_update_util(const char *str, int *i, char *new_str, int *j)
 		return ;
 	}
 	else if (token_control(str, *i) == 1)
-	{
-		if (*i && str[*i - 1] != ' ')
-			new_str[(*j)++] = ' ';
-		new_str[(*j)++] = str[(*i)++];
-		new_str[(*j)++] = str[(*i)++];
-		if (str[*i] != ' ' && str[*i] != '\0')
-			new_str[(*j)++] = ' ';
-	}
+		str_update_util2(str, i, new_str, j);
 	else if (is_special_or_quote(str[*i], 1))
 	{
 		if (*i && str[(*i) - 1] != ' ')
