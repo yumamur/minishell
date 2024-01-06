@@ -12,9 +12,9 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-#include "msh_core.h"
 #include "msh_structs.h"
 #include "libft/libft.h"
+#include "msh_core.h"
 
 int	heredoc(t_tokenized *tkn);
 
@@ -65,14 +65,13 @@ int	open_file_redirect(t_tokenized *tkn)
 		fd = heredoc(tkn);
 	if (fd == -1)
 		return (-1);
-	g_pipe()->fd = fd;
 	if ((tkn->token == FILE_IN || tkn->token == EOF_HEREDOC)
 		&& dup2(fd, STDIN_FILENO) == -1)
 		return (-1);
 	else if ((tkn->token == FILE_OUT || tkn->token == FILE_APPEND)
 		&& dup2(fd, STDOUT_FILENO) == -1)
 		return (-1);
-
+	g_pipe()->fd = fd;
 	return (0);
 }
 

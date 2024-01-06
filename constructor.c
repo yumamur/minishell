@@ -23,6 +23,7 @@
 void __attribute__((constructor(101)))	constuctor(void)
 {
 	env_init(*_NSGetEnviron());
+	g_pipe()->fd = -1;
 	if (isatty(0))
 		*prompt() = ft_strjoin("\033[m", PROMPT1 PROMPT2);
 	else if (!isatty(1))
@@ -40,6 +41,7 @@ void __attribute__((constructor(101)))	constuctor(void)
 void __attribute__((constructor(101)))	constuctor(void)
 {
 	env_init(__environ);
+	g_pipe()->fd = -1;
 	if (isatty(0))
 		*prompt() = ft_strjoin("\033[m", PROMPT1 PROMPT2);
 	else if (!isatty(1))
