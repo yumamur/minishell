@@ -17,6 +17,35 @@
 #include "msh_core.h"
 #include "msh_structs.h"
 
+void	sanitize_strings(char **arr)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (arr[i])
+	{
+		str = arr[i];
+		while (*str)
+		{
+			if (*str == '"')
+			{
+				ft_memmove(str, str + 1, ft_strlen(str) + 1);
+				str = ft_strchr(str, '"');
+				ft_memmove(str, str + 1, ft_strlen(str));
+			}
+			else if (*str == '\'')
+			{
+				ft_memmove(str, str + 1, ft_strlen(str) + 1);
+				str = ft_strchr(str, '\'');
+				ft_memmove(str, str + 1, ft_strlen(str));
+			}
+			++str;
+		}
+		++i;
+	}
+}
+
 void	heredoc_loop(char *str, int fd)
 {
 	char	*rl;

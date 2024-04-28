@@ -1,7 +1,0 @@
-[submodule "liblpc"]
-	path = liblpc
-	url = https://github.com/yumamur/leakproof-c.git
-[submodule "libft"]
-	path = libft
-	url = https://github.com/yumamur/libft-for-other-projects
-	branch = master

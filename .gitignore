@@ -1,5 +1,4 @@
-*
-!*/
-!*.c
-!*.h
-!Makefile
+*.a
+*.o
+*.out
+.DS_Store
